@@ -23,7 +23,7 @@ function NewUser()
 function SignUp()
 {
     $user = $_POST['user'];
-    if (preg_match('/A-Za-z0-9/', $user))
+    if (preg_match("#^[a-zA-Z0-9]+$#", $user))
     {
         if (!empty($user)) {
             $query = mysql_query("SELECT * FROM speler WHERE Gebruikersnaam = '$user'") or die(mysql_error());
