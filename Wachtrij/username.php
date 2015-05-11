@@ -28,12 +28,21 @@ function newUser()
         {   //Query, zijn er nog mensen waarvan wij wachten op ready signaal?
             $queryWaiting = "SELECT Gebruikersnaam FROM speler WHERE Status = 'waiting for ready'";
             $resultWaiting = mysql_query($queryWaiting) or die(mysql_error());
-            if($resultWaiting)
+            if ($resultWaiting)
             {
                 //Koppelen van gebruiker aan gebruikersnaam die aan het wachten is
                 //Status van gebruiker wijzigen in 'waiting for ready'
                 //Query voor inserten, gebruikersnaam = gebruikersnaam van de persoon die iets invuld
-                $queryInsert = "INSERT INTO speler (Status) VALUES ('waiting for ready') WHERE Gebruikersnaam = $userName";
+                $queryInsertStatus = "INSERT INTO speler (Status) VALUES ('waiting for ready') WHERE Gebruikersnaam = $userName";
+                $queryUitvoeren = mysql_query($queryInsertStatus) or die(mysql_error());
+                if ($queryUitvoeren)
+                {
+                    //Ready knop tonen
+                }
+                else
+                {
+                    echo "Er is een fout met het bewerken van de database";
+                }
             }
             else
             {   //Query, laat alleen de langst wachtende speler zien
@@ -47,6 +56,16 @@ function newUser()
                         echo "<br>";
 
                         //Status van beide spelers wijzigen naar 'waiting for ready'
+                        $queryInsertStatus2 = "INSERT INTO speler (Status) VALUES ('waiting for ready') WHERE Gebruikersnaam = $userName";
+                        $queryUitvoeren2 = mysql_query($queryInsertStatus2) or die(mysql_error());
+                        if ($queryUitvoeren2)
+                        {
+                            //Ready knop tonen
+                        }
+                        else
+                        {
+                            echo "Er is een fout met het bewerken van de database";
+                        }
                     }
                 }
                 else
@@ -56,7 +75,7 @@ function newUser()
             }
         }
     }
-}
+}g
 // signUp bevat alle checks, de newUser functie is hierin genest
 function signUp()
 {
