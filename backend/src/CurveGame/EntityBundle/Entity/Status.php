@@ -2,6 +2,7 @@
 
 namespace CurveGame\EntityBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -23,6 +24,11 @@ class Status
      * @var integer
      */
     private $number;
+
+    /**
+     * @var ArrayCollection
+     */
+    private $players;
 
 
     /**
@@ -79,5 +85,25 @@ class Status
     public function getNumber()
     {
         return $this->number;
+    }
+
+    /**
+     * Set players
+     *
+     * @param ArrayCollection $players
+     */
+    public function setPlayers(ArrayCollection $players) {
+
+        $this->players = $players;
+    }
+
+    /**
+     * @return ArrayCollection
+     *
+     * Get all players from this status type
+     */
+    public function getPlayers() {
+
+        return $this->players;
     }
 }

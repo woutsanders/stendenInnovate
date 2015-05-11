@@ -22,6 +22,6 @@ CurveGame\EntityBundle\Entity\Status:
             orphanRemoval: true
             orderBy:
                 timestamp: ASC
-            cascade: ["persist", "delete"]
+            cascade: ["persist", "remove"]
 
     lifecycleCallbacks: {  }

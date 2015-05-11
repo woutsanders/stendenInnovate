@@ -16,8 +16,6 @@ CurveGame\EntityBundle\Entity\Player:
             unique: true
         timestamp:
             type: bigint
-        status:
-            type: integer
 
     manyToOne:
         status:
