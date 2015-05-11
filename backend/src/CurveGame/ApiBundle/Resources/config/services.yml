@@ -1,0 +1,4 @@
+services:
+#    curve_game_api.example:
+#        class: CurveGame\ApiBundle\Example
+#        arguments: [@service_id, "plain_value", %parameter%]

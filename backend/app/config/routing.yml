@@ -1,0 +1,12 @@
+curve_game_web:
+    resource: "@CurveGameWebBundle/Resources/config/routing.yml"
+    prefix:   /
+
+curve_game_entity:
+    resource: "@CurveGameEntityBundle/Resources/config/routing.yml"
+    prefix:   /
+
+curve_game_api:
+    resource: "@CurveGameApiBundle/Resources/config/routing.yml"
+    prefix:   /
+
