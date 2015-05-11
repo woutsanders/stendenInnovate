@@ -10,24 +10,40 @@
 
 <!--<button id="klik">Get Database Records</button>-->
 
-<div id="klik" style="width:40px; height: 20px; background:blue"></div>
-
+<div class="klik 1" style="width:40px; height: 20px; background:blue"></div>
+<br>
+<div class="klik 2" style="width:40px; height: 20px; background:blue"></div>
 <p> hier komt wat te staan   </p>
 
-<p> Hallo <p>
-<div id="gegevens"></div>
+<div class="gegevens">
+hallo
+</div>
 
-    <script type="text/javascript">
 
-        $("#klik").click(function() {
-            console.log("button clicked!");
-            $.ajax({
-                url: "/Project_Innovate/backend/DBTestWithAjax.php",
-                cache: false
-            }).done(function( html ) {
-                console.log(html);
-                $("#gegevens").replaceWith("<div id='gegevens'>" +  html + "</div>" );
-            });
+
+<script type="text/javascript">
+
+        $(".klik").click(function() {
+            var $this = $(this);
+            if ($this.hasClass('1')) {
+                console.log("button 1 clicked!");
+                $.ajax({
+                    url: "/Project_Innovate/backend_php/DBTestWithAjax.php",
+                    cache: false
+                }).done(function (html) {
+                    console.log(html);
+                    $(".gegevens").replaceWith("<div class='gegevens'>" + html + "</div>");
+                });
+            }else if($this.hasClass('2')){
+                console.log("button 2 clicked!");
+                $.ajax({
+                    url: "/Project_Innovate/backend_php/DBTestWithAjax.php",
+                    cache: false
+                }).done(function (html) {
+                    console.log(html);
+                    $(".gegevens").replaceWith("<div id='gegevens'>" + html + "</div>");
+                });
+            }
         });
     </script>
 </body>
