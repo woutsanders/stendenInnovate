@@ -19,8 +19,23 @@
     $db = mysqli_select_db($db_link , $db_name) OR DIE (mysqli_error());
 
 
-$SQLquery = "SELECT * FROM `speler`";
-$queryresult = mysqli_query($db_link , $SQLquery) OR DIE (mysqli_error());
+
+$SQLquerycheck = "SELECT * FROM `speler` WHERE Status = 'playing'";
+$queryresultcheck = mysqli_query($db_link , $SQLquerycheck) OR DIE (mysqli_error());
+
+
+if (mysqli_num_rows($queryresultcheck) >= 1){
+    $SQLquery = "SELECT * FROM `speler` WHERE Status = 'wachtend' ORDER BY `Date+Time` ASC LIMIT 1";
+    $queryresult = mysqli_query($db_link , $SQLquery) OR DIE (mysqli_error());
+} else{
+    $SQLquery = "SELECT * FROM `speler` WHERE Status = 'wachtend' ORDER BY `Date+Time` ASC LIMIT 2";
+    $queryresult = mysqli_query($db_link , $SQLquery) OR DIE (mysqli_error());
+}
+
+//$SQLquery = "SELECT * FROM `speler` WHERE Status = 'wachtend'";
+//$SQLquery = "SELECT * FROM `speler` WHERE Status = 'wachtend' ORDER BY `Date+Time` ASC LIMIT 2";
+//$SQLquery = "SELECT * FROM `speler`";
+//$queryresult = mysqli_query($db_link , $SQLquery) OR DIE (mysqli_error());
 
 
 echo "<table>";
