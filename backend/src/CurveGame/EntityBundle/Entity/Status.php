@@ -32,6 +32,14 @@ class Status
 
 
     /**
+     * Set some attributes...
+     */
+    public function __construct() {
+
+        $this->players = new ArrayCollection();
+    }
+
+    /**
      * Get id
      *
      * @return integer 

@@ -89,10 +89,10 @@ class Player
     /**
      * Set status
      *
-     * @param object $status
+     * @param Status $status
      * @return Player
      */
-    public function setStatus($status)
+    public function setStatus(Status $status)
     {
         $this->status = $status;
 
@@ -102,7 +102,7 @@ class Player
     /**
      * Get status
      *
-     * @return object
+     * @return Status
      */
     public function getStatus()
     {

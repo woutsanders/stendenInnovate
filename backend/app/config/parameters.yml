@@ -1,0 +1,14 @@
+# This file is auto-generated during the composer install
+parameters:
+    database_driver: pdo_mysql
+    database_host: 127.0.0.1
+    database_port: null
+    database_name: curvegame
+    database_user: curvegame
+    database_password: curvegame
+    mailer_transport: smtp
+    mailer_host: 127.0.0.1
+    mailer_user: null
+    mailer_password: null
+    locale: en #This is the default locale
+    secret: ee4320b7f4dc2b06a1af7385960a641cd761200f
