@@ -1,0 +1,26 @@
+CurveGame\EntityBundle\Entity\Status:
+    type: entity
+    table: null
+    repositoryClass: CurveGame\EntityBundle\Entity\StatusRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+
+    fields:
+        name:
+            type: string
+            length: '64'
+
+    oneToMany:
+        players:
+            targetEntity: CurveGame\EntityBundle\Entity\Player
+            mappedBy: status
+            orphanRemoval: true
+            orderBy:
+                timestamp: ASC
+            cascade: ["persist", "delete"]
+
+    lifecycleCallbacks: {  }

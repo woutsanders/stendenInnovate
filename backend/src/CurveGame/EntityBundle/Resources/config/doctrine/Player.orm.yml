@@ -1,0 +1,30 @@
+CurveGame\EntityBundle\Entity\Player:
+    type: entity
+    table: null
+    repositoryClass: CurveGame\EntityBundle\Entity\PlayerRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+
+    fields:
+        username:
+            type: string
+            length: 255
+        timestamp:
+            type: bigint
+        status:
+            type: integer
+
+    manyToOne:
+        status:
+            targetEntity: CurveGame\EntityBundle\Entity\Status
+            inversedBy: players
+            joinColumn:
+                name: status_id
+                referencedColumnName: id
+                nullable: false
+
+    lifecycleCallbacks: {  }
