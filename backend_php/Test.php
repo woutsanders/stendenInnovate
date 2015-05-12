@@ -1,5 +1,5 @@
 <?php
-require('connect.php');
+require_once('bootstrap.php');
 function gameCheck()
 {   //Query, checkt of er mensen zijn die aan het spelen zijn
     $queryCheck = "SELECT Gebruikersnaam FROM speler WHERE Status = 'playing'";
