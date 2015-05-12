@@ -13,14 +13,15 @@ use Symfony\Component\HttpFoundation\Response;
  */
 class UserController extends Controller {
 
+    /**
+     * Registers the username and returns the username with status flag.
+     *
+     * @param Request $request
+     * @return Response
+     */
     public function registerAction(Request $request) {
 
-        // Some code here
-    }
-
-    public function loginAction(Request $request) {
-
-        // Some code here
+        return new Response($request->request->get('username', null), 200);
     }
 
     /**

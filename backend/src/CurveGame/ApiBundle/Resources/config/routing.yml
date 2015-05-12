@@ -14,5 +14,5 @@ curve_game_api_test:
     path: /test/{value}
     defaults:
         _controller: CurveGameApiBundle:User:test
-        value: demoPass
+        value: demoPassed
     methods: GET
