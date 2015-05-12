@@ -22,3 +22,4 @@ $DBName = "project_innovate";
 
 //verbind met de DBMS
 $connection = mysqli_connect($server, $userName, $passWord, $DBName) OR DIE (mysqli_error($connection));
+

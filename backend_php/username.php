@@ -10,12 +10,13 @@ require_once('bootstrap.php');
 
 
 // signUp bevat alle checks, de newUser functie is hierin genest
-$data = 0;
-$username = 0;
-    $username = $_POST['forminput'];
 
-    $data = signUp($connection,$username);
+
+$username = $_POST['forminput'];
+
+$data = signUp($connection,$username);
 echo $data;
+
     if ($data)
     {
         $resultcheck = playingGameCheck($connection);
@@ -78,6 +79,5 @@ echo $data;
         }
 
 }
-
 ?>
 
