@@ -12,4 +12,23 @@ use Doctrine\ORM\EntityRepository;
  */
 class StatusRepository extends EntityRepository
 {
+    /**
+     * Fetches a single status object by status name.
+     *
+     * @param string $name
+     * @return mixed
+     * @throws \Doctrine\ORM\NoResultException
+     * @throws \Doctrine\ORM\NonUniqueResultException
+     */
+    public function findOneByStatusName($name = "waiting") {
+
+        $qb = $this->createQueryBuilder('s')
+            ->where('s.name = :name')
+            ->setParameter(':name', $name);
+
+        $query = $qb->getQuery();
+        $result = $query->getSingleResult();
+
+        return $result;
+    }
 }
