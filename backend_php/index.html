@@ -1,0 +1,44 @@
+<!DOCTYPE>
+<html>
+<head>
+    <title>Wachtrij test</title>
+    <meta charset="UTF-8">
+    <script type="text/javascript" src="jquery-2.1.3.min.js"></script>
+</head>
+<body>
+<div id="gegevens">
+    <form id="blah" method="post" >
+        <table>
+            <tr>
+                <td>Username:</td>
+                <td><input id="user" type="text" name="user" /></td>
+            </tr>
+            </table>
+        <input type="submit" name="submit" value="submit">
+    </form>
+</div>
+
+<div id="result">
+fdsafasfw
+</div>
+
+<script type="text/javascript">
+
+    $("#blah").submit(function(event) {
+        console.log("button 1 clicked!");
+        event.preventDefault();
+        var forminput = $('input[name=user]').val();
+        console.log(forminput);
+        $.ajax({
+            type: "POST",
+            url: "/Project_Innovate/backend_php/username.php",
+            data: {'forminput': forminput},
+            cache: false
+        }).done(function (html) {
+            console.log(html);
+            $("#result").replaceWith("<div class='result'>" + html + "</div>");
+        });
+    });
+</script>
+</body>
+</html>
