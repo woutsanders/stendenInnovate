@@ -22,10 +22,10 @@ curve_game_api_unity_command:
 
 # Client will poll every x seconds whether he's on.
 curve_game_api_queue_poll:
-    path: /queue/poll/{username}
+    path: /queue/poll/{userId}
     defaults:
         _controller: CurveGameApiBundle:Queue:poll
-        username: null
+        userId: null
     methods: GET
 
 # Receives the definite confirmation of the user that he is ready to play.
