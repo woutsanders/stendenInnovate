@@ -3,13 +3,11 @@
 namespace CurveGame\ApiBundle\Controller;
 
 use CurveGame\ApiBundle\Exception\ApiException;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 
-class QueueController extends Controller {
+class QueueController extends BaseController {
 
-
-    public function pollAction($username = null) {
+    public function pollAction($userId = null) {
 
         //
     }
@@ -19,8 +17,27 @@ class QueueController extends Controller {
         //
     }
 
-    public function positionAction($username = null) {
+    /**
+     * @param null $userId
+     * @return \Symfony\Component\HttpFoundation\Response
+     * @throws ApiException
+     */
+    public function positionAction($userId = null) {
 
-        throw new ApiException(ApiException::HTTP_NOT_IMPLEMENTED);
+        $em = $this->getDoctrine()->getManager();
+        $playerRepo = $em->getRepository('CurveGameEntityBundle:Player');
+
+        if ($pos = $playerRepo->findPositionInQueue($userId)) {
+
+            $resp = array(
+                'userId'    => $userId,
+                'position'  => $pos,
+            );
+
+            return $this->jsonResponse($resp);
+        } else {
+
+            throw new ApiException(ApiException::HTTP_BAD_REQUEST, "UserID non-existent or user is playing");
+        }
     }
 }
