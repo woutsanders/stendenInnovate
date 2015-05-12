@@ -8,11 +8,12 @@
 
 
 
-function newUser($connection)
+function newUser($connection , $userName)
 {
-    $userName = $_POST['user'];
+
     $time = time();
-    $queryInsert = "INSERT INTO speler (UserName, Date+Time, Status) VALUES ($userName, $time, 'waiting')";
-    $data = mysqli_query($connection, $queryInsert) or die(mysqli_error($data));
+    $queryInsert = "INSERT INTO `player` (UserName, DateTime, Status) VALUES ('$userName', '$time', 'waiting')";
+    $data = mysqli_query($connection, $queryInsert) or die();
+
     return $data;
 }
