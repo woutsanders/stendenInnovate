@@ -15,7 +15,7 @@ use Symfony\Component\HttpFoundation\Response;
 class UserController extends BaseController {
 
     /**
-     * Registers the username and returns the username with status flag.
+     * Registers the username and returns the username, id and status flag.
      *
      * @param Request $request
      * @return Response
@@ -36,7 +36,7 @@ class UserController extends BaseController {
 
             $player = new Player();
             $player
-                ->setUsername($json["username"])
+                ->setUsername($json->username)
                 ->setStatus($status)
                 ->setTimestamp(time());
 
@@ -47,7 +47,7 @@ class UserController extends BaseController {
             $resp = array(
                 "username"  => $player->getUsername(),
                 "userId"    => $player->getId(),
-                "status"    => "OK",
+                "status"    => $status->getName(),
             );
 
             return $this->jsonResponse($resp);
