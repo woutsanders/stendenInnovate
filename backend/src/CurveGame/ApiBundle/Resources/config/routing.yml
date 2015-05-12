@@ -10,9 +10,35 @@ curve_game_api_user_login:
         _controller: CurveGameApiBundle:User:login
     methods: POST
 
-curve_game_api_test:
-    path: /test/{value}
+curve_game_api_unity_userdata:
+    path: /unity/userdata
     defaults:
-        _controller: CurveGameApiBundle:User:test
-        value: demoPassed
+        _controller: CurveGameApiBundle:Unity:userData
+    methods: GET
+
+curve_game_api_unity_command:
+    path: /unity/command/{userId}
+    defaults:
+        _controller: CurveGameApiBundle:Unity:command
+        userId: null
+    methods: POST
+
+curve_game_api_queue_poll:
+    path: /queue/poll/{username}
+    defaults:
+        _controller: CurveGameApiBundle:Queue:poll
+        username: null
+    methods: GET
+
+curve_game_api_queue_confirmReady:
+    path: /queue/confirmReady
+    defaults:
+        _controller: CurveGameApiBundle:Queue:confirmReady
+    methods: POST
+
+curve_game_api_queue_position:
+    path: /queue/position/{username}
+    defaults:
+        _controller: CurveGameApiBundle:Queue:position
+        username: null
     methods: GET
