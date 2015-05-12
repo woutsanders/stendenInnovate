@@ -13,7 +13,7 @@ function newUser($connection , $userName)
 
     $time = time();
     $queryInsert = "INSERT INTO `player` (UserName, DateTime, Status) VALUES ('$userName', '$time', 'waiting')";
-    $data = mysqli_query($connection, $queryInsert) or die();
+    $data = mysqli_query($connection, $queryInsert) or die($connection);
 
     return $data;
 }

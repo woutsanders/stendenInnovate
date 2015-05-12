@@ -8,7 +8,7 @@
 
 function changeStatus ($connection , $status, $username)
 {
-    $queryInsertStatus2 = "INSERT INTO speler (Status) VALUES ($status) WHERE Gebruikersnaam = $userName";
-    $queryUitvoeren2 = mysql_query($queryInsertStatus2) or die(mysql_error());
-    return $queryUitvoeren2;
+    $queryInsertStatus = "INSERT INTO speler (Status) VALUES ($status) WHERE Gebruikersnaam = $username";
+    $queryUitvoeren = mysqli_query($connection, $queryInsertStatus) or die(mysql_error());
+    return $queryUitvoeren;
 }

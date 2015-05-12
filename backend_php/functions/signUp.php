@@ -25,7 +25,7 @@ function signUp($connection , $user)
                 return $data;
 
             } else {
-                echo "Sorry, this username already exists!";
+                echo "Sorry, this username already exists!" ;
             }
         } else {
             echo "Please fill in a username!";
