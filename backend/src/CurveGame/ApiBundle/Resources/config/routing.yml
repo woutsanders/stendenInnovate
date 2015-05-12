@@ -17,15 +17,13 @@ curve_game_api_unity_command:
     path: /unity/command/{userId}
     defaults:
         _controller: CurveGameApiBundle:Unity:command
-        userId: null
     methods: POST
 
-# Client will poll every x seconds whether he's on.
+# Client will poll every x seconds whether he's on turn or not.
 curve_game_api_queue_poll:
     path: /queue/poll/{userId}
     defaults:
         _controller: CurveGameApiBundle:Queue:poll
-        userId: null
     methods: GET
 
 # Receives the definite confirmation of the user that he is ready to play.
@@ -37,8 +35,7 @@ curve_game_api_queue_confirmReady:
 
 # Is used to show the user at which position he currently is in the queue.
 curve_game_api_queue_position:
-    path: /queue/position/{username}
+    path: /queue/position/{userId}
     defaults:
         _controller: CurveGameApiBundle:Queue:position
-        username: null
     methods: GET
