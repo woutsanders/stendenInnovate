@@ -1,21 +1,18 @@
+# Used for letting the user registering a username for the game.
 curve_game_api_user_register:
     path: /user/register
     defaults:
         _controller: CurveGameApiBundle:User:register
     methods: POST
 
-curve_game_api_user_login:
-    path: /user/login
-    defaults:
-        _controller: CurveGameApiBundle:User:login
-    methods: POST
-
+# Used for Unity to fetch all necessary user data.
 curve_game_api_unity_userdata:
     path: /unity/userdata
     defaults:
         _controller: CurveGameApiBundle:Unity:userData
     methods: GET
 
+# Will send the play command to python scripts (socket to unity client).
 curve_game_api_unity_command:
     path: /unity/command/{userId}
     defaults:
@@ -23,6 +20,7 @@ curve_game_api_unity_command:
         userId: null
     methods: POST
 
+# Client will poll every x seconds whether he's on.
 curve_game_api_queue_poll:
     path: /queue/poll/{username}
     defaults:
@@ -30,12 +28,14 @@ curve_game_api_queue_poll:
         username: null
     methods: GET
 
+# Receives the definite confirmation of the user that he is ready to play.
 curve_game_api_queue_confirmReady:
     path: /queue/confirmReady
     defaults:
         _controller: CurveGameApiBundle:Queue:confirmReady
     methods: POST
 
+# Is used to show the user at which position he currently is in the queue.
 curve_game_api_queue_position:
     path: /queue/position/{username}
     defaults:

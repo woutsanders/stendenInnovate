@@ -9,7 +9,7 @@ use CurveGame\ApiBundle\Exception\ApiException;
 class BaseController extends Controller {
 
     /**
-     * Checks if the received json is valid.
+     * Checks if the received json is valid and extracts it.
      *
      * @param null $json
      * @return Object
