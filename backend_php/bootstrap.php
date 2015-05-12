@@ -17,8 +17,8 @@ require_once('autoload.php');
 $server = "localhost";
 $userName = "root";
 $passWord = "";
-//$DBName = "project_innovate";
-$DBName = "hallo";
+$DBName = "project_innovate";
+//$DBName = "hallo";
 
 //verbind met de DBMS
 $connection = mysqli_connect($server, $userName, $passWord, $DBName) OR DIE (mysqli_error($connection));
