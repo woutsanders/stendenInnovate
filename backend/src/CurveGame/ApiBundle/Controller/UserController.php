@@ -2,6 +2,7 @@
 
 namespace CurveGame\ApiBundle\Controller;
 
+use CurveGame\EntityBundle\Entity\Player;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -21,7 +22,28 @@ class UserController extends Controller {
      */
     public function registerAction(Request $request) {
 
-        return new Response($request->request->get('username', null), 200);
+        $username = $request->get('username');
+
+        $em = $this->getDoctrine()->getManager();
+
+        $statusRepo = $em->getRepository('CurveGameEntityBundle:Status');
+        $status = $statusRepo->findOneByStatusName('waiting');
+
+        $player = new Player();
+        $player
+            ->setUsername($username)
+            ->setStatus($status)
+            ->setTimestamp(time());
+
+        $em->persist($player);
+        $em->flush();
+
+        $resp = array(
+            "username"  => $username,
+            "status"    => "OK",
+        );
+
+        return new Response(json_encode($resp), 200);
     }
 
     /**
