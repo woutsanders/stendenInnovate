@@ -1,5 +1,5 @@
 <?php
-require('connect.php');
+require_once ("bootstrap.php");
 function gameCheck()
 {   //Query, checkt of er mensen zijn die aan het spelen zijn
     $queryCheck = "SELECT Gebruikersnaam FROM speler WHERE Status = 'playing'";
@@ -42,7 +42,7 @@ function gameCheck()
 }
 if(isset($_POST['test']))
 {
-    gameCheck();
+    checkHighScore($connection);
 }
 ?>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
