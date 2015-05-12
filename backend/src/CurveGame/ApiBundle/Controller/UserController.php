@@ -2,8 +2,8 @@
 
 namespace CurveGame\ApiBundle\Controller;
 
+use CurveGame\ApiBundle\Exception\ApiException;
 use CurveGame\EntityBundle\Entity\Player;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -12,52 +12,49 @@ use Symfony\Component\HttpFoundation\Response;
  * Class UserController
  * @package CurveGame\ApiBundle\Controller
  */
-class UserController extends Controller {
+class UserController extends BaseController {
 
     /**
      * Registers the username and returns the username with status flag.
      *
      * @param Request $request
      * @return Response
+     * @throws ApiException
      */
     public function registerAction(Request $request) {
 
-        $username = $request->get('username');
+        $json = $request->get('json');
+        $json = $this->extractJson($json);
 
         $em = $this->getDoctrine()->getManager();
 
+        $playerRepo = $em->getRepository('CurveGameEntityBundle:Player');
         $statusRepo = $em->getRepository('CurveGameEntityBundle:Status');
         $status = $statusRepo->findOneByStatusName('waiting');
 
-        $player = new Player();
-        $player
-            ->setUsername($username)
-            ->setStatus($status)
-            ->setTimestamp(time());
+        if (!$playerRepo->findOneByUsername($json->username)) {
 
-        $em->persist($player);
-        $em->flush();
+            $player = new Player();
+            $player
+                ->setUsername($json["username"])
+                ->setStatus($status)
+                ->setTimestamp(time());
 
-        $resp = array(
-            "username"  => $username,
-            "status"    => "OK",
-        );
+            $em->persist($player);
+            $em->flush();
 
-        return new Response(json_encode($resp), 200);
-    }
+            $player = $playerRepo->findOneByUsername($json->username);
+            $resp = array(
+                "username"  => $player->getUsername(),
+                "userId"    => $player->getId(),
+                "status"    => "OK",
+            );
 
-    /**
-     * A small test
-     *
-     * @param mixed $value
-     * @return Response
-     */
-    public function testAction($value) {
+            return $this->jsonResponse($resp);
 
-        $arr = array(
-            "test"  => $value,
-        );
+        } else {
 
-        return new Response(json_encode($arr), 200);
+            throw new ApiException(ApiException::HTTP_CONFLICT, "This user already exists");
+        }
     }
 }
