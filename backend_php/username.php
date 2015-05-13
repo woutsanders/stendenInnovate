@@ -29,7 +29,7 @@ $data = signUp($connection,$username);
         {   //Query, zijn er nog mensen waarvan wij wachten op ready signaal?
            $resultWaiting = checkReadySignal($connection);
             // echo $resultWaiting;
-            if ($resultWaiting == false)
+            if ($resultWaiting == true)
             {
                 //Koppelen van gebruiker aan gebruikersnaam die aan het wachten is
                 //Status van gebruiker wijzigen in 'waiting for ready'
