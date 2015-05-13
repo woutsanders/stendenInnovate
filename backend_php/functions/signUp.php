@@ -35,3 +35,4 @@ function signUp($connection , $user)
         echo "Invalid characters!";
     }
 }
+?>

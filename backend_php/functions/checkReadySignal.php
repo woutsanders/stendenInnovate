@@ -7,8 +7,8 @@
  */
 
 function checkReadySignal ($connection){
-    $queryWaiting = "SELECT Gebruikersnaam FROM speler WHERE Status = 'waiting for ready'";
-    $resultWaiting = mysqli_query($connection , $queryWaiting) or die(mysqli_error($resultWaiting));
+    $queryWaiting = "SELECT UserName FROM player WHERE Status = 'waiting for ready'";
+    $resultWaiting = mysqli_query($connection , $queryWaiting) or die(mysqli_error($connection));
     if (mysqli_num_rows($resultWaiting) >=1){
         return true;
     }else
