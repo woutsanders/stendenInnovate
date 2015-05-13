@@ -14,7 +14,7 @@ curve_game_api_unity_userdata:
 
 # Will send the play command to python scripts (socket to unity client).
 curve_game_api_unity_command:
-    path: /unity/command/{userId}
+    path: /unity/command
     defaults:
         _controller: CurveGameApiBundle:Unity:command
     methods: POST
