@@ -8,9 +8,9 @@
 
 function playingGameCheck($connection)
 {
-    $queryCheck = "SELECT Gebruikersnaam FROM speler WHERE Status = 'playing'";
-    $resultCheck = mysql_query($queryCheck) or die(mysql_error());
-    if (mysqli_num_rows($queryCheck) >= 1) {
+    $queryCheck = "SELECT UserName FROM player WHERE Status = 'playing'";
+    $resultCheck = mysqli_query($connection, $queryCheck) or die($connection);
+    if (mysqli_num_rows($resultCheck) >= 1) {
         echo "Er zijn nog mensen aan het spelen, één moment geduld";
         return false;
     } else {

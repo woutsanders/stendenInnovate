@@ -15,12 +15,12 @@ require_once('bootstrap.php');
 $username = $_POST['forminput'];
 
 $data = signUp($connection,$username);
-echo $data;
+//echo $data;
 
     if ($data)
     {
         $resultcheck = playingGameCheck($connection);
-        echo $resultcheck;
+        //echo $resultcheck;
         if ($resultcheck == false)
         {
             echo "Er zijn nog mensen aan het spelen, één moment geduld";
@@ -28,15 +28,15 @@ echo $data;
         else
         {   //Query, zijn er nog mensen waarvan wij wachten op ready signaal?
            $resultWaiting = checkReadySignal($connection);
-            echo $resultWaiting;
-            if ($resultWaiting == true)
+            // echo $resultWaiting;
+            if ($resultWaiting == false)
             {
                 //Koppelen van gebruiker aan gebruikersnaam die aan het wachten is
                 //Status van gebruiker wijzigen in 'waiting for ready'
                 //Query voor inserten, gebruikersnaam = gebruikersnaam van de persoon die iets invuld
                 $status = "waiting for ready";
                 $queryUitvoeren = changeStatus($connection, $status, $username);
-                echo $queryUitvoeren;
+                // echo $queryUitvoeren;
                 if ($queryUitvoeren)
                 {
                     //Ready knop tonen
@@ -49,7 +49,7 @@ echo $data;
             else
             {
                 $result = longestWaiting($connection);
-                echo $result;
+                // echo $result;
                 if ($result)
                 {
                     while ($rows = mysqli_fetch_array($result))
@@ -60,9 +60,10 @@ echo $data;
                         //Status van speler wijzigen naar 'waiting for ready'
                         $status = "waiting for ready";
                         $queryUitvoeren = changeStatus($connection , $status, $username);
-                        echo $queryUitvoeren;
+                        // echo $queryUitvoeren;
                         if ($queryUitvoeren)
                         {
+                            // var_dump($queryUitvoeren);
                             //Ready knop tonen
                         }
                         else

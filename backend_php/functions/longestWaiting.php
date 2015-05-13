@@ -10,7 +10,7 @@
 function longestWaiting ($connection)
 {
 //Query, laat alleen de langst wachtende speler zien
-    $query = "SELECT Gebruikersnaam FROM speler WHERE Status = 'waiting' ORDER BY tijd ASC LIMIT 1";
-    $result = mysql_query($query) or die(mysql_error());
+    $query = "SELECT UserName FROM player WHERE Status = 'waiting' ORDER BY DateTime ASC LIMIT 1";
+    $result = mysqli_query($connection, $query) or die(mysqli_error($connection));
     return $result;
 }

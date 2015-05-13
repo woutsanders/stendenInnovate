@@ -17,3 +17,4 @@ function newUser($connection , $userName)
 
     return $data;
 }
+?>

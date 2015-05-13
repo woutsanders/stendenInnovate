@@ -8,7 +8,8 @@
 
 function changeStatus ($connection , $status, $username)
 {
-    $queryInsertStatus = "INSERT INTO speler (Status) VALUES ($status) WHERE Gebruikersnaam = $username";
-    $queryUitvoeren = mysqli_query($connection, $queryInsertStatus) or die(mysql_error());
+    $queryInsertStatus = "UPDATE player SET Status='$status' WHERE UserName = '$username'";
+    $queryUitvoeren = mysqli_query($connection, $queryInsertStatus) or die($connection);
     return $queryUitvoeren;
 }
+?>
