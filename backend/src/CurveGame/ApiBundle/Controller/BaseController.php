@@ -26,7 +26,7 @@ class BaseController extends Controller {
             return $obj;
         } else {
 
-            throw new ApiException(ApiException::HTTP_NOT_ACCEPTABLE, "The JSON was invalid");
+            throw new ApiException(ApiException::HTTP_BAD_REQUEST, "The JSON was invalid");
         }
     }
 
