@@ -16,8 +16,8 @@ class UnityController extends BaseController {
 
     }
 
-    public function commandAction(Request $request, $userId) {
+    public function commandAction(Request $request) {
 
-
+        //$output = shell_exec('/usr/local/bin/python script.py arg1 arg2');
     }
 }
