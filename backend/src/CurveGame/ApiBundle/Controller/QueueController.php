@@ -9,12 +9,12 @@ class QueueController extends BaseController {
 
     public function pollAction($userId = null) {
 
-        //
+        // Checks if user is on turn (true / false) and set status to waiting for ready if true.
     }
 
     public function confirmReadyAction(Request $request, $userId) {
 
-        //
+        // Change status to ready
     }
 
     /**

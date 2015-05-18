@@ -13,7 +13,7 @@ class UnityController extends BaseController {
 
     public function userDataAction() {
 
-
+        
     }
 
     public function commandAction(Request $request) {
