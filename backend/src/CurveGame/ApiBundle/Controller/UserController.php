@@ -23,8 +23,8 @@ class UserController extends BaseController {
      */
     public function registerAction(Request $request) {
 
-        $json = $request->get('json');
-        $json = $this->extractJson($json);
+        // Process raw JSON
+        $json = $this->extractJson($request->getContent());
 
         $em = $this->getDoctrine()->getManager();
 
