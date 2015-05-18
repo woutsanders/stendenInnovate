@@ -1,3 +1,4 @@
-curve_game_web_homepage:
-    path:     /hello/{name}
-    defaults: { _controller: CurveGameWebBundle:Default:index }
+curve_game_web_index:
+    path:     /
+    defaults: { _controller: CurveGameWebBundle:Index:index }
+    methods: GET
