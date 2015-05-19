@@ -11,10 +11,21 @@
     <body>
         {% block body %}{% endblock %}
 
-        {% javascripts '@CurveGameWebBundle/Resources/public/js/*' %}
-            <script type="text/javascript" src="{{ asset_url }}"></script>
-        {% endjavascripts %}
+        <!-- Start javascripts -->
         {% block javascripts %}
+
+            <!-- Dynamic load JS -->
+            {% javascripts '@CurveGameWebBundle/Resources/public/js/*' %}
+            <script type="text/javascript" src="{{ asset_url }}"></script>
+            {% endjavascripts %}
+            <!-- End dynamic loading -->
+
+            <script type="text/javascript">
+                // Initialize needed variables...
+                var rootURL = '{{ path('curve_game_web_index') }}api/';
+                var userId;
+            </script>
         {% endblock %}
+        <!-- End javascripts -->
     </body>
 </html>

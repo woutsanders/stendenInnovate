@@ -11,10 +11,30 @@
 {% endblock %}
 
 {% block javascripts %}
+
+    {{ parent() }}
+
     <script type="text/javascript">
-        $("#test").click(function() {
-            $(this).html(function () {
-                return test();
+        var userId = 8;
+
+        $("#test").click(function(e) {
+            e.preventDefault(); // Handy for <a> tags (prevents default behavior executing).
+            console.log("you clicked test!"); // Log something to console...
+
+            // Now do ajax call to our API (controller)...
+            $.ajax({
+                type: 'GET',
+                url: rootURL + 'queue/position/' + userId,
+                dataType: "json",
+                success: function(data){
+                    $("#test").html(
+                            "<p>UserID: " + data.userId +
+                            "<br/>Position: " + data.position
+                    );
+                },
+                error: function(jqXHR, textStatus, errorThrown){
+                    alert('The server made a boo boo (HTTP errno): ' + jqXHR.status);
+                }
             });
         });
     </script>
