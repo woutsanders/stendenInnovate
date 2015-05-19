@@ -5,10 +5,16 @@
         <title>{% block title %}Curve game{% endblock %}</title>
         {% block stylesheets %}{% endblock %}
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+
+        <script type="text/javascript" src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
     </head>
     <body>
         {% block body %}{% endblock %}
-        {% block javascripts %}{% endblock %}
-        <script type="text/javascript" src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
+
+        {% javascripts '@CurveGameWebBundle/Resources/public/js/*' %}
+            <script type="text/javascript" src="{{ asset_url }}"></script>
+        {% endjavascripts %}
+        {% block javascripts %}
+        {% endblock %}
     </body>
 </html>
