@@ -1,18 +1,21 @@
-{% extends '::base.html.twig' %}
+{% extends 'CurveGameWebBundle::base.html.twig' %}
 
 {# Contains header title #}
 {% block title %}
 {% endblock %}
 
-{# Can contain specific stylesheets needed for this page. #}
-{% block stylesheets %}
-{% endblock %}
-
 {# Contains the page HTML #}
 {% block body %}
-    <h1>Hallo</h1>
+    <h1>Hallo allemaal!</h1>
+    <div id="test"><p>Klik hierrr</p></div>
 {% endblock %}
 
-{# Contains specific page related javascripts #}
 {% block javascripts %}
+    <script type="text/javascript">
+        $("#test").click(function() {
+            $(this).html(function () {
+                return test();
+            });
+        });
+    </script>
 {% endblock %}
