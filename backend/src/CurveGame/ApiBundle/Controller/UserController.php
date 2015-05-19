@@ -24,7 +24,7 @@ class UserController extends BaseController {
     public function registerAction(Request $request) {
 
         // Process raw JSON
-        $json = $this->extractJson($request->getContent());
+        $obj = $this->extractJson($request->getContent());
 
         $em = $this->getDoctrine()->getManager();
 
@@ -32,18 +32,18 @@ class UserController extends BaseController {
         $statusRepo = $em->getRepository('CurveGameEntityBundle:Status');
         $status = $statusRepo->findOneByStatusName('waiting');
 
-        if (!$playerRepo->findOneByUsername($json->username)) {
+        if (!$playerRepo->findOneByUsername($obj->username)) {
 
             $player = new Player();
             $player
-                ->setUsername($json->username)
+                ->setUsername($obj->username)
                 ->setStatus($status)
                 ->setTimestamp(time());
 
             $em->persist($player);
             $em->flush();
 
-            $player = $playerRepo->findOneByUsername($json->username);
+            $player = $playerRepo->findOneByUsername($obj->username);
             $resp = array(
                 "username"  => $player->getUsername(),
                 "userId"    => $player->getId(),
