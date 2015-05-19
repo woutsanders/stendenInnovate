@@ -10,11 +10,27 @@ class QueueController extends BaseController {
     public function pollAction($userId = null) {
 
         // Checks if user is on turn (true / false) and set status to waiting for ready if true.
+
+
     }
 
     public function confirmReadyAction(Request $request, $userId) {
 
-        // Change status to ready
+        // Change status to ready if user has confirmed and status is waiting for ready.
+
+        $em = $this->getDoctrine()->getManager();
+        $playerRepo = $em->getRepository('CurveGameEntityBundle:Player');
+
+        $player = $playerRepo->findOneBy(array(
+            'id' => $userId,
+        ));
+
+        if (!$player) {
+
+            throw new ApiException(ApiException::HTTP_BAD_REQUEST, "UserID non-existent or user not waiting anymore");
+        }
+
+
     }
 
     /**
