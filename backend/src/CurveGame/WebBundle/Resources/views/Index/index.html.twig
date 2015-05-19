@@ -17,7 +17,7 @@
     <script type="text/javascript">
         var userId = 8;
 
-        $("#test").click(function(e) {
+        $("#test").one('click', function(e) {
             e.preventDefault(); // Handy for <a> tags (prevents default behavior executing).
             console.log("you clicked test!"); // Log something to console...
 
