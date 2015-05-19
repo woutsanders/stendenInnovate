@@ -25,6 +25,8 @@ curve_game_api_queue_poll:
     defaults:
         _controller: CurveGameApiBundle:Queue:poll
     methods: GET
+    requirements:
+        userId: \d+
 
 # Receives the definite confirmation of the user that he is ready to play.
 curve_game_api_queue_confirmReady:
@@ -39,3 +41,5 @@ curve_game_api_queue_position:
     defaults:
         _controller: CurveGameApiBundle:Queue:position
     methods: GET
+    requirements:
+        userId: \d+
