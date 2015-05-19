@@ -16,9 +16,25 @@ class UnityController extends BaseController {
         
     }
 
+    /**
+     * Executes the movement command.
+     *
+     * @param Request $request
+     * @return Response
+     * @throws \CurveGame\ApiBundle\Exception\ApiException
+     */
     public function commandAction(Request $request) {
 
         $obj = $this->extractJson($request->getContent());
-        $output = shell_exec('/usr/local/bin/python /path/to/script.py ' . $obj->userId . ' ' . $obj->moveTo);
+        $consolePath = $this->get('kernel')->getRootDir() . '/../console';
+        $pythonPath = shell_exec('which python');
+
+        $output = shell_exec($pythonPath .
+                             $consolePath . ' ' .
+                             escapeshellarg($obj->userId) . ' ' .
+                             escapeshellarg($obj->moveTo)
+        );
+
+        return $this->jsonResponse($output);
     }
 }
