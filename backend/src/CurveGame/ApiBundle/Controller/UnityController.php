@@ -20,7 +20,7 @@ class UnityController extends BaseController {
      * Executes the movement command.
      *
      * @param Request $request
-     * @return Response
+     * @return \Symfony\Component\HttpFoundation\Response
      * @throws \CurveGame\ApiBundle\Exception\ApiException
      */
     public function commandAction(Request $request) {
