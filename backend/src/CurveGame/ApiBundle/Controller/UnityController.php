@@ -18,6 +18,7 @@ class UnityController extends BaseController {
 
     public function commandAction(Request $request) {
 
-        //$output = shell_exec('/usr/local/bin/python /path/to/script.py arg1 arg2');
+        $obj = $this->extractJson($request->getContent());
+        $output = shell_exec('/usr/local/bin/python /path/to/script.py ' . $obj->userId . ' ' . $obj->moveTo);
     }
 }
