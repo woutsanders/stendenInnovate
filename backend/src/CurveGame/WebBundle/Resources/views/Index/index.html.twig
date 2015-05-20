@@ -11,7 +11,7 @@
 {% endblock %}
 
 {% block javascripts %}
-
+    {# Also render parent scripts #}
     {{ parent() }}
 
     <script type="text/javascript">
@@ -27,10 +27,11 @@
                 url: rootURL + 'queue/position/' + userId,
                 dataType: "json",
                 success: function(data){
-                    $("#test").html(
-                            "<p>UserID: " + data.userId +
-                            "<br/>Position: " + data.position
-                    );
+                    var html =  "<p>UserID: " + data.userId +
+                                "<br/>Position: " + data.position +
+                                "</p>";
+
+                    $("#test").html(html);
                 },
                 error: function(jqXHR, textStatus, errorThrown){
                     alert('The server made a boo boo (HTTP errno): ' + jqXHR.status);
