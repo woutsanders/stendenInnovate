@@ -13,6 +13,36 @@ use Doctrine\ORM\EntityRepository;
 class PlayerRepository extends EntityRepository {
 
     /**
+     * Finds players by status name.
+     *
+     * @param string $status
+     * @param string $orderBy
+     * @return array|bool
+     */
+    public function findByStatus($status = 'waiting', $orderBy = 'ASC') {
+
+        $qb = $this->createQueryBuilder('p')
+            ->join('p.status', 's')
+            ->addSelect('s')
+            ->where('s.name = :statusName')
+            ->orderBy('p.timestamp', $orderBy)
+            ->setParameter('statusName', $status);
+
+        $query = $qb->getQuery();
+        $result = $query->getResult();
+
+        // If status ready was passed and there are not 2 players, return false...
+        if (count($result) !== 2 && strtolower($status) === 'ready') {
+
+            return false;
+        } else {
+
+            return $result;
+        }
+    }
+
+
+    /**
      * @param null $userId
      * @return bool
      * @throws \Doctrine\DBAL\DBALException
