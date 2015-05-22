@@ -7,12 +7,108 @@
 {# Contains the page HTML #}
 {% block body %}
     <h1>Hallo allemaal!</h1>
-    <div id="test"><p>Klik hierrr</p></div>
+    <div id="test"><p>Wachtrij fetch</p></div>
+    <hr/>
+    <div id="controlDebug"><p>Control debug</p></div>
+    <hr/>
+    <br/>
+    <button class="controls" id="leftControl">Links</button>
+    <button class="controls" id="rightControl">Rechts</button>
 {% endblock %}
 
 {% block javascripts %}
     {# Also render parent scripts #}
     {{ parent() }}
+
+    <script type="text/javascript">
+
+        var userId = 8;
+        var leftControl = 1;
+        var straightControl = 0;
+        var rightControl = 2;
+        var keyLeft = 37;
+        var keyRight = 39;
+        var keyDown = false;
+
+        // Do some key handling...
+        $(document).ready(function(){
+
+            // Go left or right.
+            $(document).keydown(function(event){
+
+                if (keyDown == true) {
+
+                    return;
+                }
+
+                keyDown = true;
+
+                // Go left
+                if (event.which == keyLeft) {
+                    sendCommand(userId,leftControl);
+                }
+
+                // Go right
+                if (event.which == keyRight) {
+                    sendCommand(userId, rightControl);
+                }
+            });
+
+            // Go straight.
+            $(document).keyup(function(event){
+
+                if (event.which == 37 || event.which == 39) {
+                    sendCommand(userId,straightControl);
+                    keyDown = false;
+                }
+            });
+        });
+        // End of key handling.
+
+        // Go left when mouse or touch detected.
+        $("#leftControl").on("mousedown touchstart", function(e) {
+            sendCommand(userId, leftControl);
+        });
+
+        // Go right when mouse or touch detected.
+        $("#rightControl").on("mousedown touchstart", function(e) {
+            sendCommand(userId, rightControl);
+        });
+
+        // When releasing mouse or touch, go straight.
+        $(".controls").on("mouseup touchend", function(e) {
+            sendCommand(userId, straightControl);
+        });
+
+        // Handles the sending of commands...
+        function sendCommand(userId, command) {
+
+            var data = {
+                "userId": userId,
+                "moveTo": command
+            };
+
+            console.log("Command initiated: " + JSON.stringify(data));
+
+            // Send the data.
+            $.ajax({
+                type: 'POST',
+                url: rootURL + 'unity/command',
+                data: JSON.stringify(data),
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function(data){
+                    var html =  "<p>Received data: " + data.message + "</p>";
+                    $("#test").html(html);
+                },
+                error: function(jqXHR, textStatus, errorThrown){
+                    var html =  "<p>control fail<br/>";
+                    html.add("Got header: " + jqXHR.status);
+                    $("#test").html(html);
+                }
+            });
+        }
+    </script>
 
     <script type="text/javascript">
         var userId = 8;
