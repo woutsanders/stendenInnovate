@@ -6,6 +6,7 @@
 /app/phpunit.xml
 /bin/*
 !bin/unity.py
+!bin/wrap.sh
 /composer.phar
 /vendor/
 /web/bundles/
