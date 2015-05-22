@@ -20,7 +20,6 @@ class UnityController extends BaseController {
     public function userDataAction() {
 
         $em = $this->getDoctrine()->getManager();
-        #$statusRepo = $em->getRepository('CurveGameEntityBundle:Status');
         $playerRepo = $em->getRepository('CurveGameEntityBundle:Player');
 
         $players = $playerRepo->findByStatus('ready', 'DESC');
