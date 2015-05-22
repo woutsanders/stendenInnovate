@@ -1,9 +1,10 @@
-﻿import sys
+﻿#!/usr/bin/python
+
+import sys
 import socket
 import sys
 import time
 import errno
-
 
 hostaddress="127.0.0.1"
 poort=9991
@@ -32,8 +33,8 @@ def senddata(bericht):
 	try:
 		sock.connect((HOST, PORT));
 		sock.sendall(data + "\r\n");
-		print "Verzonden: " + data;
 	finally:
 		sock.close();
 
+print "1"
 senddata(str(command));
