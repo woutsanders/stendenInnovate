@@ -59,14 +59,14 @@ class UnityController extends BaseController {
 
         $obj = $this->extractJson($request->getContent());
 
-        $unityFile = $this->get('kernel')->getRootDir() . '/../bin/unity.py';
+        $kernelPath = $this->get('kernel')->getRootDir();
+        $unityFile = $kernelPath . '/../bin/unity.py';
+        $wrapperFile = $kernelPath . '../bin/wrap.sh';
 
         if (!file_exists($unityFile)) {
 
             throw new ApiException(ApiException::HTTP_INTERNAL_SERVER_ERROR, "The server screwed up");
         }
-
-        $wrapperFile = "/Volumes/Macintosh\\ Data/WebServer/Documents/stendenInnovate/backend/app/../bin/wrap.sh";
 
         $tStr = $wrapperFile . " " . $unityFile . " " . $obj->userId . " " . $obj->moveTo . " 2>&1";
         $output = shell_exec($tStr);
