@@ -3,7 +3,9 @@
 namespace CurveGame\ApiBundle\Controller;
 
 use CurveGame\ApiBundle\Exception\ApiException;
+use Symfony\Component\Form\Extension\Core\EventListener\ResizeFormListener;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 /**
  * Class UnityController
@@ -56,15 +58,25 @@ class UnityController extends BaseController {
     public function commandAction(Request $request) {
 
         $obj = $this->extractJson($request->getContent());
+
         $unityFile = $this->get('kernel')->getRootDir() . '/../bin/unity.py';
-        $pythonPath = shell_exec('which python');
 
-        $output = shell_exec($pythonPath .
-                             $unityFile . ' ' .
-                             escapeshellarg($obj->userId) . ' ' .
-                             escapeshellarg($obj->moveTo)
-        );
+        if (!file_exists($unityFile)) {
 
-        return $this->jsonResponse($output);
+            throw new ApiException(ApiException::HTTP_INTERNAL_SERVER_ERROR, "The server screwed up");
+        }
+
+        $wrapperFile = "/Volumes/Macintosh\\ Data/WebServer/Documents/stendenInnovate/backend/app/../bin/wrap.sh";
+
+        $tStr = $wrapperFile . " " . $unityFile . " " . $obj->userId . " " . $obj->moveTo . " 2>&1";
+        $output = shell_exec($tStr);
+
+        if ($output == "1") {
+
+            return $this->jsonResponse('{"message":"success","moveTo":' . $obj->moveTo . '}');
+        } else {
+
+            throw new ApiException(ApiException::HTTP_INTERNAL_SERVER_ERROR, "Server screwed up.");
+        }
     }
 }
