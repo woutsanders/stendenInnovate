@@ -61,7 +61,7 @@ class UnityController extends BaseController {
 
         $kernelPath = $this->get('kernel')->getRootDir();
         $unityFile = $kernelPath . '/../bin/unity.py';
-        $wrapperFile = $kernelPath . '../bin/wrap.sh';
+        $wrapperFile = $kernelPath . '/../bin/wrap.sh';
 
         if (!file_exists($unityFile)) {
 
