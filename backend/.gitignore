@@ -4,7 +4,8 @@
 /app/logs/*
 !app/logs/.gitkeep
 /app/phpunit.xml
-/bin/
+/bin/*
+!bin/unity.py
 /composer.phar
 /vendor/
 /web/bundles/
