@@ -70,7 +70,9 @@ class UnityController extends BaseController {
 
         $tStr = $wrapperFile . " " . $unityFile . " " . $obj->userId . " " . $obj->moveTo . " 2>&1";
         $output = shell_exec($tStr);
-
+        var_dump($output);
+        exit;
+        
         if ($output == "1") {
 
             return $this->jsonResponse('{"message":"success","moveTo":' . $obj->moveTo . '}');
