@@ -103,7 +103,7 @@
                 },
                 error: function(jqXHR, textStatus, errorThrown){
                     var html =  "<p>control fail<br/>";
-                    html.add("Got header: " + jqXHR.status);
+                    html += "Got header: " + jqXHR.status;
                     $("#test").html(html);
                 }
             });
