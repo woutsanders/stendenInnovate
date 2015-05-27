@@ -22,33 +22,12 @@
 
     <script type="text/javascript">
 
-        // Go left when mouse or touch detected.
-        $("#leftControl").on("mousedown touchstart", function(e) {
-            sendCommand(userId, leftControl);
-        });
-
-        // Go right when mouse or touch detected.
-        $("#rightControl").on("mousedown touchstart", function(e) {
-            sendCommand(userId, rightControl);
-        });
-
-        // When releasing mouse or touch, go straight.
-        $(".controls").on("mouseup touchend", function(e) {
-            sendCommand(userId, straightControl);
-        });
-
-        // Handles the sending of commands...
-
-    </script>
-
-    <script type="text/javascript">
-
         $("#test").one('click', function(e) {
             e.preventDefault(); // Handy for <a> tags (prevents default behavior executing).
             console.log("you clicked test!"); // Log something to console...
 
             // Now do ajax call to our API (controller)...
-
+            getQueuePosition();
         });
     </script>
 {% endblock %}
