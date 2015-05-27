@@ -1,0 +1,35 @@
+body{
+    background: url(../images/achtergrond.jpg)no-repeat center center fixed;
+    margin: 0px;
+    border: 7px solid #a8e5ec;
+    border-radius: 5px;
+    padding:7px;
+    bottom:0;
+    top:0;
+    left:0;
+    right:0;
+    display: block;
+    position:absolute;
+    height:auto;
+}
+
+h1{
+    background-color: #a8e5ec;
+    width: 350px;
+    float: center;
+}
+
+#test{
+    background-color: #a8e5ec;
+    width: 350px;
+    margin-left: 40%;
+
+}
+
+#username{
+    background-color: darkslategrey;
+    color: #a8e5ec;
+    border: 2px solid #a8e5ec;
+    font-size: 22px;
+    margin-left: 40%;
+}
