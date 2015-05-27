@@ -1,0 +1,56 @@
+{% extends 'CurveGameWebBundle::base.html.twig' %}
+
+{% block title %} Test {% endblock %}
+
+{% block body %}
+<!-- alle html hier in plakken-->
+    <div id="test">hopen dat het werkt</div>
+    <form name="formusername" id="form">
+        <p>Please enter a username</p>
+        <input type="text" id="username" name="username">
+        <input type="submit" id="submit" name="submit">
+    </form>
+
+{% endblock %}
+
+{% block javascripts %}
+    {# Also render parent scripts #}
+    {{ parent() }}
+
+    <script type="text/javascript">
+
+            //submit event triggered and prevent the default
+            $("#form").submit(function(event) {
+                    event.preventDefault();
+                var username = $( "#username" ).val();
+                    sendUsername(username);
+            });
+
+        // Handles the sending of username...
+        function sendUsername(username) {
+            var data = {
+                "username": username
+            };
+
+            console.log("Username initiated: " + JSON.stringify(data));
+
+            // Send the data.
+            $.ajax({
+                type: 'POST',
+                url: rootURL + 'user/register',
+                data: JSON.stringify(data),
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function(data){
+                    var html =  "<p>Received data: " + data.message + "</p>";
+                    $("#test").html(html);
+                },
+                error: function(jqXHR, textStatus, errorThrown){
+                    var html =  "<p>control fail<br/>";
+                    html += "Got header: " + jqXHR.status;
+                    $("#test").html(html);
+                }
+            });
+        }
+        </script>
+{% endblock %}
