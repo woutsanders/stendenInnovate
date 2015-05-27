@@ -6,14 +6,17 @@
 {% block body %}
 <!-- alle html hier in plakken-->
 
-
-        <div id="test">hopen dat het werkt</div>
-        <form name="formusername" id="form">
-            <h1>Please enter a username</h1>
-            <input type="text" id="username" name="username" />
-            <input type="submit" id="submit" name="submit" />
-        </form>
-
+<div class="container-fluid">
+    <div class="row">
+            <div class="col-md-3 col-md-offset-5">
+                <form name="formusername" id="form">
+                    <h1  id="h1">Please enter a username</h1>
+                    <input class=".col-md-1" type="text" id="username" name="username" />
+                    <input type="submit" id="submit" name="submit" />
+                </form>
+            </div>
+    </div>
+</div>
 
 
 {% endblock %}

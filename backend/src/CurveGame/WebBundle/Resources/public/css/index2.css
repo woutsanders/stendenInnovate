@@ -13,16 +13,8 @@ body{
     height:auto;
 }
 
-h1{
+#h1{
     background-color: #a8e5ec;
-    width: 350px;
-    float: center;
-}
-
-#test{
-    background-color: #a8e5ec;
-    width: 350px;
-    margin-left: 40%;
 
 }
 
@@ -31,5 +23,4 @@ h1{
     color: #a8e5ec;
     border: 2px solid #a8e5ec;
     font-size: 22px;
-    margin-left: 40%;
 }
