@@ -1,3 +1,6 @@
+curve_game_api_root:
+    path: /
+
 # Used for letting the user registering a username for the game.
 curve_game_api_user_register:
     path: /user/register
