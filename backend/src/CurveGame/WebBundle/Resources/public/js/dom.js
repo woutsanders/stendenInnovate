@@ -32,12 +32,12 @@ function handleKeys() {
 
         // Go left
         if (event.which == keyLeft) {
-            sendAjaxCommand(userId,leftControl);
+            sendAjaxControlCmd(userId,leftControl);
         }
 
         // Go right
         if (event.which == keyRight) {
-            sendAjaxCommand(userId, rightControl);
+            sendAjaxControlCmd(userId, rightControl);
         }
     });
 
@@ -45,7 +45,7 @@ function handleKeys() {
     $(document).keyup(function(event) {
 
         if (event.which == 37 || event.which == 39) {
-            sendAjaxCommand(userId,straightControl);
+            sendAjaxControlCmd(userId,straightControl);
             keyDown = false;
         }
     });

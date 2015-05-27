@@ -22,41 +22,6 @@
 
     <script type="text/javascript">
 
-        // Do some key handling...
-        $(document).ready(function(){
-
-            // Go left or right.
-            $(document).keydown(function(event){
-
-                if (keyDown == true) {
-
-                    return;
-                }
-
-                keyDown = true;
-
-                // Go left
-                if (event.which == keyLeft) {
-                    sendCommand(userId,leftControl);
-                }
-
-                // Go right
-                if (event.which == keyRight) {
-                    sendCommand(userId, rightControl);
-                }
-            });
-
-            // Go straight.
-            $(document).keyup(function(event){
-
-                if (event.which == 37 || event.which == 39) {
-                    sendCommand(userId,straightControl);
-                    keyDown = false;
-                }
-            });
-        });
-        // End of key handling.
-
         // Go left when mouse or touch detected.
         $("#leftControl").on("mousedown touchstart", function(e) {
             sendCommand(userId, leftControl);
@@ -73,35 +38,7 @@
         });
 
         // Handles the sending of commands...
-        function sendCommand(userId, command) {
 
-
-
-            var data = {
-                "userId": userId,
-                "moveTo": command
-            };
-
-            console.log("Command initiated: " + JSON.stringify(data));
-
-            // Send the data.
-            $.ajax({
-                type: 'POST',
-                url: rootURL + 'unity/command',
-                data: JSON.stringify(data),
-                contentType: "application/json; charset=utf-8",
-                dataType: "json",
-                success: function(data){
-                    var html =  "<p>Received data: " + data.message + "</p>";
-                    $("#test").html(html);
-                },
-                error: function(jqXHR, textStatus, errorThrown){
-                    var html =  "<p>control fail<br/>";
-                    html += "Got header: " + jqXHR.status;
-                    $("#test").html(html);
-                }
-            });
-        }
     </script>
 
     <script type="text/javascript">
@@ -111,21 +48,7 @@
             console.log("you clicked test!"); // Log something to console...
 
             // Now do ajax call to our API (controller)...
-            $.ajax({
-                type: 'GET',
-                url: rootURL + 'queue/position/' + userId,
-                dataType: "json",
-                success: function(data){
-                    var html =  "<p>UserID: " + data.userId +
-                                "<br/>Position: " + data.position +
-                                "</p>";
 
-                    $("#test").html(html);
-                },
-                error: function(jqXHR, textStatus, errorThrown){
-                    alert('The server made a boo boo (HTTP errno): ' + jqXHR.status);
-                }
-            });
         });
     </script>
 {% endblock %}

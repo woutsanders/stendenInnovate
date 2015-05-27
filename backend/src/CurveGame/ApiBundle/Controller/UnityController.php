@@ -3,9 +3,7 @@
 namespace CurveGame\ApiBundle\Controller;
 
 use CurveGame\ApiBundle\Exception\ApiException;
-use Symfony\Component\Form\Extension\Core\EventListener\ResizeFormListener;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 
 /**
  * Class UnityController

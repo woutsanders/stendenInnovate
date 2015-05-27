@@ -7,5 +7,3 @@ curve_game_web_index2:
     path:     /index2
     defaults: { _controller: CurveGameWebBundle:Index2:index}
     methods: GET
-
-

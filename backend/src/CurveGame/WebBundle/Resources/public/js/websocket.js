@@ -22,7 +22,7 @@ function wsConnect() {
  */
 function wsSendMsg(playerId, control) {
 
-    data =
+    data = "playerId";
     ws.send(msg);
 }
 

@@ -1,7 +1,10 @@
 /**
- * Sends control data in AJAX request
+ * Sends the control digit, received from the DOM.
+ *
+ * @param userId
+ * @param command
  */
-function sendAjaxCommand(userId, command) {
+function sendAjaxControlCmd(userId, command) {
 
     var data = {
         "userId": userId,
@@ -25,6 +28,25 @@ function sendAjaxCommand(userId, command) {
         }
     });
 }
+
 /**
- * End of control data functions
+ *
  */
+function send() {
+
+    $.ajax({
+        type: 'GET',
+        url: rootURL + 'queue/position/' + userId,
+        dataType: "json",
+        success: function(data){
+            var html =  "<p>UserID: " + data.userId +
+                "<br/>Position: " + data.position +
+                "</p>";
+
+            $("#test").html(html);
+        },
+        error: function(jqXHR, textStatus, errorThrown){
+            alert('The server made a boo boo (HTTP errno): ' + jqXHR.status);
+        }
+    });
+}
