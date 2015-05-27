@@ -4,7 +4,7 @@
  */
 function wsCheckSupport() {
 
-    return typeof(WebSocket) == "function";
+    return ((window.WebSocket) ? true : false);
 }
 
 /**
@@ -12,18 +12,22 @@ function wsCheckSupport() {
  */
 function wsConnect() {
 
-    ws = new WebSocket("ws://" + wsURL + ":"+ wsPort +"/ws");
+    ws = new WebSocket("ws://" + wsURL + ":" + wsPort + "/ws");
 }
 
 /**
  * Sends the given message to the server.
- * @param playerId
+ * @param userId
  * @param control
  */
-function wsSendMsg(playerId, control) {
+function wsSendMsg(userId, control) {
 
-    data = "playerId";
-    ws.send(msg);
+    var data = {
+        "userId": userId,
+        "direction": control
+    };
+
+    ws.send(JSON.stringify(data));
 }
 
 /**
@@ -34,6 +38,6 @@ function wsClose() {
     ws.close();
 }
 
-ws.onmessage(function(e) {
+//ws.onmessage(function(e) {
     //Do further handling...
-});
+//});
