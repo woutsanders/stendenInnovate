@@ -3,7 +3,8 @@ import threading
 global message;
 global schakel
 schakel = True
-#message = "abcde";		
+
+
 class MyTCPHandler(SocketServer.BaseRequestHandler):
     def handle(self):
 		global message;
@@ -14,6 +15,8 @@ class MyTCPHandler(SocketServer.BaseRequestHandler):
 			message = str(self.data)
 		finally:
 			print (self.client_address[0]) + " stuurt: " + str(self.data);		
+
+
 class MyTCPHandler_unity(SocketServer.BaseRequestHandler):
 	def handle(self):
 		global schakel
