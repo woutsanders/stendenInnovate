@@ -4,7 +4,7 @@
  */
 function wsCheckSupport() {
 
-    return ((window.WebSocket) ? true : false);
+    return ((window.WebSocket || (typeof(WebSocket) == "object")) ? true : false);
 }
 
 /**
@@ -13,6 +13,10 @@ function wsCheckSupport() {
 function wsConnect() {
 
     ws = new WebSocket("ws://" + wsURL + ":" + wsPort + "/curvegame");
+
+    ws.onmessage(function(e) {
+        console.log(e);
+    });
 }
 
 /**
@@ -37,7 +41,3 @@ function wsClose() {
 
     ws.close();
 }
-
-//ws.onmessage(function(e) {
-    //Do further handling...
-//});
