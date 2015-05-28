@@ -2,7 +2,7 @@
  * Initializing variables to use during this session.
  */
 var debug = true;                   // Enable/Disable debug mode (console logging).
-var userId;                         // Contains the UserID
+var userId = 2;                         // Contains the UserID
 var leftControl = 1;                // Left control init
 var straightControl = 0;            // Straight control init
 var rightControl = 2;               // Right control init
@@ -13,5 +13,5 @@ var ajaxRootURL =
     $("#twigHack").data('api');     // Gets the relative API path from root
 var wsSupport = false;              // WebSocket support toggle
 var wsURL = "woutsanders.com";      // WebSocket host URL
-var wsPort = 8999;                  // WebSocket port
+var wsPort = 9899;                  // WebSocket port
 var ws;                             // WebSocket container

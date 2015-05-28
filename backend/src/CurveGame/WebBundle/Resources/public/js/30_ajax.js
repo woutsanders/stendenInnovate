@@ -16,7 +16,7 @@ function ajaxSendMsg(userId, controlType) {
     // Send the data.
     return $.ajax({
         type: 'POST',
-        url: rootURL + 'unity/command',
+        url: ajaxRootURL + 'unity/command',
         data: JSON.stringify(data),
         contentType: "application/json; charset=utf-8",
         dataType: "json",
@@ -38,7 +38,7 @@ function getQueuePosition() {
 
     return $.ajax({
         type: 'GET',
-        url: rootURL + 'queue/position/' + userId,
+        url: ajaxRootURL + 'queue/position/' + userId,
         dataType: "json",
         success: function(data){
 
