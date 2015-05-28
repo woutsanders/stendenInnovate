@@ -36,11 +36,16 @@ function ajaxSendMsg(userId, controlType) {
  */
 function getQueuePosition() {
 
+    if (debug) console.log("Initiating... getQueuePosition: --userId: " + userId);
+
     return $.ajax({
         type: 'GET',
         url: ajaxRootURL + 'queue/position/' + userId,
+        contentType: "application/json; charset=utf-8",
         dataType: "json",
         success: function(data){
+
+            if (debug) console.log("Response... getQueuePosition: --userId: " + data.userId + " --position: " + data.position);
 
             data = {
                 "userId": data.userId,
