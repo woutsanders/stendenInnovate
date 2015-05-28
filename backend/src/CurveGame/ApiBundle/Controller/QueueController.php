@@ -16,7 +16,6 @@ class QueueController extends BaseController {
      */
     public function pollAction($userId = null) {
 
-        // Checks if user is on turn (true / false) and set status to waiting for ready if true.
         $em = $this->getDoctrine()->getManager();
         $playerRepo = $em->getRepository('CurveGameEntityBundle:Player');
         $statusRepo = $em->getRepository('CurveGameEntityBundle:Player');
@@ -53,15 +52,24 @@ class QueueController extends BaseController {
         }
     }
 
+    /**
+     * Sets the player status to ready if player pressed within 10 sec. Else user will be deleted.
+     *
+     * @param Request $request
+     * @param $userId
+     * @return \Symfony\Component\HttpFoundation\Response
+     * @throws ApiException
+     */
     public function confirmReadyAction(Request $request, $userId) {
 
         // Change status to ready if user has confirmed and status is waiting for ready.
 
         $em = $this->getDoctrine()->getManager();
         $playerRepo = $em->getRepository('CurveGameEntityBundle:Player');
+        $statusRepo = $em->getRepository('CurveGameEntityBundle:Status');
 
         $player = $playerRepo->findOneBy(array(
-            'id' => $userId,
+            'id'    => $userId,
         ));
 
         if (!$player) {
@@ -69,7 +77,24 @@ class QueueController extends BaseController {
             throw new ApiException(ApiException::HTTP_BAD_REQUEST, "UserID non-existent or user not waiting anymore");
         }
 
+        // User pressed the ready button too late, kick 'em out!
+        if ((time() - $player->getTimestamp()) > 12) {
 
+            $em->remove($player);
+            $em->flush();
+
+            throw new ApiException(ApiException::HTTP_NOT_ACCEPTABLE, "You pressed the button too late, bummer!");
+        } else {
+
+            $status = $statusRepo->findOneBy(array(
+                'name'  => 'ready'
+            ));
+
+            $player->setStatus($status);
+            $em->flush();
+
+            return $this->jsonResponse('{"message": "success"}');
+        }
     }
 
     /**
@@ -86,7 +111,7 @@ class QueueController extends BaseController {
 
             $resp = array(
                 'userId'    => $userId,
-                'position'  => $pos,
+                'position'  => ($pos - 1),
             );
 
             return $this->jsonResponse($resp);
