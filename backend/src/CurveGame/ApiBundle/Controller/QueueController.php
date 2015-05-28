@@ -8,7 +8,7 @@ use Symfony\Component\HttpFoundation\Request;
 class QueueController extends BaseController {
 
     /**
-     * Returns true if user is on turn, this way AJAX can respond to this event.
+     * Returns true if user is on turn and sets the corresponding status, this way AJAX can respond to this event.
      *
      * @param null $userId
      * @return \Symfony\Component\HttpFoundation\Response
@@ -85,6 +85,11 @@ class QueueController extends BaseController {
 
             throw new ApiException(ApiException::HTTP_NOT_ACCEPTABLE, "You pressed the button too late, bummer!");
         } else {
+
+            if ($player->getStatus()->getName() !== "waiting for ready") {
+
+                throw new ApiException(ApiException::HTTP_BAD_REQUEST, "User has wrong status and cannot be processed this way");
+            }
 
             $status = $statusRepo->findOneBy(array(
                 'name'  => 'ready'
