@@ -12,6 +12,7 @@ var keyDown = false;                // KeyDown toggle
 var ajaxRootURL =
     $("#twigHack").data('api');     // Gets the relative API path from root
 var wsSupport = false;              // WebSocket support toggle
-var wsURL = "woutsanders.com";      // WebSocket host URL
+var wsURL =
+    $("#twigHack").data('host');    // WebSocket host URL
 var wsPort = 9899;                  // WebSocket port
 var ws;                             // WebSocket container
