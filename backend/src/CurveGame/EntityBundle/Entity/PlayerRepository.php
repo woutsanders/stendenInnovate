@@ -31,13 +31,13 @@ class PlayerRepository extends EntityRepository {
         $query = $qb->getQuery();
         $result = $query->getResult();
 
-        // If status ready was passed and there are not 2 players, return false...
-        if (count($result) !== 2 && strtolower($status) === 'ready') {
-
-            return false;
-        } else {
+        // If status ready was passed and there are not 4 players, return false...
+        if (count($result) === 4 && strtolower($status) === 'ready') {
 
             return $result;
+        } else {
+
+            return false;
         }
     }
 
