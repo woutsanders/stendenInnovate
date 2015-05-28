@@ -2,12 +2,12 @@
  * Document functions
  */
 $(document).ready(function() {
-    if ((typeof(wsCheckSupport) == "function") && !wsCheckSupport()) {
+    if (wsCheckSupport()) {
+        wsSupport = true;
+    } else {
         //$("body").html("<h1>WebSocket error!</h1><p>Deze browser lijkt geen Web Sockets te ondersteunen. Download de laatste versie van Google Chrome om dit spel te spelen.</p>");
         //return;
         alert("Deze browser lijkt geen WebSockets te ondersteunen. Voor de beste beleving adviseren wij Google Chrome te installeren");
-    } else {
-        wsSupport = true;
     }
 
     handleKeys();
@@ -57,19 +57,22 @@ function handleKeys() {
 /**
  * Mouse & Touch handling
  */
-    // Go left when mouse or touch detected.
+// Go left when mouse or touch detected.
 $("#leftControl").on("mousedown touchstart", function(e) {
-    ajaxSendMsg(userId, leftControl);
+    e.preventDefault();
+    sendMsg(userId, leftControl);
 });
 
 // Go right when mouse or touch detected.
 $("#rightControl").on("mousedown touchstart", function(e) {
-    ajaxSendMsg(userId, rightControl);
+    e.preventDefault();
+    sendMsg(userId, rightControl);
 });
 
 // When releasing mouse or touch, go straight.
 $(".controls").on("mouseup touchend", function(e) {
-    ajaxSendMsg(userId, straightControl);
+    e.preventDefault();
+    sendMsg(userId, straightControl);
 });
 /**
  * End mouse/touch controls
