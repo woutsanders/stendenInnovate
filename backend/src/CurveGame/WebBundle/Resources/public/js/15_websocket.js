@@ -12,7 +12,7 @@ function wsCheckSupport() {
  */
 function wsConnect() {
 
-    ws = new WebSocket("ws://" + wsURL + ":" + wsPort + "/ws");
+    ws = new WebSocket("ws://" + wsURL + ":" + wsPort + "/curvegame");
 }
 
 /**
