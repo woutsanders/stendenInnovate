@@ -13,14 +13,22 @@ body{
     height:auto;
 }
 
-#h1{
-    background-color: #a8e5ec;
+h1{
+    color: #a8e5ec;
+    text-align: center;
 
 }
 
-#username{
+h2{
+    color: #a8e5ec;
+
+}
+
+input{
     background-color: darkslategrey;
     color: #a8e5ec;
     border: 2px solid #a8e5ec;
     font-size: 22px;
+    margin-right: 10px;
+    margin-bottom: 10px;
 }

@@ -7,14 +7,30 @@
 <!-- alle html hier in plakken-->
 
 <div class="container-fluid">
+
     <div class="row">
-            <div class="col-md-3 col-md-offset-5">
+            <div class="col-md-6 col-md-offset-3 page-header">
+
+                <h1>Welkom to the website of Achtung die Stenden</h1>
+            </div>
+        </div>
+    <div class="row"  >
+        <div id="register">
+            <div class="col-md-3 col-md-offset-4"  >
                 <form name="formusername" id="form">
-                    <h1  id="h1">Please enter a username</h1>
+                    <h2>Please enter a username</h2>
                     <input class=".col-md-1" type="text" id="username" name="username" />
                     <input type="submit" id="submit" name="submit" />
                 </form>
+
             </div>
+            <div class="col-md-2" id="test" >
+                Hier komt feedback te staan
+            </div>
+            </div>
+        <div id="testfade">
+        <h1>U heeft zojuist uw inschrijving gemaakt bij stenden hogeschool.Stenden hogeschool ziet u graag op 1 september terug...</h1>
+    </div>
     </div>
 </div>
 
@@ -26,6 +42,11 @@
     {{ parent() }}
 
     <script type="text/javascript">
+        $(document).ready(function() {
+           $("#testfade").hide()
+
+        });
+
 
             //submit event triggered and prevent the default
             $("#form").submit(function(event) {
@@ -45,17 +66,30 @@
             // Send the data.
             $.ajax({
                 type: 'POST',
-                url: rootURL + 'user/register',
+                url: ajaxRootURL + 'user/register',
                 data: JSON.stringify(data),
                 contentType: "application/json; charset=utf-8",
                 dataType: "json",
                 success: function(data){
                     var html =  "<p>Received data: " + data.message + "</p>";
+                    $("#register").fadeOut(1000, function (){
+                        $("#register , #register2").hide();
+                        $( "#testfade" ).fadeIn( 3000, function() {
+
+                        });
+                    });
+
                     $("#test").html(html);
+
                 },
                 error: function(jqXHR, textStatus, errorThrown){
                     var html =  "<p>control fail<br/>";
                     html += "Got header: " + jqXHR.status;
+                    if (jqXHR.status == 409){
+                        html += " this username already exists please chose a different one"
+                    }else if(jqXHR.status == 500){
+                        html += "there is something wrong with te server, try again"
+                    }
                     $("#test").html(html);
                 }
             });
