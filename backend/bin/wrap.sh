@@ -4,4 +4,4 @@
 pythonBin=`which python`
 
 # Run python script.
-$pythonBin $1 $2 $3
+${pythonBin} $1 $2 $3
