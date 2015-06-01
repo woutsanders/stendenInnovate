@@ -2,16 +2,12 @@
  * Document functions
  */
 $(document).ready(function() {
-    if (wsCheckSupport()) {
-        wsSupport = true;
-    } else {
-        //$("body").html("<h1>WebSocket error!</h1><p>Deze browser lijkt geen Web Sockets te ondersteunen. Download de laatste versie van Google Chrome om dit spel te spelen.</p>");
-        //return;
-        alert("Deze browser lijkt geen WebSockets te ondersteunen. Voor de beste beleving adviseren wij Google Chrome te installeren");
+    if (!ws.checkSupport()) {
+        alert("Deze browser lijkt geen WebSockets te ondersteunen. Voor de beste beleving adviseren wij om Google Chrome te installeren");
     }
 
-    handleKeys();
-    wsConnect();
+    //Original code (separated): $('#screens section').screen({
+    slider.init();
 });
 /**
  * End of document wide functions
@@ -23,31 +19,21 @@ $(document).ready(function() {
 function handleKeys() {
 
     $(document).keydown(function(event) {
+        controls.isDown = true;
 
-        if (keyDown == true) {
-            return;
-        }
+        if (event.which == controls.keys.left)
+            controls.send("left");
 
-        keyDown = true;
-
-        // Go left
-        if (event.which == keyLeft) {
-            sendMsg(userId, leftControl);
-        }
-
-        // Go right
-        if (event.which == keyRight) {
-            sendMsg(userId, rightControl);
-        }
+        if (event.which == controls.keys.right)
+            controls.send("right");
     });
 
     // Go straight.
     $(document).keyup(function(event) {
 
-        // Cancel movement and return to neutral status...
-        if (event.which == keyLeft || event.which == keyRight) {
-            sendMsg(userId, straightControl);
-            keyDown = false;
+        if (event.which == controls.keys.left || event.which == controls.keys.right) {
+            controls.send("straight");
+            controls.isDown = false;
         }
     });
 }
@@ -61,19 +47,31 @@ function handleKeys() {
 // Go left when mouse or touch detected.
 $("#leftControl").on("mousedown touchstart", function(e) {
     e.preventDefault();
-    sendMsg(userId, leftControl);
+
+    var origIsDown = controls.isDown;
+    controls.isDown = false;
+    controls.send("left");
+    controls.isDown = origIsDown;
 });
 
 // Go right when mouse or touch detected.
 $("#rightControl").on("mousedown touchstart", function(e) {
     e.preventDefault();
-    sendMsg(userId, rightControl);
+
+    var origIsDown = controls.isDown;
+    controls.isDown = false;
+    controls.send("right");
+    controls.isDown = origIsDown;
 });
 
 // When releasing mouse or touch, go straight.
 $(".controls").on("mouseup touchend", function(e) {
     e.preventDefault();
-    sendMsg(userId, straightControl);
+
+    var origIsDown = controls.isDown;
+    controls.isDown = false;
+    controls.send("straight");
+    controls.isDown = origIsDown;
 });
 /**
  * End mouse/touch controls

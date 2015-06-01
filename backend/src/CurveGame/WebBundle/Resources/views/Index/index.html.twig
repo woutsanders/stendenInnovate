@@ -7,18 +7,42 @@
 {# Contains the page HTML #}
 {% block body %}
     <div id="screens" class="screen-container screen-hidden">
-        <section id="main">
+        <section id="instructions">
+            <div class="slide">
+                <h1>Hallo allemaal!</h1>
+                <div id="test"><p>Wachtrij fetch</p></div>
+                <hr/>
+                <div id="controlDebug"><p>Control debug</p></div>
+                <hr/>
+                <br/>
+                <button class="controls" id="leftControl">Links</button>
+                <button class="controls" id="rightControl">Rechts</button>
+            </div>
+        </section>
+        <section id="register">
+            <div class="slide">
+
+            </div>
+        </section>
+        <section id="queue">
+            <div class="slide">
+
+            </div>
+        </section>
+        <section id="ready">
+            <div class="slide">
+
+            </div>
+        </section>
+        <section id="play">
+            <div class="slide">
+
+            </div>
+        </section>
+        <section id="finished">
             <div class="slide">
 
             </div>
         </section>
     </div>
-    <h1>Hallo allemaal!</h1>
-    <div id="test"><p>Wachtrij fetch</p></div>
-    <hr/>
-    <div id="controlDebug"><p>Control debug</p></div>
-    <hr/>
-    <br/>
-    <button class="controls" id="leftControl">Links</button>
-    <button class="controls" id="rightControl">Rechts</button>
 {% endblock %}

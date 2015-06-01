@@ -1,3 +1,15 @@
+
+
+
+
+
+
+
+
+
+
+
+
 /**
  * Sends the control digit, received from the DOM.
  *
@@ -14,19 +26,19 @@ function ajaxSendMsg(userId, controlType) {
     };
 
     // Send the data.
-    return $.ajax({
+    $.ajax({
         type: 'POST',
         url: ajaxRootURL + 'unity/command',
         data: JSON.stringify(data),
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         success: function(data){
-
-            if (debug) console.log("Response... ajaxSendMsg: --message: " + data.message + " --controlType: " + data.moveTo);
-            return true;
+            if (debug)
+                console.log("Response... ajaxSendMsg: --message: " + data.message + " --controlType: " + data.moveTo);
         },
         error: function(jqXHR, textStatus, errorThrown){
-            if (debug) console.log("Server reported an error when trying to POST a command (ajaxSendMsg.ajax->error). Got header: " + jqXHR.status);
+            if (debug)
+                console.log("Server reported an error when trying to POST a command (ajaxSendMsg.ajax->error). Got header: " + jqXHR.status);
         }
     });
 }
@@ -36,26 +48,5 @@ function ajaxSendMsg(userId, controlType) {
  */
 function getQueuePosition() {
 
-    if (debug) console.log("Initiating... getQueuePosition: --userId: " + userId);
 
-    return $.ajax({
-        type: 'GET',
-        url: ajaxRootURL + 'queue/position/' + userId,
-        contentType: "application/json; charset=utf-8",
-        dataType: "json",
-        success: function(data){
-
-            if (debug) console.log("Response... getQueuePosition: --userId: " + data.userId + " --position: " + data.position);
-
-            data = {
-                "userId": data.userId,
-                "position": data.position
-            };
-
-            return data;
-        },
-        error: function(jqXHR, textStatus, errorThrown){
-            if (debug) console.log("Server reported an error when trying to GET the current queue position (getQueuePosition.ajax->error). Got header: " + jqXHR.status);
-        }
-    });
 }
