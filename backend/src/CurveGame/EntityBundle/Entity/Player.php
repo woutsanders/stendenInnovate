@@ -22,6 +22,11 @@ class Player
     /**
      * @var integer
      */
+    private $score;
+
+    /**
+     * @var integer
+     */
     private $timestamp;
 
     /**
@@ -61,6 +66,26 @@ class Player
     public function getUsername()
     {
         return $this->username;
+    }
+
+    /**
+     * Set score
+     *
+     * @param $score
+     */
+    public function setScore($score) {
+
+        $this->score = $score;
+    }
+
+    /**
+     * Get score
+     *
+     * @return int
+     */
+    public function getScore() {
+
+        return $this->score;
     }
 
     /**
