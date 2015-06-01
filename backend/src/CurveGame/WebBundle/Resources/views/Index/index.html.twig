@@ -6,6 +6,13 @@
 
 {# Contains the page HTML #}
 {% block body %}
+    <div id="screens" class="screen-container screen-hidden">
+        <section id="main">
+            <div class="slide">
+
+            </div>
+        </section>
+    </div>
     <h1>Hallo allemaal!</h1>
     <div id="test"><p>Wachtrij fetch</p></div>
     <hr/>
@@ -14,20 +21,4 @@
     <br/>
     <button class="controls" id="leftControl">Links</button>
     <button class="controls" id="rightControl">Rechts</button>
-{% endblock %}
-
-{% block javascripts %}
-    {# Also render parent scripts #}
-    {{ parent() }}
-
-    <script type="text/javascript">
-
-        $("#test").one('click', function(e) {
-            e.preventDefault(); // Handy for <a> tags (prevents default behavior executing).
-            console.log("you clicked test!"); // Log something to console...
-
-            // Now do ajax call to our API (controller)...
-            getQueuePosition();
-        });
-    </script>
 {% endblock %}
