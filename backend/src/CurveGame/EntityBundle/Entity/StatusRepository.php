@@ -20,7 +20,7 @@ class StatusRepository extends EntityRepository
      * @throws \Doctrine\ORM\NoResultException
      * @throws \Doctrine\ORM\NonUniqueResultException
      */
-    public function findOneByStatusName($name = "waiting") {
+    public function findOneByName($name = "waiting") {
 
         $qb = $this->createQueryBuilder('s')
             ->where('s.name = :name')

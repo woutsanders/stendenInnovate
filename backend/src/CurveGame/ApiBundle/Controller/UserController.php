@@ -30,7 +30,7 @@ class UserController extends BaseController {
 
         $playerRepo = $em->getRepository('CurveGameEntityBundle:Player');
         $statusRepo = $em->getRepository('CurveGameEntityBundle:Status');
-        $status = $statusRepo->findOneByStatusName('waiting');
+        $status = $statusRepo->findOneByName('waiting');
 
         if (!$playerRepo->findOneByUsername($obj->username)) {
 

@@ -33,7 +33,7 @@ class QueueController extends BaseController {
                 'id'    => $userId,
             ));
 
-            $player->setStatus($statusRepo->findOneByStatusName('waiting for ready'));
+            $player->setStatus($statusRepo->findOneByName('waiting for ready'));
             $player->setTimestamp(time());
             $em->flush();
 
