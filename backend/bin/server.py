@@ -1,50 +1,92 @@
+import tornado.web
+import tornado.websocket
+import tornado.httpserver
+import tornado.ioloop
+import json
 import SocketServer
+import socket
+import sys
 import threading
-global message;
-global schakel
-schakel = True
+import signal
+import time
+from collections import namedtuple
+
+# Define some global variables.
+global pMsg
+global t1
+global allowSend
+allowSend = True
+
+# Initialize server app...
+def main():
+    ws_app = Application()
+    server = tornado.httpserver.HTTPServer(ws_app)
+    server.bind(9989)
+    server.start()
+    print "[*] WebSockets server [*] UP"
+    
+    server1 = SocketServer.TCPServer(("", 9990), HandleUnityTCP)
+    t1 = threading.Thread(target=server1.serve_forever)
+    t1.start()
+    print "[*] Unity server      [*] UP"
+    tornado.ioloop.IOLoop.instance().start()
 
 
-class MyTCPHandler(SocketServer.BaseRequestHandler):
+# Initializes the WebSockets server.
+class Application(tornado.web.Application):
+    def __init__(self):
+        handlers = [
+                    (r'/curvegame', WebSocketHandler)
+        ]
+        tornado.web.Application.__init__(self, handlers)
+
+
+# Handles incoming WebSocket requests (event-driven).
+class WebSocketHandler(tornado.websocket.WebSocketHandler):
+    def open(self):
+        pass
+ 
+    def on_message(self, json):
+        global pMsg
+        global allowSend
+        
+    	msgDecoded = self.jsonDecode(json)
+    	
+    	userID = msgDecoded.userId
+        direction = msgDecoded.direction
+        
+        print "Received ID: " + str(userID)
+    	print "Movement digit: " + str(direction)
+        
+        pMsg = str(userID) + ":" + str(direction)
+        self.write_message(u"OK")
+ 
+    def on_close(self):
+        pass
+
+    # Disable check-origin header...
+    def check_origin(self, origin):
+        return True 
+    
+    def jsonDecode(self, message):
+    	return json.loads(message, object_hook=lambda d: namedtuple('X', d.keys())(*d.values()))
+
+
+# Unity TCP Server
+class HandleUnityTCP(SocketServer.BaseRequestHandler):
     def handle(self):
-		global message;
-		global schakel
-		try:
-			schakel = True;
-			self.data = self.request.recv(1024).strip();
-			message = str(self.data)
-		finally:
-			print (self.client_address[0]) + " stuurt: " + str(self.data);		
+        global allowSend
+        global pMsg
+        
+        while True:
+            if (allowSend):
+                try:
+                    self.request.sendall(pMsg + "\r\n")
+                    time.sleep(0.003)
+                except:
+                    print "HandleUnityTCP: not sent"
+                    time.sleep(0.005)
 
-
-class MyTCPHandler_unity(SocketServer.BaseRequestHandler):
-	def handle(self):
-		global schakel
-		global message
-		while True:
-			try:
-				if (schakel == True):
-					self.request.sendall(message + "\r\n");
-					schakel = False;
-					self.request.sendall(message + "\r\n");				
-			except(SocketServer):
-				print ""
-
-HOST1, PORT1 = "", 9990;
-HOST2, PORT2 = "", 9991;
-HOST3, PORT3 = "", 9992;
-
-server1 = SocketServer.TCPServer((HOST1, PORT1), MyTCPHandler_unity);
-print "[*] Unity server     [*] UP"
-server2 = SocketServer.TCPServer((HOST2, PORT2), MyTCPHandler);
-print "[*] Socket, speler 1 [*] UP"
-server3 = SocketServer.TCPServer((HOST3, PORT3), MyTCPHandler);
-print "[*] Socket, speler 2 [*] UP"
-
-
-t1 = threading.Thread(target=server1.serve_forever)
-t1.start()
-t2 = threading.Thread(target=server2.serve_forever)
-t2.start()
-t3 = threading.Thread(target=server3.serve_forever)
-t3.start()
+# Handle main function on startup...
+if __name__ == '__main__':
+    main()
