@@ -11,6 +11,7 @@ $(document).ready(function() {
     }
 
     handleKeys();
+    wsConnect();
 });
 /**
  * End of document wide functions

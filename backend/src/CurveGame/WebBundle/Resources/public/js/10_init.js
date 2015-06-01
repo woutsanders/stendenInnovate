@@ -14,5 +14,5 @@ var ajaxRootURL =
 var wsSupport = false;              // WebSocket support toggle
 var wsURL =
     $("#twigHack").data('host');    // WebSocket host URL
-var wsPort = 9899;                  // WebSocket port
+var wsPort = 9989;                  // WebSocket port
 var ws;                             // WebSocket container

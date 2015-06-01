@@ -14,9 +14,9 @@ function wsConnect() {
 
     ws = new WebSocket("ws://" + wsURL + ":" + wsPort + "/curvegame");
 
-    ws.onmessage(function(e) {
-        console.log(e);
-    });
+//    ws.onmessage(function(e) {
+//        console.log(e);
+//    });
 }
 
 /**
