@@ -1,0 +1,4 @@
+services:
+#    cms_test_cms.example:
+#        class: CMSTest\CMSBundle\Example
+#        arguments: [@service_id, "plain_value", %parameter%]
