@@ -28,11 +28,29 @@
                     </div>
                     <button type="submit" id="sendFormUsername" class="btn btn-default">Ga door!</button>
                 </form>
+                <a href="#finished"><h1>bezoek de high-score pagina</h1></a>
             </div>
         </section>
         <section id="queue"> <!-- Shows the queue -->
             <div class="slide">
-                <h1>Me too!</h1>
+                <div id="testen">
+                <h1>Welkom to the queue of project X: Fight for survival</h1>
+                <div id="test"></div>
+                <script>
+
+                    $("section[id='queue'][class!='screen-wrapper screen-hidden']").ready(function(){
+                             $.ajax({
+                                url: async.rootUrl + 'queue/poll/' + user.id,
+                                success: function () {
+                                    $("#test").html("Het Werkt");
+                                },
+                                error: function(){
+                                    $("#test").html("Het Werkt Niet");
+                                }
+                            });
+                    });
+                </script>
+                </div>
             </div>
         </section>
         <section id="ready"> <!-- Shows the ready action -->
