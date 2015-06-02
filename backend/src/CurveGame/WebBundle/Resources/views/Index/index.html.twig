@@ -27,29 +27,26 @@
         </section>
         <section id="queue"> <!-- Shows the queue -->
             <div class="slide">
-<<<<<<< HEAD
                 <div id="testen">
                 <h1>Welkom to the queue of project X: Fight for survival</h1>
                 <div id="test"></div>
                 <script>
-
-                    $("section[id='queue'][class!='screen-wrapper screen-hidden']").ready(function(){
-                             $.ajax({
-                                url: async.rootUrl + 'queue/poll/' + user.id,
-                                success: function () {
-                                    $("#test").html("Het Werkt");
-                                },
-                                error: function(){
-                                    $("#test").html("Het Werkt Niet");
-                                }
-                            });
-                    });
+                        $(document).ready(function(){
+                            if ( $( "section[class='queque']:visible" )) {
+                                $.ajax({
+                                    url: async.rootUrl + 'queue/poll/' + user.id,
+                                    success: function () {
+                                        $("#test").html("Het Werkt");
+                                    },
+                                    error: function () {
+                                        $("#test").html("Het Werkt Niet");
+                                    }
+                                });
+                            }
+                        });
                 </script>
                 </div>
-=======
-                <h1>Me too!</h1>
                 <p id="positionNum">Fetching queue...</p>
->>>>>>> 487f4b90c689e1a342051391d2fb2283ba7644f6
             </div>
         </section>
         <section id="ready"> <!-- Shows the ready action -->
