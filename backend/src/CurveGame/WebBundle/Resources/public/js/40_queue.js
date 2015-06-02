@@ -20,10 +20,10 @@ var queue = {
             if (debug)
                 console.log("Response... queue.position: --userId: " + data.userId + " --position: " + data.position);
 
-            if (data.position() == 1 ||
-                data.position() == 2 ||
-                data.position() == 3 ||
-                data.position() == 4)
+            if (data.position == 1 ||
+                data.position == 2 ||
+                data.position == 3 ||
+                data.position == 4)
             {
                 $("#positionNum").html("You're up next!");
             } else {
