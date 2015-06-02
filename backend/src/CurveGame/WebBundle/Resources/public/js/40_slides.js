@@ -4,22 +4,31 @@
  * @type {{init: Function, next: *}}
  */
 var slider = {
+    "container": $('#screens'),
+    "slides": $('#screens section'),
     "init": function() {
-        $('#screens')
-            .removeClass('screen-hidden')
-            .find('section')
-            .screen({
-                "transition": "slide-left"
-            });
+        // The DOM is ready now, we can unhide the slides.
+        this.container.removeClass('hidden');
 
-        console.log("I was run!");
+        // Setup
+        this.slides.screen({
+            // Default transition
+            'transition': 'slide-left'
+        });
+
+        // Global listeners.
+        this.slides.screen('listen');
     },
     "back": function() {
         if ($('#instructions').is(':visible') == false) {
-            $.screen().back();
+            $.screen.back('slide-right');
         }
     },
     "next": function() {
-        $.screen().next();
+        $.screen.next();
+    },
+    "goto": function(element, effect) {
+
+        $(element).screen('select',effect);
     }
 };

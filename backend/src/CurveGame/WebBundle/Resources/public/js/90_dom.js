@@ -6,7 +6,6 @@ $(document).ready(function() {
         alert("Deze browser lijkt geen WebSockets te ondersteunen. Voor de beste beleving adviseren wij om Google Chrome te installeren");
     }
 
-    //Original code (separated): $('#screens section').screen({
     slider.init();
 });
 /**
@@ -22,17 +21,17 @@ function handleKeys() {
         controls.isDown = true;
 
         if (event.which == controls.keys.left)
-            controls.send("left");
+            controls.moveTo(controls.left);
 
         if (event.which == controls.keys.right)
-            controls.send("right");
+            controls.moveTo(controls.right);
     });
 
     // Go straight.
     $(document).keyup(function(event) {
 
         if (event.which == controls.keys.left || event.which == controls.keys.right) {
-            controls.send("straight");
+            controls.moveTo(controls.straight);
             controls.isDown = false;
         }
     });
@@ -50,7 +49,7 @@ $("#leftControl").on("mousedown touchstart", function(e) {
 
     var origIsDown = controls.isDown;
     controls.isDown = false;
-    controls.send("left");
+    controls.moveTo(controls.left);
     controls.isDown = origIsDown;
 });
 
@@ -60,7 +59,7 @@ $("#rightControl").on("mousedown touchstart", function(e) {
 
     var origIsDown = controls.isDown;
     controls.isDown = false;
-    controls.send("right");
+    controls.moveTo(controls.right);
     controls.isDown = origIsDown;
 });
 
@@ -70,7 +69,7 @@ $(".controls").on("mouseup touchend", function(e) {
 
     var origIsDown = controls.isDown;
     controls.isDown = false;
-    controls.send("straight");
+    controls.moveTo(controls.straight);
     controls.isDown = origIsDown;
 });
 /**
