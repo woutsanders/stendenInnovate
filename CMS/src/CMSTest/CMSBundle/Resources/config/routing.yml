@@ -1,0 +1,15 @@
+cms_test_cms_homepage:
+    path:     /hello/{name}
+    defaults: { _controller: CMSTestCMSBundle:Default:index }
+
+cms_test:
+    path:     /cms_test
+    defaults: { _controller: CMSTestCMSBundle:Default:new }
+
+task_success:
+    path:     /cms_test/success
+    defaults: { _controller: CMSTestCMSBundle:Database:new }
+
+highscore:
+    path:     /highscore
+    defaults: { _controller: CMSTestCMSBundle:Highscore:new }
