@@ -7,6 +7,7 @@ $(document).ready(function() {
     }
 
     slider.init();
+    slider.next();
 });
 /**
  * End of document wide functions
