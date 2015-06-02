@@ -22,12 +22,12 @@
         <section id="register"> <!-- Shows user registration form -->
             <div class="slide">
                 <h1>Kies gebruikersnaam</h1>
-                <div id="newUser" class="form-inline">
+                <form id="newUser" class="form-inline">
                     <div class="form-group">
-                        <input type="text" class="form-control" id="formUsername" placeholder="Gebruikersnaam" />
-                        <button type="submit" id="sendFormUsername" class="btn btn-default">Ga door!</button>
+                        <input type="text" class="form-control" id="inputUsername" placeholder="Gebruikersnaam" />
                     </div>
-                </div>
+                    <button type="submit" id="sendFormUsername" class="btn btn-default">Ga door!</button>
+                </form>
             </div>
         </section>
         <section id="queue"> <!-- Shows the queue -->
@@ -60,9 +60,15 @@
         $(document).ready(function() {
             $("#sendFormUsername").click(function(e) {
                 e.preventDefault();
-                this.setAttribute("disabled", "disabled");
-                var username = $("#formUsername").val();
+                $(this).attr("disabled", "disabled");
+                var username = $("#inputUsername").val();
+                $("#inputUsername").attr({
+                    "disabled": "disabled",
+                    "style": "cursor: pointer;"
+                });
                 alert("Sending username: " + username);
+                slider.next();
+                return false;
             });
         });
     </script>
