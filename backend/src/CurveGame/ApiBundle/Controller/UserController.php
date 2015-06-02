@@ -47,6 +47,7 @@ class UserController extends BaseController {
             $resp = array(
                 "username"  => $player->getUsername(),
                 "userId"    => $player->getId(),
+                "color"     => false,
                 "status"    => $status->getName(),
             );
 
