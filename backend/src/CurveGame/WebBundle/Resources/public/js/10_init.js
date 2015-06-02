@@ -4,5 +4,6 @@
 var debug = true;                   // Enable/Disable debug mode (console logging)
 var user = {
     "id": null,
-    "name": null
+    "name": null,
+    "color": null
 };

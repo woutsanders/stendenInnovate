@@ -6,7 +6,9 @@
 var queue = {
     "onTurn": false,
     "position": function() {
-        if (debug) console.log("Initiating... getQueuePosition: --userId: " + userId);
+        var returnValue = null;
+
+        if (debug) console.log("Initiating... queue.position: --userId: " + userId);
 
         $.ajax({
             type: 'GET',
@@ -15,13 +17,19 @@ var queue = {
             dataType: "json",
             success: function(data){
                 if (debug)
-                    console.log("Response... getQueuePosition: --userId: " + data.userId + " --position: " + data.position);
-                positionCallback(data);
+                    console.log("Response... queue.position: --userId: " + data.userId + " --position: " + data.position);
+
+                returnValue = {
+                    "userId": user.id,
+                    "position": data.position
+                };
             },
             error: function(jqXHR, textStatus, errorThrown){
                 if (debug)
-                    console.log("Server reported an error when trying to GET the current queue position (getQueuePosition.ajax->error). Got header: " + jqXHR.status);
+                    console.log("Server reported an error when trying to GET the current queue position (queue.position.ajax->error). Got header: " + jqXHR.status);
             }
         });
+
+        if (returnValue) return returnValue;
     }
 };
