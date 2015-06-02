@@ -1,5 +1,5 @@
 /**
- * Document functions
+ * Document-wide functions
  */
 $(document).ready(function() {
     if (!ws.checkSupport()) {
@@ -7,72 +7,17 @@ $(document).ready(function() {
     }
 
     slider.init();
-    slider.next();
-});
-/**
- * End of document wide functions
- */
+    controls.init();
 
-/**
- * Keyboard handling
- */
-function handleKeys() {
+    $("#sendFormUsername").click(function(e) {
+        e.preventDefault();
+        $.isLoading(loaderOpts);
+//        el.attr({
+//            "disabled": "disabled",
+//            "style": "cursor: pointer;"
+//        });
 
-    $(document).keydown(function(event) {
-        controls.isDown = true;
-
-        if (event.which == controls.keys.left)
-            controls.moveTo(controls.left);
-
-        if (event.which == controls.keys.right)
-            controls.moveTo(controls.right);
+//        $(this).attr("disabled", "disabled");
+        user.register($("#inputUsername").val());
     });
-
-    // Go straight.
-    $(document).keyup(function(event) {
-
-        if (event.which == controls.keys.left || event.which == controls.keys.right) {
-            controls.moveTo(controls.straight);
-            controls.isDown = false;
-        }
-    });
-}
-/**
- * End of keyboard handling
- */
-
-/**
- * Mouse & Touch handling
- */
-// Go left when mouse or touch detected.
-$("#leftControl").on("mousedown touchstart", function(e) {
-    e.preventDefault();
-
-    var origIsDown = controls.isDown;
-    controls.isDown = false;
-    controls.moveTo(controls.left);
-    controls.isDown = origIsDown;
 });
-
-// Go right when mouse or touch detected.
-$("#rightControl").on("mousedown touchstart", function(e) {
-    e.preventDefault();
-
-    var origIsDown = controls.isDown;
-    controls.isDown = false;
-    controls.moveTo(controls.right);
-    controls.isDown = origIsDown;
-});
-
-// When releasing mouse or touch, go straight.
-$(".controls").on("mouseup touchend", function(e) {
-    e.preventDefault();
-
-    var origIsDown = controls.isDown;
-    controls.isDown = false;
-    controls.moveTo(controls.straight);
-    controls.isDown = origIsDown;
-});
-/**
- * End mouse/touch controls
- */

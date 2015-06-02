@@ -4,16 +4,61 @@
  * @type {{left: number, straight: number, right: number, moveTo: Function, send: Function}}
  */
 var controls = {
-    "keys": {
-        "left": 37,
-        "right": 39
+    keys: {
+        left: 37,
+        right: 39
     },
-    "left": 1,
-    "straight": 0,
-    "right": 2,
-    "isDown": false,
-    "isEnabled": false,
-    "moveTo": function(movement) {
+    left: 1,
+    straight: 0,
+    right: 2,
+    isDown: false,
+    isEnabled: false,
+    init: function() {
+        $(document).keydown(function(event) {
+            controls.isDown = true;
+
+            if (event.which == controls.keys.left)
+                if (debug)
+                    console.log("Initiating: keydownEvent, left.");
+                controls.moveTo(controls.left);
+
+            if (event.which == controls.keys.right)
+                if (debug)
+                    console.log("Initiating: keydownEvent, right.");
+                controls.moveTo(controls.right);
+        });
+        $(document).keyup(function(event) {
+            if (event.which == controls.keys.left || event.which == controls.keys.right) {
+                if (debug)
+                    console.log("Initiating keyUpEvent, straight");
+                controls.moveTo(controls.straight);
+                controls.isDown = false;
+            }
+        });
+
+        $("#leftControl").on("mousedown touchstart", function(e) { //Left
+            e.preventDefault();
+            if (debug)
+                console.log("Initiating: mousedown/touchstart, left.");
+            controls.moveTo(controls.left);
+            controls.isDown = true;
+        });
+
+        $("#rightControl").on("mousedown touchstart", function(e) { //Right
+            e.preventDefault();
+            if (debug)
+                console.log("Initiating: mousedown/touchstart, right");
+            controls.moveTo(controls.right);
+            controls.isDown = true;
+        });
+
+        $(".controls").on("mouseup touchend", function(e) { //Straight
+            e.preventDefault();
+            controls.moveTo(controls.straight);
+            controls.isDown = false;
+        });
+    },
+    moveTo: function(movement) {
         if (this.isDown || !this.isEnabled) return;
 
         if (movement == this.straight) {
@@ -25,10 +70,11 @@ var controls = {
         else if (movement == this.right) {
             this.send(this.right);
         } else {
-            console.log("invalid control choice given!");
+            if (debug)
+                console.log("Error: controls.moveTo(): Invalid control choice given!");
         }
     },
-    "send": function(moveDigit) {
+    send: function(moveDigit) {
 
         var data = {
             "userId": user.id,
@@ -37,9 +83,9 @@ var controls = {
 
         //Use websockets if available...
         if (ws.supported) {
-            ws.send(data);
+            ws.sendUnityCtrlCmd(data);
         } else {
-            async.send(data);
+            async.sendUnityCtrlCmd(data);
         }
     }
 };
