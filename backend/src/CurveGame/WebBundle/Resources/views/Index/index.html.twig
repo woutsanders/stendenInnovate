@@ -2,6 +2,7 @@
 
 {# Contains header title #}
 {% block title %}
+    Game extension
 {% endblock %}
 
 {# Contains the page HTML #}
@@ -9,14 +10,7 @@
     <div id="screens" class="screen-container hidden">
         <section id="instructions"> <!-- Shows game instructions -->
             <div class="slide">
-                <h1>Welkom bij &quot;Achtung die Stenden&quot;</h1>
-                <div id="test"><p>Wachtrij fetch</p></div>
-                <hr/>
-                <div id="controlDebug"><p>Control debug</p></div>
-                <hr/>
-                <br/>
-                <button class="controls" id="leftControl">Links</button>
-                <button class="controls" id="rightControl">Rechts</button>
+                <h1>Welkom bij Planet X: Fight for Survival</h1>
             </div>
         </section>
         <section id="register"> <!-- Shows user registration form -->
@@ -33,6 +27,7 @@
         </section>
         <section id="queue"> <!-- Shows the queue -->
             <div class="slide">
+<<<<<<< HEAD
                 <div id="testen">
                 <h1>Welkom to the queue of project X: Fight for survival</h1>
                 <div id="test"></div>
@@ -51,6 +46,10 @@
                     });
                 </script>
                 </div>
+=======
+                <h1>Me too!</h1>
+                <p id="positionNum">Fetching queue...</p>
+>>>>>>> 487f4b90c689e1a342051391d2fb2283ba7644f6
             </div>
         </section>
         <section id="ready"> <!-- Shows the ready action -->
@@ -69,25 +68,4 @@
             </div>
         </section>
     </div>
-{% endblock %}
-
-{% block javascripts %}
-    {{ parent() }}
-
-    <script type="text/javascript">
-        $(document).ready(function() {
-            $("#sendFormUsername").click(function(e) {
-                e.preventDefault();
-                $(this).attr("disabled", "disabled");
-                var username = $("#inputUsername").val();
-                $("#inputUsername").attr({
-                    "disabled": "disabled",
-                    "style": "cursor: pointer;"
-                });
-                alert("Sending username: " + username);
-                slider.next();
-                return false;
-            });
-        });
-    </script>
 {% endblock %}

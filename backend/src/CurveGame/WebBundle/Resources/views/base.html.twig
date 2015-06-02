@@ -5,13 +5,14 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-        <title>{% block title %}Curve game{% endblock %}</title>
+        <title>Planet X: Fight for Survival | {% block title %}{% endblock %}</title>
         {% block stylesheets %}
             <!-- Bootstrap: Latest compiled and minified CSS -->
             <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
 
-            <!--Bootstrap: Optional theme -->
+            <!--Bootstrap: Optional theme and font awesome -->
             <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css">
+            <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
 
             <!-- Load app CSS and fix img rewriting -->
             {% stylesheets 'bundles/curvegameweb/css/*' filter='cssrewrite' %}

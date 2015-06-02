@@ -6,29 +6,36 @@
 var slider = {
     "container": $('#screens'),
     "slides": $('#screens section'),
-    "init": function() {
+    "init": function(transition) {
+        if (!transition)
+            transition = "slide-left";
+
         // The DOM is ready now, we can unhide the slides.
         this.container.removeClass('hidden');
 
         // Setup
         this.slides.screen({
             // Default transition
-            'transition': 'slide-left'
+            'transition': transition
         });
-
-        // Global listeners.
-        this.slides.screen('listen');
     },
-    "back": function() {
+    "back": function(effect) {
+        if (!effect)
+            effect = "slide-right";
         if ($('#instructions').is(':visible') == false) {
-            $.screen.back('slide-right');
+            $.screen.back(effect);
         }
     },
-    "next": function() {
-        $.screen.next();
+    "next": function(effect) {
+        if (!effect)
+            effect = "slide-left";
+        $.screen.next(effect);
     },
     "goto": function(element, effect) {
-
+        if (!element)
+            return false;
+        if (!effect)
+            effect = "slide-left";
         $(element).screen('select',effect);
     }
 };
