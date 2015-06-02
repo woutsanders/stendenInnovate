@@ -20,6 +20,9 @@ html, body {
 .screen-hidden {
     display: none;
 }
+.hidden {
+    display: none;
+}
 .screen-wrapper {
     position: absolute;
     bottom: 0px;
