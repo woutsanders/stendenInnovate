@@ -9,7 +9,7 @@
     <div id="screens" class="screen-container hidden">
         <section id="instructions"> <!-- Shows game instructions -->
             <div class="slide">
-                <h1>Hallo allemaal!</h1>
+                <h1>Welkom bij &quot;Achtung die Stenden&quot;</h1>
                 <div id="test"><p>Wachtrij fetch</p></div>
                 <hr/>
                 <div id="controlDebug"><p>Control debug</p></div>
@@ -21,7 +21,13 @@
         </section>
         <section id="register"> <!-- Shows user registration form -->
             <div class="slide">
-                <h1>I'm on the page!!!</h1>
+                <h1>Kies gebruikersnaam</h1>
+                <div id="newUser" class="form-inline">
+                    <div class="form-group">
+                        <input type="text" class="form-control" id="formUsername" placeholder="Gebruikersnaam" />
+                        <button type="submit" id="sendFormUsername" class="btn btn-default">Ga door!</button>
+                    </div>
+                </div>
             </div>
         </section>
         <section id="queue"> <!-- Shows the queue -->
@@ -45,4 +51,19 @@
             </div>
         </section>
     </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $("#sendFormUsername").click(function(e) {
+                e.preventDefault();
+                this.setAttribute("disabled", "disabled");
+                var username = $("#formUsername").val();
+                alert("Sending username: " + username);
+            });
+        });
+    </script>
 {% endblock %}
