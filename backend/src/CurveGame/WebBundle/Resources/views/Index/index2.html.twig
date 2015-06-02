@@ -7,7 +7,6 @@
 <!-- alle html hier in plakken-->
 
 <div class="container-fluid">
-
     <div class="row">
             <div class="col-md-6 col-md-offset-3 page-header">
 
@@ -29,7 +28,10 @@
             </div>
             </div>
         <div id="testfade">
-        <h1>U heeft zojuist uw inschrijving gemaakt bij stenden hogeschool.Stenden hogeschool ziet u graag op 1 september terug...</h1>
+        <h1>U heeft zojuist uw inschrijving gemaakt bij stenden hogeschool. Stenden hogeschool ziet u graag op 1 september terug...</h1>
+            <h2>Uw username is : </h2>
+            <div id="userid"></div>
+
     </div>
     </div>
 </div>
@@ -58,27 +60,34 @@
         // Handles the sending of username...
         function sendUsername(username) {
             var data = {
-                "username": username
+                "username": username,
             };
+        //handles the Queue position request
+        function queuePosition(){
+
+        }
+
+
 
             console.log("Username initiated: " + JSON.stringify(data));
 
             // Send the data.
             $.ajax({
                 type: 'POST',
-                url: ajaxRootURL + 'user/register',
+                url: async.rootUrl + 'user/register',
                 data: JSON.stringify(data),
                 contentType: "application/json; charset=utf-8",
                 dataType: "json",
                 success: function(data){
                     var html =  "<p>Received data: " + data.message + "</p>";
+                    var blabla = data.userId;
                     $("#register").fadeOut(1000, function (){
-                        $("#register , #register2").hide();
+                        $("#register , #register2").delay(10000).hide();
                         $( "#testfade" ).fadeIn( 3000, function() {
 
                         });
                     });
-
+                    $("#userid").html(blabla);
                     $("#test").html(html);
 
                 },
