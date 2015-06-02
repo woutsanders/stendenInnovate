@@ -16,6 +16,7 @@ CurveGame\EntityBundle\Entity\Player:
             unique: true
         score:
             type: integer
+            nullable: true
         timestamp:
             type: bigint
 
