@@ -27,32 +27,7 @@
         </section>
         <section id="queue"> <!-- Shows the queue -->
             <div class="slide">
-                <div id="queueWrap">
-                    <h1>Wachtrij</h1>
-                    <div id="test"></div>
-                    <script>
-                            $(document).ready(function() {
-                                if ($("#queue").is(":visible")) {
-                                    if (!user.id) {
-                                        if (debug)
-                                            console.log("Error: document.pollQueue(): No user ID known! Perhaps user object not yet populated? Exiting...");
-                                        return;
-                                    }
-
-                                    $.ajax({
-                                        method: "GET",
-                                        url: async.rootUrl + async.api.poll,
-                                        success: function (data) {
-                                            $("#test").html(data.onTurn);
-                                        },
-                                        error: function () {
-                                            $("#test").html("Het Werkt Niet");
-                                        }
-                                    });
-                                }
-                            });
-                    </script>
-                </div>
+                <h1>Wachtrij</h1>
                 <p id="positionNum">Fetching queue...</p>
             </div>
         </section>

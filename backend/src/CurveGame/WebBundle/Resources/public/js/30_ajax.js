@@ -9,7 +9,7 @@ var async = {
     api: {
         register: "user/register",
         unityCommand: "unity/command",
-        poll: "user/poll/",
+        poll: "queue/poll/",
         position: "queue/position/",
         confirm: "/queue/confirmReady"
     },
