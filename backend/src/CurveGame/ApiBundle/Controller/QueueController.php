@@ -3,6 +3,7 @@
 namespace CurveGame\ApiBundle\Controller;
 
 use CurveGame\ApiBundle\Exception\ApiException;
+use Doctrine\Common\Util\Debug;
 use Symfony\Component\HttpFoundation\Request;
 
 class QueueController extends BaseController {
@@ -28,27 +29,25 @@ class QueueController extends BaseController {
         }
 
         if ((int) $pos === 1) {
+            $waitingForReady = count($statusRepo->findOneByName('waiting for ready')->getPlayers());
+            $ready = count($statusRepo->findOneByName('ready')->getPlayers());
+            $playing = count($statusRepo->findOneByName('playing')->getPlayers());
 
-            $player = $playerRepo->findOneBy(array(
-                'id'    => $userId,
-            ));
+            if ($playing > 0 || $waitingForReady === 4 || $ready === 4) {
+
+                return $this->jsonResponse('{"onTurn": false}');
+            }
+
+            $player = $playerRepo->findOneById($userId);
 
             $player->setStatus($statusRepo->findOneByName('waiting for ready'));
             $player->setTimestamp(time());
             $em->flush();
 
-            $respArr = array(
-                'onTurn'    => true,
-            );
-
-            return $this->jsonResponse($respArr);
+            return $this->jsonResponse('{"onTurn": true}');
         } else {
 
-            $respArr = array(
-                'onTurn'    => false,
-            );
-
-            return $this->jsonResponse($respArr);
+            return $this->jsonResponse('{"onTurn": false}');
         }
     }
 
