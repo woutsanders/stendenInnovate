@@ -1,2 +1,5 @@
 .idea/
 backend/web
+backend/bin/doctrine.bat
+backend/bin/doctrine.php.bat
+backend/bin/security-checker.bat
