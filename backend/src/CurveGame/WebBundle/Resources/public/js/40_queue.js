@@ -31,7 +31,7 @@ var queue = {
                     thisObj.poll();
                 }, refreshPollInterval);
             } else {
-                $("#readyToPlayContainer").fadeIn(500);
+                $("#readyToPlayContainer").fadeIn(500); // Auto deletes display:none CSS directive on finish.
             }
         }).fail(function(jqXHR, textStatus, errorThrown) {
             if (debug)
