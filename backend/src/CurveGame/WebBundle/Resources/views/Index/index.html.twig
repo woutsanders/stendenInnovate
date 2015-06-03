@@ -27,24 +27,31 @@
         </section>
         <section id="queue"> <!-- Shows the queue -->
             <div class="slide">
-                <div id="testen">
-                <h1>Welkom to the queue of project X: Fight for survival</h1>
-                <div id="test"></div>
-                <script>
-                        $(document).ready(function(){
-                            if ( $( "section[class='queque']:visible" )) {
-                                $.ajax({
-                                    url: async.rootUrl + 'queue/poll/' + user.id,
-                                    success: function () {
-                                        $("#test").html("Het Werkt");
-                                    },
-                                    error: function () {
-                                        $("#test").html("Het Werkt Niet");
+                <div id="queueWrap">
+                    <h1>Wachtrij</h1>
+                    <div id="test"></div>
+                    <script>
+                            $(document).ready(function() {
+                                if ( $( "section[id='queue']:visible" )) {
+                                    if (!user.id) {
+                                        if (debug)
+                                            console.log("Error: document.pollQueue(): No user ID known! Perhaps user object not yet populated? Exiting...");
+                                        return;
                                     }
-                                });
-                            }
-                        });
-                </script>
+
+                                    $.ajax({
+                                        method: "GET",
+                                        url: async.rootUrl + async.api.poll,
+                                        success: function (data) {
+                                            $("#test").html(data.onTurn);
+                                        },
+                                        error: function () {
+                                            $("#test").html("Het Werkt Niet");
+                                        }
+                                    });
+                                }
+                            });
+                    </script>
                 </div>
                 <p id="positionNum">Fetching queue...</p>
             </div>
