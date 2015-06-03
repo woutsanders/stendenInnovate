@@ -26,12 +26,13 @@ var queue = {
             if (debug)
                 console.log("Response... queue.poll(): --onTurn: " + data.onTurn);
             this.onTurn = data.onTurn;
-            if (this.onTurn) {
+            if (!this.onTurn) {
                 intervalQueuePollId = setTimeout(function() {
                     thisObj.poll();
                 }, refreshPollInterval);
+            } else {
+                $("#readyToPlayContainer").fadeIn(500);
             }
-            return true;
         }).fail(function(jqXHR, textStatus, errorThrown) {
             if (debug)
                 console.log("Server reported an error when trying to GET the current queue position (queue.poll.ajax->error). Got header: " + jqXHR.status);
@@ -47,11 +48,8 @@ var queue = {
             return false;
         }
 
-        if (debug) console.log("Initiating... queue.position(): --userId: " + user.id);
-
-        intervalQueuePosId = setTimeout(function() {
-            thisObj.position();
-        }, refreshPosInterval);
+        if (debug)
+            console.log("Initiating... queue.position(): --userId: " + user.id);
 
         $.ajax({
             type: 'GET',
@@ -67,9 +65,11 @@ var queue = {
                 intervalQueuePollId = setTimeout(function() {
                     thisObj.poll();
                 }, refreshPollInterval);
-                clearTimeout(intervalQueuePosId);
             } else {
                 $("#positionNum").html("You are on position " + data.position + " in the queue.");
+                intervalQueuePosId = setTimeout(function() {
+                    thisObj.position();
+                }, refreshPosInterval);
             }
         }).fail(function(jqXHR, textStatus, errorThrown) {
             if (debug)
