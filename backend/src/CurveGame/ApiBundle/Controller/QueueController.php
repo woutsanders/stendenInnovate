@@ -33,8 +33,11 @@ class QueueController extends BaseController {
             $ready = count($statusRepo->findOneByName('ready')->getPlayers());
             $playing = count($statusRepo->findOneByName('playing')->getPlayers());
 
-            if ($playing > 0 || $waitingForReady === 4 || $ready === 4) {
-
+            if ($waitingForReady === 4
+                || $ready === 4
+                || ($waitingForReady > 0 && $ready > 0)
+                || $playing > 0)
+            {
                 return $this->jsonResponse('{"onTurn": false}');
             }
 
