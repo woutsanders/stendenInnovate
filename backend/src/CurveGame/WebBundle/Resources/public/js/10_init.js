@@ -2,7 +2,8 @@
  * Initializing variables to use during this session.
  */
 var debug = true;                       // Enable/Disable debug mode (console logging).
-var refreshInterval = 5000;             // ms to next refresh.
+var refreshPosInterval = 5000;          // ms to next positioning refresh.
+var refreshPollInterval = 2000;         // ms to next polling refresh.
 var intervalQueuePollId = undefined;    // Holds the setInterval() ID.
 var intervalQueuePosId = undefined;     // Holds the setInterval() ID.
 var loaderOpts = {                      // Contains all $.isLoader() overlay params.
