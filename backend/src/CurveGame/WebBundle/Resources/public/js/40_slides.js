@@ -22,7 +22,7 @@ var slider = {
     "back": function(effect) {
         if (!effect)
             effect = "slide-right";
-        if ($('#instructions').is(':visible') == false) {
+        if (!$('#instructions').is(':visible')) {
             $.screen.back(effect);
         }
     },

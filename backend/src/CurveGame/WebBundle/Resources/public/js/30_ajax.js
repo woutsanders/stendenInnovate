@@ -9,8 +9,8 @@ var async = {
     api: {
         register: "user/register",
         unityCommand: "unity/command",
-        poll: "user/poll/" + user.id,
-        position: "queue/position/" + user.id,
+        poll: "user/poll/",
+        position: "queue/position/",
         confirm: "/queue/confirmReady"
     },
     sendUnityCtrlCmd: function(controlDigit) {

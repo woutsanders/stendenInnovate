@@ -32,7 +32,7 @@
                     <div id="test"></div>
                     <script>
                             $(document).ready(function() {
-                                if ( $( "section[id='queue']:visible" )) {
+                                if ($("#queue").is(":visible")) {
                                     if (!user.id) {
                                         if (debug)
                                             console.log("Error: document.pollQueue(): No user ID known! Perhaps user object not yet populated? Exiting...");

@@ -12,6 +12,8 @@ $(document).ready(function() {
     $("#sendFormUsername").click(function(e) {
         e.preventDefault();
         $.isLoading(loaderOpts);
-        user.register($("#inputUsername").val());
+        var uname = $("#inputUsername").val();
+        $("#inputUsername").val("");
+        user.register(uname);
     });
 });

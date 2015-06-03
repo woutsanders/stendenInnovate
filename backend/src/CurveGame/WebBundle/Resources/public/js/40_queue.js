@@ -17,7 +17,7 @@ var queue = {
 
         $.ajax({
             type: 'GET',
-            url: async.rootUrl + async.api.poll,
+            url: async.rootUrl + async.api.poll + user.id,
             contentType: "application/json; charset=utf-8",
             dataType: "json"
         }).done(function(data) {
@@ -41,21 +41,19 @@ var queue = {
 
         $.ajax({
             type: 'GET',
-            url: async.rootUrl + async.api.position,
+            url: async.rootUrl + async.api.position + user.id,
             contentType: "application/json; charset=utf-8",
             dataType: "json"
         }).done(function(data) {
             if (debug)
                 console.log("Response... queue.position(): --userId: " + data.userId + " --position: " + data.position);
 
-            if (data.position == 1 ||
-                data.position == 2 ||
-                data.position == 3 ||
-                data.position == 4)
-            {
+            if (data.position == 1) {
                 $("#positionNum").html("You're up next!");
+                intervalQueuePollId = setInterval(queue.poll(), refreshInterval);
+                clearInterval(intervalQueuePosId);
             } else {
-                $("#positionNum").html(data.position);
+                $("#positionNum").html("You are on position " + data.position + " in the queue.");
             }
         }).fail(function(jqXHR, textStatus, errorThrown) {
             if (debug)
