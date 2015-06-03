@@ -16,4 +16,8 @@ $(document).ready(function() {
         $("#inputUsername").val("");
         user.register(uname);
     });
+
+    $("#readyToPlayBtn").click(function(e) {
+        e.preventDefault();
+    });
 });
