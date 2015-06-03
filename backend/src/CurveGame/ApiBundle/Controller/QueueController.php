@@ -18,7 +18,7 @@ class QueueController extends BaseController {
 
         $em = $this->getDoctrine()->getManager();
         $playerRepo = $em->getRepository('CurveGameEntityBundle:Player');
-        $statusRepo = $em->getRepository('CurveGameEntityBundle:Player');
+        $statusRepo = $em->getRepository('CurveGameEntityBundle:Status');
 
         $pos = $playerRepo->findPositionInQueue($userId);
 
@@ -116,7 +116,7 @@ class QueueController extends BaseController {
 
             $resp = array(
                 'userId'    => $userId,
-                'position'  => ($pos - 1),
+                'position'  => $pos,
             );
 
             return $this->jsonResponse($resp);
