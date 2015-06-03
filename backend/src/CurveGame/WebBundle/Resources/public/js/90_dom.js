@@ -12,12 +12,6 @@ $(document).ready(function() {
     $("#sendFormUsername").click(function(e) {
         e.preventDefault();
         $.isLoading(loaderOpts);
-//        el.attr({
-//            "disabled": "disabled",
-//            "style": "cursor: pointer;"
-//        });
-
-//        $(this).attr("disabled", "disabled");
         user.register($("#inputUsername").val());
     });
 });
