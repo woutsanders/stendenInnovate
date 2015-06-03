@@ -1,17 +1,17 @@
 /**
  * Initializing variables to use during this session.
  */
-var debug = true;                   // Enable/Disable debug mode (console logging)
+var debug = true;                       // Enable/Disable debug mode (console logging)
 var loaderOpts = {
     'position': "overlay",              // right | inside | overlay
     'text': "Loading, please wait...",  // Text to display next to the loader
     'class': "fa-refresh",              // loader CSS class
     'tpl': '<span class="isloading-wrapper %wrapper%">%text%<i class="fa %class% fa-spin"></i></span>',
     'disableSource': true,              // true | false
-    'disableOthers': []
+    'disableOthers': []                 // Other elements to disable when loader is active
 };
 
-var user = {                        // Holds user related settings
+var user = {                            // Holds user related settings
     id: undefined,
     name: undefined,
     status: undefined,

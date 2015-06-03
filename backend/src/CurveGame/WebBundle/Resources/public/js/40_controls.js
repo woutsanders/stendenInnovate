@@ -75,6 +75,11 @@ var controls = {
         }
     },
     send: function(moveDigit) {
+        if (!user.id) {
+            if (debug)
+                console.log("Error: controls.send(): No user ID known! Perhaps user object not yet populated? Exiting...");
+            return;
+        }
 
         var data = {
             "userId": user.id,

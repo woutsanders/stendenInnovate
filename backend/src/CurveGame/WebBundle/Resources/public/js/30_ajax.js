@@ -15,7 +15,7 @@ var async = {
     },
     sendUnityCtrlCmd: function(controlDigit) {
         if (debug)
-            console.log("Initiating... async.send");
+            console.log("Initiating... async.sendUnityCtrlCmd(): --controlDigit: " + controlDigit);
 
         var data = {
             "userId": user.id,
@@ -30,7 +30,7 @@ var async = {
             dataType: "json",
             success: function(data){
                 if (debug)
-                    console.log("Response... async.send: --data: " + JSON.stringify(data));
+                    console.log("Response... async.sendUnityCtrlCmd(): --data: " + JSON.stringify(data));
                 async.result = data;
             },
             error: function(jqXHR, textStatus, errorThrown){
