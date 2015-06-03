@@ -30,9 +30,11 @@ class UserController extends BaseController {
 
         $playerRepo = $em->getRepository('CurveGameEntityBundle:Player');
         $statusRepo = $em->getRepository('CurveGameEntityBundle:Status');
-        $status = $statusRepo->findOneByName('waiting');
 
-        if (!$playerRepo->findOneByUsername($obj->username)) {
+        $status = $statusRepo->findOneByName('waiting');
+        $player = $playerRepo->findOneByUsername($obj->username);
+
+        if (!$player) {
 
             $player = new Player();
             $player
@@ -55,6 +57,30 @@ class UserController extends BaseController {
 
         } else {
 
+            // Perhaps a 'repeating' player??
+            if (isset($obj->repeat)
+                && isset($obj->id)
+                && $obj->id === $player->getId()
+                && $obj->repeat === "y")
+            {
+                $player
+                    ->setScore(0)
+                    ->setStatus($status)
+                    ->setTimestamp(time());
+
+                $em->flush();
+
+                $resp = array(
+                    "username"  => $player->getUsername(),
+                    "userId"    => $player->getId(),
+                    "color"     => false,
+                    "status"    => $status->getName(),
+                );
+
+                return $this->jsonResponse($resp);
+            }
+
+            // Nope, not a repeating player, kick out...
             throw new ApiException(ApiException::HTTP_CONFLICT, "This user already exists");
         }
     }

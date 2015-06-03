@@ -8,7 +8,7 @@ var user = {                            // Holds user related settings
     name: undefined,
     status: undefined,
     color: undefined,
-    register: function(username) {
+    register: function(username, repeat) {
         if (debug)
             console.log("Initiating user registration... user.register(): --username: " + username);
 
@@ -20,9 +20,17 @@ var user = {                            // Holds user related settings
             return;
         }
 
-        var data = {
-            "username": username
-        };
+        if (repeat) {
+            var data = {
+                username: username,
+                id: this.id,
+                repeat: "y"
+            };
+        } else {
+            var data = {
+                "username": username
+            };
+        }
 
         $.ajax({
             type: 'POST',
@@ -47,12 +55,27 @@ var user = {                            // Holds user related settings
             error: function(jqXHR, textStatus, errorThrown){
                 if (debug)
                     console.log("Server reported an error when trying to POST a command (ajaxSendMsg.ajax->error). Got header: " + jqXHR.status);
-                $.isLoading("hide");
                 alert("This username already exists! Please choose a different one");
+                $.isLoading("hide");
             }
         });
     },
-    repeat: function() { //If user wants to play again, reset everything...
+    repeat: function() { //If user wants to play again, reset everything and respawn in queue...
+        var thisObj = this;
+        alert("You have been disconnected due to an error, time-out or loss of connection. You will respawn in the queue");
+        slider.goto("#register", "slide-top");
+        setTimeout(function() {
+            $.isLoading(loaderOpts)
+        }, 500);
 
+        clearTimeout(intervalQueuePollId);
+        clearTimeout(intervalQueuePosId);
+        intervalQueuePollId = undefined;
+        intervalQueuePosId = undefined;
+        readySignalTimerTick = 12;
+
+        setTimeout(function() {
+            thisObj.register(thisObj.name, true);
+        }, 800);
     }
 };
