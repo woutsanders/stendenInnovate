@@ -7,7 +7,6 @@ $(document).ready(function() {
     }
 
     slider.init();
-    controls.init();
 
     $("#sendFormUsername").click(function(e) {
         e.preventDefault();
@@ -19,5 +18,7 @@ $(document).ready(function() {
 
     $("#readyToPlayBtn").click(function(e) {
         e.preventDefault();
+        controls.init();
+        controls.isEnabled = true;
     });
 });
