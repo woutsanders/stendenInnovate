@@ -6,6 +6,8 @@
 var queue = {
     onTurn: undefined,
     poll: function() {
+        var thisObj = this;
+
         if (!user.id) {
             if (debug)
                 console.log("Error: queue.poll(): No user ID known! Perhaps user object not yet populated? Exiting...");
@@ -24,20 +26,32 @@ var queue = {
             if (debug)
                 console.log("Response... queue.poll(): --onTurn: " + data.onTurn);
             this.onTurn = data.onTurn;
+            if (this.onTurn) {
+                intervalQueuePollId = setTimeout(function() {
+                    thisObj.poll();
+                }, refreshPollInterval);
+            }
+            return true;
         }).fail(function(jqXHR, textStatus, errorThrown) {
             if (debug)
-                console.log("Server reported an error when trying to GET the current queue position (queue.position.ajax->error). Got header: " + jqXHR.status);
+                console.log("Server reported an error when trying to GET the current queue position (queue.poll.ajax->error). Got header: " + jqXHR.status);
             return false;
         });
     },
     position: function() {
+        var thisObj = this;
+
         if (!user.id) {
             if (debug)
                 console.log("Error: queue.position(): No user ID known! Perhaps user object not yet populated? Exiting...");
-            return;
+            return false;
         }
 
         if (debug) console.log("Initiating... queue.position(): --userId: " + user.id);
+
+        intervalQueuePosId = setTimeout(function() {
+            thisObj.position();
+        }, refreshPosInterval);
 
         $.ajax({
             type: 'GET',
@@ -48,10 +62,12 @@ var queue = {
             if (debug)
                 console.log("Response... queue.position(): --userId: " + data.userId + " --position: " + data.position);
 
-            if (data.position == 1) {
+            if (data.position < 5) {
                 $("#positionNum").html("You're up next!");
-                intervalQueuePollId = setInterval(queue.poll(), refreshInterval);
-                clearInterval(intervalQueuePosId);
+                intervalQueuePollId = setTimeout(function() {
+                    thisObj.poll();
+                }, refreshPollInterval);
+                clearTimeout(intervalQueuePosId);
             } else {
                 $("#positionNum").html("You are on position " + data.position + " in the queue.");
             }

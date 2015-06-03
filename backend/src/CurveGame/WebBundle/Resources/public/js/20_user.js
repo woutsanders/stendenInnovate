@@ -42,7 +42,7 @@ var user = {                            // Holds user related settings
                 $.isLoading("hide");
                 slider.next();
 
-                intervalQueuePosId = setInterval(queue.position(), refreshInterval);
+                intervalQueuePosId = setTimeout(queue.position(), refreshPosInterval);
             },
             error: function(jqXHR, textStatus, errorThrown){
                 if (debug)
@@ -52,7 +52,7 @@ var user = {                            // Holds user related settings
             }
         });
     },
-    repeat: function() { //If user wants to play again.
+    repeat: function() { //If user wants to play again, reset everything...
 
     }
 };
