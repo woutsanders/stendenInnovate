@@ -428,7 +428,7 @@ var methods = {
 
         $(this).delegate(
             'a',
-            'click',
+            'click touchend',
             $.screen._click
         );
 

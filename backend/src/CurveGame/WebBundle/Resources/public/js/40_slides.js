@@ -36,6 +36,6 @@ var slider = {
             return false;
         if (!effect)
             effect = "slide-left";
-        $(element).screen('select',effect);
+        $(element).screen('select', effect);
     }
 };

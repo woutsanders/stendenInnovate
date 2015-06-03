@@ -31,6 +31,7 @@ var queue = {
                     thisObj.poll();
                 }, refreshPollInterval);
             } else {
+                controls.countdownReadyBtn();
                 $("#readyToPlayContainer").fadeIn(500); // Auto deletes display:none CSS directive on finish.
             }
         }).fail(function(jqXHR, textStatus, errorThrown) {
@@ -60,7 +61,7 @@ var queue = {
             if (debug)
                 console.log("Response... queue.position(): --userId: " + data.userId + " --position: " + data.position);
 
-            if (data.position < 5) {
+            if (data.position < 2) {
                 $("#positionNum").html("You're up next!");
                 intervalQueuePollId = setTimeout(function() {
                     thisObj.poll();

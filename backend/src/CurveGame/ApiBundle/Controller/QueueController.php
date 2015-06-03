@@ -57,12 +57,11 @@ class QueueController extends BaseController {
     /**
      * Sets the player status to ready if player pressed within 10 sec. Else user will be deleted.
      *
-     * @param Request $request
      * @param $userId
      * @return \Symfony\Component\HttpFoundation\Response
      * @throws ApiException
      */
-    public function confirmReadyAction(Request $request, $userId) {
+    public function confirmReadyAction($userId) {
 
         // Change status to ready if user has confirmed and status is waiting for ready.
 

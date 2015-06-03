@@ -72,10 +72,13 @@ class Player
      * Set score
      *
      * @param $score
+     * @return Player
      */
     public function setScore($score) {
 
         $this->score = $score;
+
+        return $this;
     }
 
     /**

@@ -92,5 +92,21 @@ var controls = {
         } else {
             async.sendUnityCtrlCmd(data);
         }
+    },
+    countdownReadyBtn: function() {
+        var thisObj = this;
+
+        readySignalTimerId = setTimeout(function() {
+            thisObj.countdownReadyBtn();
+            if (readySignalTimerTick < 1) {
+                readySignalTimerTick = 11;
+                user.repeat();
+                clearTimeout(readySignalTimerId);
+                readySignalTimerId = undefined;
+            }
+        }, 1000);
+
+        $("#queue").find("div.slide > h1").html("Press the ready button in " + (readySignalTimerTick - 2) + "s");
+        readySignalTimerTick--;
     }
 };
