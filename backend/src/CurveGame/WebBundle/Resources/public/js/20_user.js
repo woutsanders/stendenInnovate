@@ -1,10 +1,10 @@
 /**
  * Holds user related tasks and properties.
  *
- * @type {{id: undefined, name: undefined, status: undefined, color: undefined, register: Function}}
+ * @type {{hash: undefined, name: undefined, status: undefined, color: undefined, register: Function}}
  */
 var user = {                            // Holds user related settings
-    id: undefined,
+    hash: undefined,
     name: undefined,
     status: undefined,
     color: undefined,
@@ -23,7 +23,7 @@ var user = {                            // Holds user related settings
         if (repeat) {
             var data = {
                 username: username,
-                id: this.id,
+                hash: this.hash,
                 repeat: "y"
             };
         } else {
@@ -42,7 +42,7 @@ var user = {                            // Holds user related settings
                 if (debug)
                     console.log("Response... user.register: --data: " + JSON.stringify(data));
 
-                user.id = data.userId;
+                user.hash = data.hash;
                 user.name = data.username;
                 user.status = data.status;
                 user.color = data.color;
@@ -66,7 +66,7 @@ var user = {                            // Holds user related settings
         slider.goto("#register", "slide-top");
         setTimeout(function() {
             $.isLoading(loaderOpts)
-        }, 500);
+        }, 550);
 
         clearTimeout(intervalQueuePollId);
         clearTimeout(intervalQueuePosId);
@@ -79,5 +79,9 @@ var user = {                            // Holds user related settings
         setTimeout(function() {
             thisObj.register(thisObj.name, true);
         }, 800);
+    },
+    deleteProfile: function() {
+
+        $.ajax()
     }
 };

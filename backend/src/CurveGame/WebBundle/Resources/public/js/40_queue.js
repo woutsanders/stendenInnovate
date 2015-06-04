@@ -8,20 +8,25 @@ var queue = {
     poll: function() {
         var thisObj = this;
 
-        if (!user.id) {
+        if (!user.hash) {
             if (debug)
                 console.log("Error: queue.poll(): No user ID known! Perhaps user object not yet populated? Exiting...");
             return;
         }
 
+        var data = {
+            hash: user.hash
+        };
+
         if (debug)
-            console.log("Initiating... queue.poll(): --userId: " + user.id);
+            console.log("Initiating... queue.poll(): --userHash: " + user.hash);
 
         $.ajax({
-            type: 'GET',
-            url: async.rootUrl + async.api.poll + user.id,
+            type: 'POST',
+            url: async.rootUrl + async.api.poll,
             contentType: "application/json; charset=utf-8",
-            dataType: "json"
+            dataType: "json",
+            data: JSON.stringify(data)
         }).done(function(data) {
             if (debug)
                 console.log("Response... queue.poll(): --onTurn: " + data.onTurn);
@@ -37,35 +42,38 @@ var queue = {
         }).fail(function(jqXHR, textStatus, errorThrown) {
             if (debug)
                 console.log("Server reported an error when trying to GET the current queue position (queue.poll.ajax->error). Got header: " + jqXHR.status);
-            return false;
+            user.repeat();
         });
     },
     position: function() {
         var thisObj = this;
 
-        if (!user.id) {
+        if (!user.hash) {
             if (debug)
                 console.log("Error: queue.position(): No user ID known! Perhaps user object not yet populated? Exiting...");
             return false;
         }
 
+        var data = {
+            hash: user.hash
+        };
+
         if (debug)
-            console.log("Initiating... queue.position(): --userId: " + user.id);
+            console.log("Initiating... queue.position(): --userHash: " + user.hash);
 
         $.ajax({
-            type: 'GET',
-            url: async.rootUrl + async.api.position + user.id,
+            type: 'POST',
+            url: async.rootUrl + async.api.position,
             contentType: "application/json; charset=utf-8",
-            dataType: "json"
+            dataType: "json",
+            data: JSON.stringify(data)
         }).done(function(data) {
             if (debug)
-                console.log("Response... queue.position(): --userId: " + data.userId + " --position: " + data.position);
+                console.log("Response... queue.position(): --userHash: " + data.hash + " --position: " + data.position);
 
             if (data.position < 2) {
                 $("#positionNum").html("You're up next!");
-                intervalQueuePollId = setTimeout(function() {
-                    thisObj.poll();
-                }, refreshPollInterval);
+                thisObj.poll();
             } else {
                 $("#positionNum").html("You are on position " + data.position + " in the queue.");
                 intervalQueuePosId = setTimeout(function() {
@@ -75,7 +83,7 @@ var queue = {
         }).fail(function(jqXHR, textStatus, errorThrown) {
             if (debug)
                 console.log("Server reported an error when trying to GET the current queue position (queue.position.ajax->error). Got header: " + jqXHR.status);
-            return false;
+            user.repeat();
         });
     }
 };

@@ -28,8 +28,6 @@ $(document).ready(function() {
         e.preventDefault();
         $.isLoading(loaderOpts);
         clearTimeout(readySignalTimerId);
-        controls.isEnabled = true;
-        ws.connect();
         async.sendReadySignal();
     });
 });
@@ -38,11 +36,15 @@ $(window).resize(function() {
     resizeWarning();
 });
 
-$(window).unload(function() {
-    alert("Your game profile will be deleted from your device");
+window.unload = function(e) {
+    //alert("Your game profile will be deleted from your device");
+    user.deleteProfile();
+};
 
-    $.ajax({});
-});
+window.onbeforeunload = function(e) {
+    //alert("Your game profile will be deleted from your device");
+    user.deleteProfile();
+};
 
 function resizeWarning() {
     if(window.innerHeight > window.innerWidth){
