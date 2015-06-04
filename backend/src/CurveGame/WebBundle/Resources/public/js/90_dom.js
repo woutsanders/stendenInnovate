@@ -27,6 +27,7 @@ $(document).ready(function() {
         e.preventDefault();
         $.isLoading(loaderOpts);
         clearTimeout(readySignalTimerId);
+        controls.init();
         async.sendReadySignal();
     });
 });
@@ -36,7 +37,7 @@ $(window).resize(function() {
 });
 
 $(window).unload(function() {
-    
+
 });
 
 function resizeWarning() {
