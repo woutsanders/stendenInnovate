@@ -15,3 +15,67 @@ div#readyToPlayBtn {
     height: 200px;
     background: red;
 }
+.white_pushed, .yellow_unpushed, .green_unpushed, .red_unpushed, .white_unpushed, .blue_pushed, .blue_unpushed, .yellow_pushed, .green_pushed, .red_pushed{
+    background: url(sprites.png) no-repeat;
+}
+
+.white_pushed{
+    background-position: 0 -418.0000228881836px ;
+    width: 239px;
+    height: 100px;
+}
+
+.yellow_unpushed{
+    background-position: -250px -210px ;
+    width: 239px;
+    height: 100px;
+}
+
+.green_unpushed{
+    background-position: -249px -106px ;
+    width: 239px;
+    height: 100px;
+}
+
+.red_unpushed{
+    background-position: -250px 0;
+    width: 239px;
+    height: 100px;
+}
+
+.white_unpushed{
+    background-position: -250px -418px ;
+    width: 239px;
+    height: 100px;
+}
+
+.blue_pushed{
+    background-position: 0 -312px ;
+    width: 239px;
+    height: 100px;
+}
+
+.blue_unpushed{
+    background-position: -251px -313px ;
+    width: 239px;
+    height: 100px;
+}
+
+.yellow_pushed{
+    background-position: 0 -209px ;
+    width: 239px;
+    height: 100px;
+}
+
+.green_pushed{
+    background-position: 0 -105px ;
+    width: 239px;
+    height: 100px;
+}
+
+.red_pushed{
+    background-position: -1px 0;
+    width: 239px;
+    height: 100px;
+}
+
