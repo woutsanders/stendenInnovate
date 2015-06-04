@@ -1,6 +1,6 @@
 CurveGame\EntityBundle\Entity\Player:
     type: entity
-    table: null
+    table: players
     repositoryClass: CurveGame\EntityBundle\Entity\PlayerRepository
     id:
         id:
@@ -14,6 +14,14 @@ CurveGame\EntityBundle\Entity\Player:
             type: string
             length: 255
             unique: true
+        hash:
+            type: string
+            length: 255
+            unique: true
+        color:
+            type: string
+            length: 10
+            nullable: true
         score:
             type: integer
             nullable: true
@@ -29,4 +37,5 @@ CurveGame\EntityBundle\Entity\Player:
                 referencedColumnName: id
                 nullable: false
 
-    lifecycleCallbacks: {  }
+    lifecycleCallbacks:
+        prePersist: [prePersist]

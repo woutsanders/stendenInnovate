@@ -43,49 +43,50 @@ class PlayerRepository extends EntityRepository {
 
 
     /**
-     * @param null $userId
+     * @param null $hash
      * @return bool
      * @throws \Doctrine\DBAL\DBALException
      */
-    public function findPositionInQueue($userId = null) {
+    public function findPositionInQueue($hash = null) {
 
-        if (empty($userId)) return false;
+        if (empty($hash)) return false;
 
-        $checkQuery = "SELECT `Player`.`id` AS `playerId`,
-                              `Status`.`name` AS `status`
-                       FROM `Player`
-                       JOIN `Status`
-                       ON `Player`.`status_id`=`Status`.`id`
-                       WHERE `Player`.`id` = :id
-                       AND `Status`.`name`=\"waiting\"
+        $checkQuery = "SELECT `players`.`hash` AS `playerHash`,
+                              `players`.`id` AS `userId`,
+                              `statuses`.`name` AS `status`
+                       FROM `players`
+                       JOIN `statuses`
+                       ON `players`.`status_id`=`statuses`.`id`
+                       WHERE `players`.`hash` = :uHash
+                       AND `statuses`.`name`=\"waiting\"
                       ";
 
         $stmt = $this->getEntityManager()
             ->getConnection()
             ->prepare($checkQuery);
-        $stmt->bindValue(':id', $userId);
+        $stmt->bindValue(':uHash', $hash);
         $stmt->execute();
 
         $result = $stmt->fetch();
-        $result = $result['playerId'];
+        $uId = $result['userId'];
 
-        if (empty($result) || !$result || !is_numeric($result)) {
+        if (empty($uId) || !$uId) {
 
             return false;
         } else {
 
-            $query = "SELECT COUNT(`Player`.`id`) AS `position`
-                      FROM `Player`
-                      JOIN `Status`
-                      ON `Player`.`status_id`=`Status`.`id`
-                      WHERE `Player`.`id` <= :id
-                      AND `Status`.`name`=\"waiting\"
+            $query = "SELECT COUNT(`players`.`id`) AS `position`
+                      FROM `players`
+                      JOIN `statuses`
+                      ON `players`.`status_id`=`statuses`.`id`
+                      WHERE `players`.`id` <= :id
+                      AND `statuses`.`name`=\"waiting\"
                      ";
 
             $stmt = $this->getEntityManager()
                 ->getConnection()
                 ->prepare($query);
-            $stmt->bindValue(':id', $userId);
+            $stmt->bindValue(':id', $uId);
             $stmt->execute();
 
             $result = $stmt->fetch();

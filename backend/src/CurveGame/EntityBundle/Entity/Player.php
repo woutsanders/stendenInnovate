@@ -20,6 +20,16 @@ class Player
     private $username;
 
     /**
+     * @var string
+     */
+    private $hash;
+
+    /**
+     * @var string
+     */
+    private $color;
+
+    /**
      * @var integer
      */
     private $score;
@@ -66,6 +76,41 @@ class Player
     public function getUsername()
     {
         return $this->username;
+    }
+
+    /**
+     * Sets a unique hash (only used for registration).
+     *
+     * @param $hash
+     * @return $this
+     */
+    private function __setHash($hash) {
+
+        $this->hash = $hash;
+
+        return $this;
+    }
+
+    /**
+     * Returns the unique hash
+     *
+     * @return string
+     */
+    public function getHash() {
+
+        return $this->hash;
+    }
+
+    public function setColor($color) {
+
+        $this->color = $color;
+
+        return $this;
+    }
+
+    public function getColor() {
+
+        return $this->color;
     }
 
     /**
@@ -135,5 +180,13 @@ class Player
     public function getStatus()
     {
         return $this->status;
+    }
+
+    /**
+     * Gets run just before an object is sent to the DB.
+     */
+    public function prePersist() {
+
+        $this->__setHash(hash('sha1', uniqid(mt_rand() . time())));
     }
 }

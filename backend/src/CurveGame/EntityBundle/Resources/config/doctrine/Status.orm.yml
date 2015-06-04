@@ -1,6 +1,6 @@
 CurveGame\EntityBundle\Entity\Status:
     type: entity
-    table: null
+    table: statuses
     repositoryClass: CurveGame\EntityBundle\Entity\StatusRepository
     id:
         id:
