@@ -1,0 +1,3 @@
+na research betreffende het plaatsen van de unity bestanden en projecten op github is gebleken dat het niet handig is
+om de bestanden en projecten op github te plaatsen. we hebben daarom gekozen om de sourcecode te behouden op de dropbox
+en voor oplevering in zijn geheel op de github te plaatsen.
