@@ -16,7 +16,7 @@ div#readyToPlayBtn {
     background: red;
 }
 .white_pushed, .yellow_unpushed, .green_unpushed, .red_unpushed, .white_unpushed, .blue_pushed, .blue_unpushed, .yellow_pushed, .green_pushed, .red_pushed{
-    background: url(sprites.png) no-repeat;
+    background: url("../images/btnSprite.png") no-repeat;
 }
 
 .white_pushed{
