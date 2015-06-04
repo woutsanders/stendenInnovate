@@ -59,7 +59,8 @@ var controls = {
         });
     },
     moveTo: function(movement) {
-        if (this.isDown || !this.isEnabled) return;
+        if (this.isDown || !this.isEnabled)
+            return;
 
         if (movement == this.straight) {
             this.send(this.straight);
@@ -99,7 +100,7 @@ var controls = {
         readySignalTimerId = setTimeout(function() {
             thisObj.countdownReadyBtn();
             if (readySignalTimerTick < 1) {
-                readySignalTimerTick = 11;
+                readySignalTimerTick = 12;
                 user.repeat();
                 clearTimeout(readySignalTimerId);
                 readySignalTimerId = undefined;

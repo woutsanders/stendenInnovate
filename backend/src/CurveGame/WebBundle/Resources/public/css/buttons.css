@@ -1,0 +1,17 @@
+div.controls {
+
+}
+
+div#leftControl {
+
+}
+
+div#rightControl {
+
+}
+
+div#readyToPlayBtn {
+    width:200px;
+    height: 200px;
+    background: red;
+}
