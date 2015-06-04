@@ -11,7 +11,7 @@ var async = {
         unityCommand: "unity/command",
         poll: "queue/poll/",
         position: "queue/position/",
-        confirm: "queue/confirmReady/"
+        confirm: "queue/confirm/ready"
     },
     sendUnityCtrlCmd: function(controlDigit) {
         if (debug)
@@ -43,9 +43,14 @@ var async = {
         if (debug)
             console.log("Initiating... async.sendReadySignal()");
 
+        var data = {
+            userId: user.id
+        };
+
         $.ajax({
-            method: "GET",
-            url: this.rootUrl + this.api.confirm + user.id,
+            method: "POST",
+            url: this.rootUrl + this.api.confirm,
+            data: JSON.stringify(data),
             contentType: "application/json; charset=utf-8",
             dataType: "json",
             success: function(data) {

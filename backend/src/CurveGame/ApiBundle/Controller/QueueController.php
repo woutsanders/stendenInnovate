@@ -57,20 +57,21 @@ class QueueController extends BaseController {
     /**
      * Sets the player status to ready if player pressed within 10 sec. Else user will be deleted.
      *
-     * @param $userId
+     * @param Request $request
      * @return \Symfony\Component\HttpFoundation\Response
      * @throws ApiException
      */
-    public function confirmReadyAction($userId) {
+    public function confirmReadyAction(Request $request) {
 
-        // Change status to ready if user has confirmed and status is waiting for ready.
+        // Process raw JSON
+        $obj = $this->extractJson($request->getContent());
 
         $em = $this->getDoctrine()->getManager();
         $playerRepo = $em->getRepository('CurveGameEntityBundle:Player');
         $statusRepo = $em->getRepository('CurveGameEntityBundle:Status');
 
         $player = $playerRepo->findOneBy(array(
-            'id'    => $userId,
+            'id'    => $obj->userId,
         ));
 
         if (!$player) {

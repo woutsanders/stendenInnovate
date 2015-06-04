@@ -33,10 +33,10 @@ curve_game_api_queue_poll:
 
 # Receives the definite confirmation of the user that he is ready to play.
 curve_game_api_queue_confirmReady:
-    path: /queue/confirmReady/{userId}
+    path: /queue/confirm/ready
     defaults:
         _controller: CurveGameApiBundle:Queue:confirmReady
-    methods: GET
+    methods: POST
     requirements:
         userId: \d+
 
