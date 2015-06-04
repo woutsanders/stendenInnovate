@@ -74,6 +74,8 @@ var user = {                            // Holds user related settings
         intervalQueuePosId = undefined;
         readySignalTimerTick = 12;
 
+        $("#queue").find("div.slide > h1").html("Press the ready button");
+
         setTimeout(function() {
             thisObj.register(thisObj.name, true);
         }, 800);
