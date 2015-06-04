@@ -15,22 +15,29 @@ var controls = {
     isEnabled: false,
     init: function() {
         $(document).keydown(function(event) {
-            controls.isDown = true;
 
-            if (event.which == controls.keys.left)
-                if (debug)
-                    console.log("Initiating: keydownEvent, left.");
+            if (event.which === controls.keys.left &&
+                event.which === controls.keys.right) {
+                return;
+            }
+
+            if (event.which === controls.keys.left) {
                 controls.moveTo(controls.left);
+                controls.isDown = true;
+            }
 
-            if (event.which == controls.keys.right)
-                if (debug)
-                    console.log("Initiating: keydownEvent, right.");
+            if (event.which === controls.keys.right) {
                 controls.moveTo(controls.right);
+                controls.isDown = true;
+            }
         });
         $(document).keyup(function(event) {
-            if (event.which == controls.keys.left || event.which == controls.keys.right) {
-                if (debug)
-                    console.log("Initiating keyUpEvent, straight");
+            if (event.which === controls.keys.left &&
+                event.which === controls.keys.right) {
+                return;
+            }
+
+            if (event.which === controls.keys.left || event.which === controls.keys.right) {
                 controls.moveTo(controls.straight);
                 controls.isDown = false;
             }
@@ -38,16 +45,12 @@ var controls = {
 
         $("#leftControl").on("mousedown touchstart", function(e) { //Left
             e.preventDefault();
-            if (debug)
-                console.log("Initiating: mousedown/touchstart, left.");
             controls.moveTo(controls.left);
             controls.isDown = true;
         });
 
         $("#rightControl").on("mousedown touchstart", function(e) { //Right
             e.preventDefault();
-            if (debug)
-                console.log("Initiating: mousedown/touchstart, right");
             controls.moveTo(controls.right);
             controls.isDown = true;
         });
@@ -61,6 +64,10 @@ var controls = {
     moveTo: function(movement) {
         if (this.isDown || !this.isEnabled)
             return;
+
+        if (debug) {
+            console.log("Initiating control command: --movement: " + movement);
+        }
 
         if (movement == this.straight) {
             this.send(this.straight);
