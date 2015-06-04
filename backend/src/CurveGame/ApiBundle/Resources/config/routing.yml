@@ -8,6 +8,13 @@ curve_game_api_user_register:
         _controller: CurveGameApiBundle:User:register
     methods: POST
 
+# Deletes the user from our records.
+curve_game_api_user_delete:
+    path: /user/delete/profile
+    defaults:
+      _controller: CurveGameApiBundle:User:delete
+    methods: [POST,DELETE]
+
 # Used for Unity to fetch all necessary user data.
 curve_game_api_unity_userdata:
     path: /unity/userdata
@@ -24,12 +31,10 @@ curve_game_api_unity_command:
 
 # Client will poll every x seconds whether he's on turn or not.
 curve_game_api_queue_poll:
-    path: /queue/poll/{userId}
+    path: /queue/poll
     defaults:
         _controller: CurveGameApiBundle:Queue:poll
-    methods: GET
-    requirements:
-        userId: \d+
+    methods: POST
 
 # Receives the definite confirmation of the user that he is ready to play.
 curve_game_api_queue_confirmReady:
@@ -37,14 +42,10 @@ curve_game_api_queue_confirmReady:
     defaults:
         _controller: CurveGameApiBundle:Queue:confirmReady
     methods: POST
-    requirements:
-        userId: \d+
 
 # Is used to show the user at which position he currently is in the queue.
 curve_game_api_queue_position:
-    path: /queue/position/{userId}
+    path: /queue/position
     defaults:
         _controller: CurveGameApiBundle:Queue:position
-    methods: GET
-    requirements:
-        userId: \d+
+    methods: POST

@@ -4,6 +4,7 @@ namespace CurveGame\ApiBundle\Controller;
 
 use CurveGame\ApiBundle\Exception\ApiException;
 use CurveGame\EntityBundle\Entity\Player;
+use CurveGame\EntityBundle\Entity\Status;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -26,8 +27,7 @@ class UserController extends BaseController {
         // Process raw JSON
         $obj = $this->extractJson($request->getContent());
 
-        $em = $this->getDoctrine()->getManager();
-
+        $em = $this->getEm();
         $playerRepo = $em->getRepository('CurveGameEntityBundle:Player');
         $statusRepo = $em->getRepository('CurveGameEntityBundle:Status');
 
@@ -36,52 +36,82 @@ class UserController extends BaseController {
 
         if (!$player) {
 
-            $player = new Player();
-            $player
-                ->setUsername($obj->username)
-                ->setStatus($status)
-                ->setTimestamp(time());
-
-            $em->persist($player);
-            $em->flush();
-
-            $player = $playerRepo->findOneByUsername($obj->username);
-            $resp = array(
-                "username"  => $player->getUsername(),
-                "userId"    => $player->getId(),
-                "color"     => false,
-                "status"    => $status->getName(),
-            );
-
-            return $this->jsonResponse($resp);
+            return $this->jsonResponse($this->createUser($status, $obj));
 
         } else {
 
             // Perhaps a 'repeating' player??
             if (isset($obj->repeat)
-                && isset($obj->id)
-                && $obj->id === $player->getId()
+                && isset($obj->hash)
+                && $obj->hash === $player->getHash()
                 && $obj->repeat === "y")
             {
-                $player
-                    ->setScore(0)
-                    ->setStatus($status)
-                    ->setTimestamp(time());
-
-                $em->flush();
-
-                $resp = array(
-                    "username"  => $player->getUsername(),
-                    "userId"    => $player->getId(),
-                    "color"     => false,
-                    "status"    => $status->getName(),
-                );
-
-                return $this->jsonResponse($resp);
+                return $this->jsonResponse($this->resetUser($player, $status));
             }
 
             // Nope, not a repeating player, kick out...
             throw new ApiException(ApiException::HTTP_CONFLICT, "This user already exists");
         }
+    }
+
+    /**
+     * Creates the user.
+     *
+     * @param Status $status
+     * @param $obj
+     * @return array
+     */
+    private function createUser(Status $status, $obj) {
+
+        $em = $this->getEm();
+        $playerRepo = $em->getRepository('CurveGameEntityBundle:Player');
+
+        $player = new Player();
+        $player
+            ->setUsername($obj->username)
+            ->setStatus($status)
+            ->setTimestamp(time());
+
+        $em->persist($player);
+        $em->flush();
+
+        $player = $playerRepo->findOneByUsername($obj->username);
+
+        return array(
+            "username"  => $player->getUsername(),
+            "hash"      => $player->getHash(),
+            "color"     => false,
+            "status"    => $status->getName(),
+        );
+    }
+
+    /**
+     * Resets the user to play a new challenge.
+     *
+     * @param Player $player
+     * @param Status $status
+     * @return array
+     */
+    private function resetUser(Player $player, Status $status) {
+
+        $em = $this->getEm();
+
+        $player
+            ->setScore(0)
+            ->setStatus($status)
+            ->setTimestamp(time());
+
+        $em->flush();
+
+        return array(
+            "username"  => $player->getUsername(),
+            "hash"      => $player->getHash(),
+            "color"     => false,
+            "status"    => $status->getName(),
+        );
+    }
+
+    public function deleteAction(Request $request) {
+
     }
 }

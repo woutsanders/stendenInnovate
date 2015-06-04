@@ -9,13 +9,24 @@ use CurveGame\ApiBundle\Exception\ApiException;
 class BaseController extends Controller {
 
     /**
+     * Shorthand method for retrieving the entity manager.
+     *
+     * @param null $manager
+     * @return \Doctrine\Common\Persistence\ObjectManager|object
+     */
+    protected function getEm($manager = null) {
+
+        return $this->getDoctrine()->getManager($manager);
+    }
+
+    /**
      * Checks if the received json is valid and extracts it.
      *
      * @param null $json
      * @return Object
      * @throws ApiException
      */
-    public function extractJson($json = null) {
+    protected function extractJson($json = null) {
 
         if (empty($json)) return false;
 
@@ -41,7 +52,7 @@ class BaseController extends Controller {
      * @return Response
      * @throws ApiException
      */
-    public function jsonResponse($json = null, $statusCode = 200, $charset = 'UTF-8', Array $headers = null) {
+    protected function jsonResponse($json = null, $statusCode = 200, $charset = 'UTF-8', Array $headers = null) {
 
         $response = new Response();
 

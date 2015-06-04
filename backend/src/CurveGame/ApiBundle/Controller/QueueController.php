@@ -11,21 +11,24 @@ class QueueController extends BaseController {
     /**
      * Returns true if user is on turn and sets the corresponding status, this way AJAX can respond to this event.
      *
-     * @param null $userId
+     * @param Request $request
      * @return \Symfony\Component\HttpFoundation\Response
      * @throws ApiException
      */
-    public function pollAction($userId = null) {
+    public function pollAction(Request $request) {
+
+        // Process raw JSON
+        $obj = $this->extractJson($request->getContent());
 
         $em = $this->getDoctrine()->getManager();
         $playerRepo = $em->getRepository('CurveGameEntityBundle:Player');
         $statusRepo = $em->getRepository('CurveGameEntityBundle:Status');
 
-        $pos = $playerRepo->findPositionInQueue($userId);
+        $pos = $playerRepo->findPositionInQueue($obj->hash);
 
         if ($pos === false) {
 
-            throw new ApiException(ApiException::HTTP_BAD_REQUEST, "Invalid userID specified");
+            throw new ApiException(ApiException::HTTP_BAD_REQUEST, "Invalid hash specified");
         }
 
         if ((int) $pos === 1) {
@@ -41,7 +44,7 @@ class QueueController extends BaseController {
                 return $this->jsonResponse('{"onTurn": false}');
             }
 
-            $player = $playerRepo->findOneById($userId);
+            $player = $playerRepo->findOneByHash($obj->hash);
 
             $player->setStatus($statusRepo->findOneByName('waiting for ready'));
             $player->setTimestamp(time());
@@ -70,17 +73,15 @@ class QueueController extends BaseController {
         $playerRepo = $em->getRepository('CurveGameEntityBundle:Player');
         $statusRepo = $em->getRepository('CurveGameEntityBundle:Status');
 
-        $player = $playerRepo->findOneBy(array(
-            'id'    => $obj->userId,
-        ));
+        $player = $playerRepo->findOneByHash($obj->hash);
 
         if (!$player) {
 
-            throw new ApiException(ApiException::HTTP_BAD_REQUEST, "UserID non-existent or user not waiting anymore");
+            throw new ApiException(ApiException::HTTP_BAD_REQUEST, "User non-existent or user not waiting anymore");
         }
 
         // User pressed the ready button too late, kick 'em out!
-        if ((time() - $player->getTimestamp()) > 12) {
+        if ((time() - $player->getTimestamp()) > 15) {
 
             $em->remove($player);
             $em->flush();
@@ -88,43 +89,88 @@ class QueueController extends BaseController {
             throw new ApiException(ApiException::HTTP_NOT_ACCEPTABLE, "You pressed the button too late, bummer!");
         } else {
 
+            $color = $this->generateColor();
+
             if ($player->getStatus()->getName() !== "waiting for ready") {
 
                 throw new ApiException(ApiException::HTTP_BAD_REQUEST, "User has wrong status and cannot be processed this way");
             }
 
-            $status = $statusRepo->findOneBy(array(
-                'name'  => 'ready'
-            ));
+            $status = $statusRepo->findOneByName('ready');
 
-            $player->setStatus($status);
+            $player
+                ->setStatus($status)
+                ->setColor($color);
+
             $em->flush();
 
-            return $this->jsonResponse('{"message": "success"}');
+            $resp = array(
+                "message"   => "success",
+                "color"     => $color,
+            );
+
+            return $this->jsonResponse($resp);
         }
     }
 
+    private function generateColor() {
+
+        $em = $this->getEm();
+        $statusRepo = $em->getRepository('CurveGameEntityBundle:Status');
+        $readyPlayers = $statusRepo->findOneByName('ready')->getPlayers();
+
+        $colors = array(
+            'red',
+            'green',
+            'yellow',
+            'blue',
+            'white',
+        );
+
+        // If there are no ready players yet, just return a random color...
+        if (count($readyPlayers) < 1) {
+
+            return $colors[mt_rand(0, 4)];
+        }
+
+        $usedColors = array();
+
+        // Get all colors that are already in use by ready players.
+        foreach ($readyPlayers as $player) {
+
+            $usedColors[] = $player->getColor();
+        }
+
+        // Look at the differences...
+        $freeColors = array_values(array_diff($colors, $usedColors));
+
+        // Return the first free color available.
+        return $freeColors[0];
+    }
+
     /**
-     * @param null $userId
+     * @param Request $request
      * @return \Symfony\Component\HttpFoundation\Response
      * @throws ApiException
      */
-    public function positionAction($userId = null) {
+    public function positionAction(Request $request) {
+
+        // Process raw JSON
+        $obj = $this->extractJson($request->getContent());
 
         $em = $this->getDoctrine()->getManager();
         $playerRepo = $em->getRepository('CurveGameEntityBundle:Player');
 
-        if ($pos = $playerRepo->findPositionInQueue($userId)) {
+        if ($pos = $playerRepo->findPositionInQueue($obj->hash)) {
 
             $resp = array(
-                'userId'    => $userId,
                 'position'  => $pos,
             );
 
             return $this->jsonResponse($resp);
         } else {
 
-            throw new ApiException(ApiException::HTTP_BAD_REQUEST, "UserID non-existent or user is playing");
+            throw new ApiException(ApiException::HTTP_BAD_REQUEST, "User non-existent or user not in queue");
         }
     }
 }

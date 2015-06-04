@@ -37,19 +37,27 @@ class UnityController extends BaseController {
         $respArr = array(
             "player1"   => array(
                 "username"  => $player1->getUsername(),
+                "hash"      => $player1->getHash(),
                 "id"        => $player1->getId(),
+                "color"     => $player1->getColor(),
             ),
             "player2"   => array(
                 "username"  => $player2->getUsername(),
+                "hash"      => $player2->getHash(),
                 "id"        => $player2->getId(),
+                "color"     => $player2->getColor(),
             ),
             "player3"   => array(
                 "username"  => $player3->getUsername(),
+                "hash"      => $player3->getHash(),
                 "id"        => $player3->getId(),
+                "color"     => $player3->getColor(),
             ),
             "player4"   => array(
                 "username"  => $player4->getUsername(),
+                "hash"      => $player4->getHash(),
                 "id"        => $player4->getId(),
+                "color"     => $player4->getColor(),
             ),
         );
 
