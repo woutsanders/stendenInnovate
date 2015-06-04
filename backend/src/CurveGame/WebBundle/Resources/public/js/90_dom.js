@@ -35,12 +35,8 @@ $(window).resize(function() {
     resizeWarning();
 });
 
-$(window).beforeunload(function() {
-    return "Your user profile will be permanently destroyed.";
-});
-
 $(window).unload(function() {
-
+    
 });
 
 function resizeWarning() {
