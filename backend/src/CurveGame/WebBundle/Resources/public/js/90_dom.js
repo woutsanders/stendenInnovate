@@ -9,6 +9,7 @@ $(document).ready(function() {
     }
 
     slider.init();
+    controls.init();
 
     $("input").on('click touchend', function(e) {
         e.preventDefault();
@@ -27,7 +28,8 @@ $(document).ready(function() {
         e.preventDefault();
         $.isLoading(loaderOpts);
         clearTimeout(readySignalTimerId);
-        controls.init();
+        controls.isEnabled = true;
+        ws.connect();
         async.sendReadySignal();
     });
 });
@@ -37,7 +39,9 @@ $(window).resize(function() {
 });
 
 $(window).unload(function() {
+    alert("Your game profile will be deleted from your device");
 
+    $.ajax({});
 });
 
 function resizeWarning() {
