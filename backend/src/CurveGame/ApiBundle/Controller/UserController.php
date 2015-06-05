@@ -27,20 +27,23 @@ class UserController extends BaseController {
         // Process raw JSON
         $obj = $this->extractJson($request->getContent());
 
+        // Fetch entity manager and repositories
         $em = $this->getEm();
         $playerRepo = $em->getRepository('CurveGameEntityBundle:Player');
         $statusRepo = $em->getRepository('CurveGameEntityBundle:Status');
 
+        // Load some database objects
         $status = $statusRepo->findOneByName('waiting');
         $player = $playerRepo->findOneByUsername($obj->username);
 
         if (!$player) {
 
+            // Create a new player if it doesn't exist
             return $this->jsonResponse($this->createUser($status, $obj));
 
         } else {
 
-            // Perhaps a 'repeating' player??
+            // Check for a player that wants to play again (respawn).
             if (isset($obj->repeat)
                 && isset($obj->hash)
                 && $obj->hash === $player->getHash()
@@ -49,13 +52,13 @@ class UserController extends BaseController {
                 return $this->jsonResponse($this->resetUser($player, $status));
             }
 
-            // Nope, not a repeating player, kick out...
+            // If it's not a player that wants to be respawn and username exists, throw exception.
             throw new ApiException(ApiException::HTTP_CONFLICT, "This user already exists");
         }
     }
 
     /**
-     * Creates the user.
+     * Creates the new user.
      *
      * @param Status $status
      * @param $obj
@@ -63,18 +66,22 @@ class UserController extends BaseController {
      */
     private function createUser(Status $status, $obj) {
 
+        // Fetch entity manager and repository
         $em = $this->getEm();
         $playerRepo = $em->getRepository('CurveGameEntityBundle:Player');
 
+        // Set up a new player entity object.
         $player = new Player();
         $player
             ->setUsername($obj->username)
             ->setStatus($status)
             ->setTimestamp(time());
 
+        // Persist and flush changes to DB.
         $em->persist($player);
         $em->flush();
 
+        // Retrieve the just inserted player (for the hash and AI ID).
         $player = $playerRepo->findOneByUsername($obj->username);
 
         return array(
@@ -94,13 +101,16 @@ class UserController extends BaseController {
      */
     private function resetUser(Player $player, Status $status) {
 
+        // Fetch entity manager.
         $em = $this->getEm();
 
+        // Adjust the player object.
         $player
             ->setScore(0)
             ->setStatus($status)
             ->setTimestamp(time());
 
+        // Flush changes to DB.
         $em->flush();
 
         return array(
@@ -112,6 +122,7 @@ class UserController extends BaseController {
     }
 
     public function deleteAction(Request $request) {
+
 
     }
 }

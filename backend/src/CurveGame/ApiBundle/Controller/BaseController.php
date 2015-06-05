@@ -32,6 +32,7 @@ class BaseController extends Controller {
 
         $obj = json_decode($json);
 
+        // If the JSON is valid, return it.
         if (json_last_error() === JSON_ERROR_NONE) {
 
             return $obj;
@@ -56,6 +57,7 @@ class BaseController extends Controller {
 
         $response = new Response();
 
+        // JSON cannot be a boolean, throw exception.
         if(is_bool($json)) {
 
             if ($json === true) {
@@ -69,19 +71,24 @@ class BaseController extends Controller {
             throw new ApiException(ApiException::HTTP_INTERNAL_SERVER_ERROR, 'Response cannot be a boolean: ' . $json);
         }
 
+        // Encode if json is an array.
         if (!empty($json) && is_array($json)) {
 
             $response->setContent(json_encode($json));
         }
+
+        // We've already got a JSON string, set it.
         else if (!is_array($json)) {
 
             $response->setContent($json);
         }
 
+        // Populate response with correct HTTP headers.
         $response
             ->setCharset($charset)
             ->setStatusCode($statusCode);
 
+        // If extra headers are passed, add it to the response.
         if (isset($headers) && is_array($headers)) {
 
             foreach ($headers as $name => $value) {
@@ -90,6 +97,7 @@ class BaseController extends Controller {
             }
         }
 
+        // Make sure that there is always the 'application/json' header (as we're working with JSON only anyways).
         if (!$response->headers->has(strtolower('content-type'))) {
 
             $response->headers->set('Content-Type', 'application/json');
