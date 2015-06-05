@@ -12,11 +12,11 @@ CurveGame\EntityBundle\Entity\Player:
     fields:
         username:
             type: string
-            length: 255
+            length: 64
             unique: true
         hash:
             type: string
-            length: 255
+            length: 64
             unique: true
         color:
             type: string

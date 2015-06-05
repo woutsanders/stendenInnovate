@@ -13,7 +13,7 @@ use Doctrine\ORM\EntityRepository;
 class PlayerRepository extends EntityRepository {
 
     /**
-     * Finds players by status name.
+     * Finds players by a status name.
      *
      * @param string $status
      * @param string $orderBy
@@ -43,14 +43,18 @@ class PlayerRepository extends EntityRepository {
 
 
     /**
+     * Finds the position of the user in the queue list.
+     *
      * @param null $hash
      * @return bool
      * @throws \Doctrine\DBAL\DBALException
      */
     public function findPositionInQueue($hash = null) {
 
+        // If no hash given, don't even bother to look 'em up.
         if (empty($hash)) return false;
 
+        // Query to check if the user even exists.
         $checkQuery = "SELECT `players`.`hash` AS `playerHash`,
                               `players`.`id` AS `userId`,
                               `statuses`.`name` AS `status`
@@ -70,11 +74,13 @@ class PlayerRepository extends EntityRepository {
         $result = $stmt->fetch();
         $uId = $result['userId'];
 
+        // No user found? Return false
         if (empty($uId) || !$uId) {
 
             return false;
         } else {
 
+            // Query to get the position of the valid user.
             $query = "SELECT COUNT(`players`.`id`) AS `position`
                       FROM `players`
                       JOIN `statuses`

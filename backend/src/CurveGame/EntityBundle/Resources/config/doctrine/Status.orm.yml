@@ -12,7 +12,7 @@ CurveGame\EntityBundle\Entity\Status:
     fields:
         name:
             type: string
-            length: '64'
+            length: 32
             unique: true
 
     oneToMany:
