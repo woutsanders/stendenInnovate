@@ -8,6 +8,7 @@ namespace CurveGame\ApiBundle\Exception;
  */
 class ApiException extends \Exception {
 
+    // Create some human readable status codes to choose from.
     const HTTP_OK = 200;
     const HTTP_CREATED = 201;
     const HTTP_NO_CONTENT = 204;
@@ -21,6 +22,7 @@ class ApiException extends \Exception {
     const HTTP_INTERNAL_SERVER_ERROR = 500;
     const HTTP_NOT_IMPLEMENTED = 501;
 
+    // Map them with header strings.
     public static $messages = array(
         self::HTTP_OK			            => '200 OK',
         self::HTTP_CREATED		            => '201 Created',
@@ -36,6 +38,13 @@ class ApiException extends \Exception {
         self::HTTP_NOT_IMPLEMENTED          => '501 Not Implemented',
     );
 
+    /**
+     * Throws the HTTP status code with a description (if given)
+     * and exits.
+     *
+     * @param string $httpStatus
+     * @param null $message
+     */
     public function __construct($httpStatus, $message=null) {
 
         if (!array_key_exists($httpStatus, self::$messages)) {
