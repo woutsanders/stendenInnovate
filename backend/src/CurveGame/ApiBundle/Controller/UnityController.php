@@ -34,7 +34,7 @@ class UnityController extends BaseController {
         $resp = array();
 
         // Put all players in array to send it to Unity...
-        for ($i = 1; $i <= count($players); $i++) {
+        for ($i = 0; $i < count($players); $i++) {
 
             $player = array(
                 "username"  => $players[$i]->getUsername(),
