@@ -121,12 +121,21 @@ class UserController extends BaseController {
         );
     }
 
+    /**
+     * Removes a players' game profile.
+     *
+     * @param Request $request
+     * @return Response
+     * @throws ApiException
+     */
     public function deleteAction(Request $request) {
 
-        $em = $this->getEm();
         $obj = $this->extractJson($request->getContent());
+
+        $em = $this->getEm();
         $playerRepo = $em->getRepository('CurveGameEntityBundle:Player');
         $player = $playerRepo->findOneByHash($obj->hash);
+
         $em->remove($player);
         $em->flush();
 

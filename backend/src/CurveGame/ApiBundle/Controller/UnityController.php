@@ -23,6 +23,7 @@ class UnityController extends BaseController {
         $statusRepo = $em->getRepository('CurveGameEntityBundle:Status');
 
         $players = $statusRepo->findOneByName('ready')->getPlayers();
+        $playingStatus = $statusRepo->findOneByName('playing');
 
         // Check if there are enough players available.
         if (!$players || count($players) < 4) {
@@ -43,7 +44,10 @@ class UnityController extends BaseController {
                 "color"     => $players[$i]->getColor(),
             );
 
-            $resp["player" . $i] = $player;
+            $resp["player" . ($i + 1)] = $player;
+
+            $players[$i]->setStatus($playingStatus);
+            $em->flush();
         }
 
         return $this->jsonResponse($resp);
