@@ -11,7 +11,8 @@ var async = {
         unityCommand: "unity/command",
         poll: "queue/poll",
         position: "queue/position",
-        confirm: "queue/confirm/ready"
+        confirm: "queue/confirm/ready",
+        deleteProfile: "user/delete/profile"
     },
     sendUnityCtrlCmd: function(controlDigit) {
         if (debug)

@@ -82,6 +82,24 @@ var user = {                            // Holds user related settings
     },
     deleteProfile: function() {
 
-        $.ajax()
+        var data = {
+            hash: user.hash
+        };
+
+        $.ajax({
+            type: 'POST',
+            url: async.rootUrl + async.api.deleteProfile,
+            data: JSON.stringify(data),
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function(data){
+                if (debug)
+                    console.log("user deleted (ajaxSendMsg.ajax->error). Got header: " + data.message);
+            },
+            error:function(jqXHR, textStatus, errorThrown){
+                if (debug)
+                    console.log("error when trying to POST a command (ajaxSendMsg.ajax->error). Got header: " + jqXHR.status);
+            }
+        });
     }
 };

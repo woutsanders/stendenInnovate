@@ -123,6 +123,13 @@ class UserController extends BaseController {
 
     public function deleteAction(Request $request) {
 
+        $em = $this->getEm();
+        $obj = $this->extractJson($request->getContent());
+        $playerRepo = $em->getRepository('CurveGameEntityBundle:Player');
+        $player = $playerRepo->findOneByHash($obj->hash);
+        $em->remove($player);
+        $em->flush();
 
+        return $this->jsonResponse('{message:"success!!!!"}');
     }
 }
