@@ -47,8 +47,9 @@ class UnityController extends BaseController {
             $resp["player" . ($i + 1)] = $player;
 
             $players[$i]->setStatus($playingStatus);
-            $em->flush();
         }
+
+        $em->flush();
 
         return $this->jsonResponse($resp);
     }
