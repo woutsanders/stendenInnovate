@@ -20,9 +20,9 @@ class UnityController extends BaseController {
     public function userDataAction() {
 
         $em = $this->getEm();
-        $playerRepo = $em->getRepository('CurveGameEntityBundle:Player');
+        $statusRepo = $em->getRepository('CurveGameEntityBundle:Status');
 
-        $players = $playerRepo->findByStatus('ready', 'DESC');
+        $players = $statusRepo->findOneByName('ready')->getPlayers();
 
         // Check if there are enough players available.
         if (!$players || count($players) < 4) {
