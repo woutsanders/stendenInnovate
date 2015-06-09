@@ -60,7 +60,6 @@ class UnityServer(TCPServer):
     
     def handle_stream(self, stream, address):
         self._stream = stream
-        #self._handle_read(pMsg)
         self._read_line()
     
     def _read_line(self):
