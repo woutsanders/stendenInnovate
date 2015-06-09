@@ -90,8 +90,8 @@ var controls = {
         }
 
         var data = {
-            "userId": user.hash,
-            "moveTo": moveDigit
+            userHash: user.hash,
+            moveTo: moveDigit
         };
 
         //Use websockets if available...
