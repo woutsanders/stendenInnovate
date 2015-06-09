@@ -124,7 +124,7 @@ class WebSocketHandler(tornado.websocket.WebSocketHandler):
             valid = False;
             print "User hash does not exist, perhaps Unity needs to update me?"
         
-        print "WebSocketHandler: Received: " + 
+        print "WebSocketHandler: Received: " + userHash + ":" + moveTo
         
         if (valid):
             self.write_message(u"OK")
