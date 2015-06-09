@@ -11,13 +11,22 @@ from tornado.ioloop import IOLoop
 
 
 # Define some global variables.
-global pMsg
-
+global p1
+global p1d
+global p2
+global p2d
+global p3
+global p3d
+global p4
+global p4d
 
 # Initialize server app...
 def main():
-    global pMsg;
-    pMsg = ""
+    global p1d,p2d,p3d,p4d
+    p1d = 0
+    p2d = 0
+    p3d = 0
+    p4d = 0
     
     signal.signal(signal.SIGINT, exitApplication)
     signal.signal(signal.SIGTERM, exitApplication)
@@ -41,22 +50,44 @@ def exitApplication(sig, frame):
     IOLoop.instance().add_callback(IOLoop.instance().stop)
 
 
+# Decoding helper for JSON.
+def json_decode(str):
+    return json.loads(str, object_hook=lambda d: namedtuple('X', d.keys())(*d.values()))
+
+
 # The Unity server
 class UnityServer(TCPServer):
     
     def handle_stream(self, stream, address):
-        global pMsg
         self._stream = stream
-        self._handle_read(pMsg)
-        #self._read_line()
+        #self._handle_read(pMsg)
+        self._read_line()
     
-    #def _read_line(self):
-        #self._stream.read_until('\n', self._handle_read)
-    
-    def _handle_read(self, data):
-        print "UnityServer: Writing back: " + str(data)
-        self._stream.write(data)
-        #self._read_line()
+    def _read_line(self):
+        self._stream.read_until('\r\n', self._handle_read)
+        
+    def _handle_read(self, recvData):
+        global p1,p2,p3,p4,p1d,p2d,p3d,p4d
+        
+        arrHashes = recvData.split(",");
+        
+        p1 = arrHashes[0];
+        p2 = arrHashes[1];
+        p3 = arrHashes[2];
+        p4 = arrHashes[3];
+        
+        print "UnityServer recv: " + str(recvData)
+        
+        implodedData = ",".join([p1 + ":" + p1d, 
+                                 p2 + ":" + p2d,
+                                 p3 + ":" + p3d,
+                                 p4 + ":" + p4d
+                                ]);
+                                
+        print "UnityServer sent: " + str(implodedData)
+        
+        self._stream.write(implodedData)
+        self._read_line()
 
 
 # Initializes the WebSockets server.
@@ -74,16 +105,29 @@ class WebSocketHandler(tornado.websocket.WebSocketHandler):
         pass
     
     def on_message(self, json):
-        global pMsg
-        global allowSend
+        global p1,p1d,p2,p2d,p3,p3d,p4,p4d
+        valid = True;
+        msgDecoded = json_decode(json)
         
-        msgDecoded = self.jsonDecode(json)
-        
-        userID = msgDecoded.userId
+        userHash = msgDecoded.userHash
         direction = msgDecoded.moveTo
-        pMsg = str(userID) + ":" + str(direction)
-        print "WebSocketHandler: Received: " + pMsg
-        self.write_message(u"OK")
+        
+        if (p1 == userHash):
+            p1d = direction
+        elif (p2 == userHash):
+            p2d = direction
+        elif (p3 == userHash):
+            p3d = direction
+        elif (p4 == userHash):
+            p4d = direction
+        else:
+            valid = False;
+            print "User hash does not exist, perhaps Unity needs to update me?"
+        
+        print "WebSocketHandler: Received: " + 
+        
+        if (valid):
+            self.write_message(u"OK")
     
     def on_close(self):
         pass
@@ -91,9 +135,6 @@ class WebSocketHandler(tornado.websocket.WebSocketHandler):
     # Disable check-origin header...
     def check_origin(self, origin):
         return True
-    
-    def jsonDecode(self, message):
-        return json.loads(message, object_hook=lambda d: namedtuple('X', d.keys())(*d.values()))
 
 # Handle main function on startup...
 if __name__ == '__main__':
