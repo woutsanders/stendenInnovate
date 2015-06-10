@@ -118,3 +118,20 @@ input{
     border-radius: 4px 3px 3px 4px/3px;
     background-color: #fff;
 }
+
+.login_box
+{
+    width: 849px;
+    height: 294px;
+    border: solid 5px rgba(0,0,0,0.75);
+    font-size: 37px;
+    font-family: 'absolute_zeroregular' , 'sans-serif';
+    color: rgb(0, 0, 0);
+    line-height: 1.2;
+    text-align: center;
+    float: left;
+    -ms-transform: skewX(-20deg); /* IE 9 */
+    -webkit-transform: skewX(-20deg); /* Safari */
+    transform: skewX(-20deg);
+    background-color: rgba(210, 204, 229, 0.75);
+}
