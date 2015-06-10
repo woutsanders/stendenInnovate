@@ -24,7 +24,7 @@ class DatabaseController extends Controller
             $data = $form->getData();
             return $this->updateAction($data->getUserName(), $data->getStatus(), $data->getId(), $data->getScore(), $data->getDateTime());
         }
-        return $this->render('default/hello.html.twig', array('form' => $form->createView(),));
+        return $this->render('default/overviewform.html.twig', array('form' => $form->createView(),));
     }
 
     public function updateAction($UserName)

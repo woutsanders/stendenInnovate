@@ -23,7 +23,7 @@ class DefaultController extends Controller
             $data = $form->getData();
             return $this->updateAction($data->getUserName(), $data->getStatus());
         }
-        return $this->render('default/new.html.twig', array('form' => $form->createView(),));
+        return $this->render('default/editstatus.html.twig', array('form' => $form->createView(),));
     }
 
     public function updateAction($UserName, $Status)
