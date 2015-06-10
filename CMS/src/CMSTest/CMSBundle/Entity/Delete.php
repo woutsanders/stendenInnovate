@@ -1,15 +1,20 @@
 <?php
+//Made by Remco Beikes
+
+
 namespace CMSTest\CMSBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
+
+//DB Entries mappen naar een Doctrine entity
 /**
  * @ORM\Entity
  * @ORM\Table(name="player")
  */
 
-class Task
+class Delete
 {
     /**
      * @ORM\Id

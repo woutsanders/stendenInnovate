@@ -6,7 +6,7 @@ use Symfony\Component\Form\FormBuilder;
 use Symfony\Component\Form\FormBuilderInterface;
 
 
-class CMS extends AbstractType
+class CMSIndex extends AbstractType
 {
     /**
      * @param   \Symfony\Component\Form\FormBuilder $builder
@@ -14,7 +14,7 @@ class CMS extends AbstractType
      * @return void
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
-    {
+    {   //form builder
         $builder->add('UserName');
         $builder->add('Status', 'choice', array(
         'choices' => array('ready' => 'ready', 'waitingForReady' => 'waiting for ready', 'waiting' => 'waiting', 'playing' => 'playing', 'finished' => 'finished'),
@@ -26,12 +26,12 @@ class CMS extends AbstractType
     public function getDefaultOptions(array $options)
     {
         return array(
-            'data_class' => 'CMSTest\CMSBundle\Task'
+            'data_class' => 'CMSTest\CMSBundle\Editstatus'
         );
     }
 
     public function getName()
     {
-        return 'CMS';
+        return 'CMSIndex';
     }
 }

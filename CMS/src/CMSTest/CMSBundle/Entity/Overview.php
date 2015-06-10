@@ -9,7 +9,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\Table(name="player")
  */
 
-class Task2
+class Overview
 {
     /**
      * @ORM\Id

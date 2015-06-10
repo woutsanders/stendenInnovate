@@ -9,10 +9,12 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Response;
 
-class DefaultController extends Controller
+class SuccessController extends Controller
 {
-    public function newAction()
-    {
-        return $this->render('default/index.html.twig');
-    }
+public function newAction()
+{
+return $this->render('default/success.html.twig');
 }
+}
+
+

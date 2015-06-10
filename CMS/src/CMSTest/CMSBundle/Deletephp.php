@@ -6,7 +6,7 @@ use Symfony\Component\Form\FormBuilder;
 use Symfony\Component\Form\FormBuilderInterface;
 
 
-class Overview extends AbstractType
+class Deletephp extends AbstractType
 {
     /**
      * @param   \Symfony\Component\Form\FormBuilder $builder
@@ -14,7 +14,7 @@ class Overview extends AbstractType
      * @return void
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
-    {
+    {   //form builder
         $builder->add('UserName');
         $builder->add('save', 'submit', array('attr' => array('class' => 'submit'), 'label' => "Submit"));
     }
@@ -22,12 +22,12 @@ class Overview extends AbstractType
     public function getDefaultOptions(array $options)
     {
         return array(
-            'data_class' => 'CMSTest\CMSBundle\Task2'
+            'data_class' => 'CMSTest\CMSBundle\Delete'
         );
     }
 
     public function getName()
     {
-        return 'Overview';
+        return 'Deletephp';
     }
 }

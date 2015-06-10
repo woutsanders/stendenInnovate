@@ -2,14 +2,26 @@ cms_test_cms_homepage:
     path:     /hello/{name}
     defaults: { _controller: CMSTestCMSBundle:Default:index }
 
-cms_test:
-    path:     /cms_test
+cms_index:
+    path:     /cms
     defaults: { _controller: CMSTestCMSBundle:Default:new }
 
 task_success:
-    path:     /cms_test/success
-    defaults: { _controller: CMSTestCMSBundle:Database:new }
+    path:     /cms/success
+    defaults: { _controller: CMSTestCMSBundle:Success:new }
 
 highscore:
     path:     /highscore
     defaults: { _controller: CMSTestCMSBundle:Highscore:new }
+
+cms_edit:
+    path:     /cms/cms_edit
+    defaults: { _controller: CMSTestCMSBundle:Editstatus:new }
+
+cms_overview:
+    path:     /cms/cms_overview
+    defaults: { _controller: CMSTestCMSBundle:Overview:new }
+
+delete:
+    path:     /cms/delete
+    defaults: { _controller: CMSTestCMSBundle:Delete:new }
