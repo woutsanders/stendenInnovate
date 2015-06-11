@@ -19,6 +19,7 @@ class AppKernel extends Kernel
             new CurveGame\ApiBundle\CurveGameApiBundle(),
             new CurveGame\EntityBundle\CurveGameEntityBundle(),
             new CurveGame\WebBundle\CurveGameWebBundle(),
+            new CurveGame\CmsBundle\CurveGameCmsBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

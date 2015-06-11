@@ -1,3 +1,7 @@
+curve_game_cms:
+    resource: "@CurveGameCmsBundle/Resources/config/routing.yml"
+    prefix:   /cms
+
 curve_game_web:
     resource: "@CurveGameWebBundle/Resources/config/routing.yml"
     prefix:   /
