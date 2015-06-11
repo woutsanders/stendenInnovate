@@ -139,6 +139,6 @@ class UserController extends BaseController {
         $em->remove($player);
         $em->flush();
 
-        return $this->jsonResponse('{message:"success!!!!"}');
+        return $this->jsonResponse('{message:"success."}');
     }
 }
