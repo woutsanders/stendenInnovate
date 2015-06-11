@@ -1,0 +1,5 @@
+curve_game_cms_index:
+  path: /
+  defaults:
+    _controller: CurveGameCmsBundle:General:index
+  methods: GET

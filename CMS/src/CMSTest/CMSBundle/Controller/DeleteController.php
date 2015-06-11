@@ -23,7 +23,7 @@ class DeleteController extends Controller
             $data = $form->getData();
             return $this->deleteAction($data->getUserName());
         }
-        //Form renderen
+
         return $this->render('default/delete.html.twig', array('form' => $form->createView(),));
     }
 
