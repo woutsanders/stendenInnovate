@@ -139,3 +139,9 @@ input{
     height: auto;
     text-align: center;
 }
+
+.buttonbox{
+    width: 500px;
+    height:auto;
+    text-align:center;
+}
