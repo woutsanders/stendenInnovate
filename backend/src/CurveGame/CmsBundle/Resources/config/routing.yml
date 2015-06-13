@@ -3,3 +3,33 @@ curve_game_cms_index:
   defaults:
     _controller: CurveGameCmsBundle:General:index
   methods: GET
+
+curve_game_cms_login:
+  path: /login
+  defaults:
+    _controller: CurveGameCmsBundle:Security:login
+  methods: [GET,POST]
+
+curve_game_cms_logout:
+  path: /logout
+  defaults:
+    _controller: CurveGameCmsBundle:Security:logout
+  methods: [GET]
+
+curve_game_cms_player_edit:
+  path: /edit/{userHash}
+  defaults:
+    _controller: CurveGameCmsBundle:Player:edit
+  methods: [GET,POST]
+
+curve_game_cms_player_deleteConfirm:
+  path: /delete/{userHash}/confirm
+  defaults:
+    _controller: CurveGameCmsBundle:Player:deleteConfirm
+  methods: [GET]
+
+curve_game_cms_player_delete:
+  path: /delete/{userHash}
+  defaults:
+    _controller: CurveGameCmsBundle:Player:delete
+  methods: [POST,DELETE]
