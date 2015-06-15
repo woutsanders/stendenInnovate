@@ -13,6 +13,31 @@ use Doctrine\ORM\EntityRepository;
 class PlayerRepository extends EntityRepository {
 
     /**
+     * Finds the 10 players with top scores.
+     *
+     * @param string $orderBy
+     * @return array
+     */
+    public function findByTopTenScore($orderBy = 'DESC') {
+
+        $dt = new \DateTime();
+
+        $qb = $this->createQueryBuilder('p');
+        $qb
+            ->join('p.status', 's')
+            ->addSelect('s')
+            ->where('p.joinDate = :date')
+            ->orderBy('p.score', $orderBy)
+            ->setMaxResults(10)
+            ->setParameter(':date', $dt->format('yyyy-mm-dd'));
+
+        $query = $qb->getQuery();
+        $result = $query->getResult();
+
+        return $result;
+    }
+
+    /**
      * Finds players by a status name.
      *
      * @param string $status

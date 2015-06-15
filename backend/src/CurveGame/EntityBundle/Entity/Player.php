@@ -40,6 +40,11 @@ class Player
     private $timestamp;
 
     /**
+     * @var \DateTime
+     */
+    private $joinDate;
+
+    /**
      * @var string
      */
     private $status;
@@ -160,6 +165,29 @@ class Player
     }
 
     /**
+     * Set join date
+     *
+     * @param \DateTime $dt
+     * @return $this
+     */
+    public function setJoinDate(\DateTime $dt) {
+
+        $this->joinDate = $dt;
+
+        return $this;
+    }
+
+    /**
+     * Get join date
+     *
+     * @return \DateTime
+     */
+    public function getJoinDate() {
+
+        return $this->joinDate;
+    }
+
+    /**
      * Set status
      *
      * @param Status $status
@@ -188,5 +216,6 @@ class Player
     public function prePersist() {
 
         $this->__setHash(hash('sha1', uniqid(mt_rand() . time())));
+        $this->setJoinDate(new \DateTime('now'));
     }
 }
