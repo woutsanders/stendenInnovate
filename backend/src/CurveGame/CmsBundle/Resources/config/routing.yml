@@ -23,7 +23,7 @@ curve_game_cms_player_update:
   path: /update/{id}
   defaults:
     _controller: CurveGameCmsBundle:Player:update
-  method: [PUT,POST]
+  methods: [PUT,POST]
   requirements:
     id: \d+
 
