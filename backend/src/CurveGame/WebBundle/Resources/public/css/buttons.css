@@ -30,11 +30,13 @@ div#readyToPlayBtn {
     -o-transform: rotate(180deg);
     -ms-transform: rotate(180deg);
     transform: rotate(180deg);
+    float:left;
 }
 .white_pushed_left{
     background-position: 0 -418.0000228881836px ;
     width: 239px;
     height: 100px;
+    float:left;
 }
 
 .yellow_unpushed_right{
@@ -46,12 +48,14 @@ div#readyToPlayBtn {
     -o-transform: rotate(180deg);
     -ms-transform: rotate(180deg);
     transform: rotate(180deg);
+    float:left;
 }
 
 .yellow_unpushed_left{
     background-position: -250px -210px ;
     width: 239px;
     height: 100px;
+    float:left;
 }
 
 .green_unpushed_right{
@@ -63,12 +67,14 @@ div#readyToPlayBtn {
     -o-transform: rotate(180deg);
     -ms-transform: rotate(180deg);
     transform: rotate(180deg);
+    float:left;
 }
 
 .green_unpushed_left{
     background-position: -249px -106px ;
     width: 239px;
     height: 100px;
+    float:left;
 }
 
 .red_unpushed_right{
@@ -80,12 +86,14 @@ div#readyToPlayBtn {
     -o-transform: rotate(180deg);
     -ms-transform: rotate(180deg);
     transform: rotate(180deg);
+    float:left;
 }
 
 .red_unpushed_left{
     background-position: -250px 0;
     width: 239px;
     height: 100px;
+    float:left;
 }
 
 .white_unpushed_right{
@@ -97,12 +105,14 @@ div#readyToPlayBtn {
     -o-transform: rotate(180deg);
     -ms-transform: rotate(180deg);
     transform: rotate(180deg);
+    float:left;
 }
 
 .white_unpushed_left{
     background-position: -250px -418px ;
     width: 239px;
     height: 100px;
+    float:left;
 }
 
 .blue_pushed_right{
@@ -114,12 +124,14 @@ div#readyToPlayBtn {
     -o-transform: rotate(180deg);
     -ms-transform: rotate(180deg);
     transform: rotate(180deg);
+    float:left;
 }
 
 .blue_pushed_left {
     background-position: 0 -312px;
     width: 239px;
     height: 100px;
+    float:left;
 }
 
 .blue_unpushed_right{
@@ -131,12 +143,14 @@ div#readyToPlayBtn {
     -o-transform: rotate(180deg);
     -ms-transform: rotate(180deg);
     transform: rotate(180deg);
+    float:left;
 }
 
 .blue_unpushed_left {
     background-position: -251px -313px;
     width: 239px;
     height: 100px;
+    float:left;
 }
 
 .yellow_pushed_right{
@@ -148,12 +162,14 @@ div#readyToPlayBtn {
     -o-transform: rotate(180deg);
     -ms-transform: rotate(180deg);
     transform: rotate(180deg);
+    float:left;
 }
 
 .yellow_pushed_left{
     background-position: 0 -209px ;
     width: 239px;
     height: 100px;
+    float:left;
 }
 
 .green_pushed_right{
@@ -165,12 +181,14 @@ div#readyToPlayBtn {
     -o-transform: rotate(180deg);
     -ms-transform: rotate(180deg);
     transform: rotate(180deg);
+    float:left;
 }
 
 .green_pushed_left{
     background-position: 0 -105px ;
     width: 239px;
     height: 100px;
+    float:left;
 }
 
 .red_pushed_right{
@@ -182,10 +200,12 @@ div#readyToPlayBtn {
     -o-transform: rotate(180deg);
     -ms-transform: rotate(180deg);
     transform: rotate(180deg);
+    float:left;
 }
 
 .red_pushed_left{
     background-position: -1px 0;
     width: 239px;
     height: 100px;
+    float:left;
 }
