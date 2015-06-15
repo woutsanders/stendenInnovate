@@ -12,9 +12,6 @@ curve_game_cms_login:
 
 curve_game_cms_logout:
   path: /logout
-  defaults:
-    _controller: CurveGameCmsBundle:Security:logout
-  methods: [GET]
 
 curve_game_cms_player_edit:
   path: /edit/{id}
