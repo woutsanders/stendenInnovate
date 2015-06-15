@@ -27,6 +27,8 @@ CurveGame\EntityBundle\Entity\Player:
             nullable: true
         timestamp:
             type: bigint
+        joinDate:
+            type: datetime
 
     manyToOne:
         status:

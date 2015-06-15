@@ -1,4 +1,11 @@
 curve_game_web_index:
-    path:     /
-    defaults: { _controller: CurveGameWebBundle:Index:index }
+    path: /
+    defaults:
+        _controller: CurveGameWebBundle:Index:index
+    methods: GET
+
+curve_game_web_highscores:
+    path: /highscores
+    defaults:
+        _controller: CurveGameWebBundle:Score:index
     methods: GET
