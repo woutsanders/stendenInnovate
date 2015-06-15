@@ -3,86 +3,128 @@
 
 namespace CurveGame\CmsBundle\Controller;
 
+use CurveGame\EntityBundle\Entity\Player;
+use CurveGame\EntityBundle\Form\PlayerType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class UserController extends Controller {
 
     /**
-     * Shows an edit form for the status of the user.
+     * Gives an overview of all the players.
      *
-     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
+     * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function editStatusAction() {
+    public function indexAction() {
 
-        //Form generaten
-        $task = new Editstatus();
-        $form = $this->createForm(new CMSIndex(), $task);
-        $request = $this->get('request');
+        $em = $this->getEm();
+        $playerRepo = $em->getRepository('CurveGameEntityBundle:Player');
+        $players = $playerRepo->findAll();
 
-        $form->handleRequest($request);
-        if ($form->get('save')->isClicked())
-        {
-            $data = $form->getData();
-            return $this->updateStatusAction($data->getUserName(), $data->getStatus());
-        }
-        //Form renderen
-        return $this->render('default/editstatus.html.twig', array('form' => $form->createView(),));
+        return $this->render('default/index.html.twig', array(
+            'players'   => $players,
+        ));
     }
 
     /**
-     * Updates the user status in the DB.
+     * Shows the edit form with populated data.
      *
-     * @param $UserName
-     * @param $Status
+     * @param $id
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function editAction($id) {
+
+        $em = $this->getEm();
+        $playerRepo = $em->getRepository('CurveGameEntityBundle:Player');
+        $player = $playerRepo->findOneById($id);
+
+        if (!$player)
+            throw new NotFoundHttpException('The user could not be found');
+
+        $editForm = $this->createEditForm($player);
+
+        return $this->render('default/edit.html.twig', array(
+            'form'  => $editForm->createView(),
+        ));
+    }
+
+    /**
+     * Updates the player.
+     *
+     * @param Request $request
+     * @param $id
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
      */
-    public function updateStatusAction($UserName, $Status)
-    {   //1 op 1 vergelijking met db om te kijken of username bestaat
-        $em = $this->getDoctrine()->getManager();
-        $task = $em->getRepository('CurveGameEntityBundle:Player')->findOneBy(
-            array(
-                "username" => $UserName
-            ));
-        if (!$task)
-        {   //Bij geen username throw deze exception
-            throw $this->createNotFoundException(
-                'No username found with username '.$UserName
-            );
+    public function updateAction(Request $request, $id) {
+
+        $em = $this->getEm();
+        $playerRepo = $em->getRepository('CurveGameEntityBundle:Player');
+        $player = $playerRepo->findOneById($id);
+
+        if (!$player)
+            throw new NotFoundHttpException('Player does not exist');
+
+        $editForm = $this->createEditForm($player);
+        $editForm->handleRequest($request);
+
+        if ($editForm->isValid()) {
+
+            return $this->redirectToRoute('curve_game_cms_index');
         }
-        //Bij een bestaande username persist de nieuw opgegeven status naar db
-        if ($Status == "ready")
+
+        // Show error message
+        $this->addFlash('error', 'The form was not filled correctly.');
+        return $this->redirectToRoute('curve_game_cms_index');
+    }
+
+    /**
+     * Helper to create the form.
+     *
+     * @param Player $player
+     * @return \Symfony\Component\Form\Form
+     */
+    private function createEditForm(Player $player) {
+
+        $form = $this->createForm(new PlayerType(), $player, array(
+            'action' => $this->generateUrl('curve_game_cms_update', array('id' => $player->getId())),
+            'method' => 'PUT',
+            'attr' => array(
+                'class' => 'form-horizontal',
+            ),
+        ));
+
+        return $form;
+    }
+
+    public function deleteConfirmAction() {
+
+        // To be written???
+    }
+
+    /**
+     * Deletes a player object from the DB.
+     *
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function deleteAction() {
+
+        $player = new Player();
+        $form = $this->createForm(new PlayerType(), $player);
+        $request = $this->get('request');
+
+        $form->handleRequest($request);
+        if ($form->isValid())
         {
-            $task->setStatus(3);
+            $em = $this->getEm();
+            $player = $form->getData();
+
+            $em->remove($player);
             $em->flush();
-            return $this->redirectToRoute('task_success');
         }
-        elseif ($Status == "waiting for ready")
-        {
-            $task->setStatus(2);
-            $em->flush();
-            return $this->redirectToRoute('task_success');
-        }
-        elseif ($Status == "waiting")
-        {
-            $task->setStatus(1);
-            $em->flush();
-            return $this->redirectToRoute('task_success');
-        }
-        elseif ($Status == "playing")
-        {
-            $task->setStatus(4);
-            $em->flush();
-            return $this->redirectToRoute('task_success');
-        }
-        elseif ($Status == "finished")
-        {
-            $task->setStatus(5);
-            $em->flush();
-            return $this->redirectToRoute('task_success');
-        }
-        // Bij een bestaande username persist de nieuw opgegeven status naar db
-        // $task->setStatus($Status);
-        // $em->flush();
-        // return $this->redirectToRoute('task_success');
+
+        return $this->render('default/delete.html.twig', array(
+            'form' => $form->createView(),
+        ));
     }
 }
