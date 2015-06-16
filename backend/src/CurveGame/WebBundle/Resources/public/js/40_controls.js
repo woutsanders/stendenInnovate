@@ -21,14 +21,16 @@ var controls = {
                 return;
             }
 
-            if (event.which === controls.keys.left) {
+            else if (event.which === controls.keys.left) {
                 controls.moveTo(controls.left);
                 controls.isDown = true;
+                $("#leftControl").removeClass(user.color + "_unpushed_left" ).addClass(user.color + "_pushed_left");
             }
 
-            if (event.which === controls.keys.right) {
+            else if (event.which === controls.keys.right) {
                 controls.moveTo(controls.right);
                 controls.isDown = true;
+                $("#rightControl").removeClass(user.color + "_unpushed_right").addClass(user.color + "_pushed_right");
             }
         });
         $(document).keyup(function(event) {
@@ -37,9 +39,11 @@ var controls = {
                 return;
             }
 
-            if (event.which === controls.keys.left || event.which === controls.keys.right) {
+            else if (event.which === controls.keys.left || event.which === controls.keys.right) {
                 controls.moveTo(controls.straight);
                 controls.isDown = false;
+                $("#leftControl").removeClass(user.color + "_pushed_left").addClass(user.color + "_unpushed_left");
+                $("#rightControl").removeClass(user.color + "_pushed_right").addClass(user.color + "_unpushed_right");
             }
         });
 
@@ -47,18 +51,23 @@ var controls = {
             e.preventDefault();
             controls.moveTo(controls.left);
             controls.isDown = true;
+            $("#leftControl").removeClass(user.color + "_unpushed_left").addClass(user.color + "_pushed_left");
+
         });
 
         $("#rightControl").on("mousedown touchstart", function(e) { //Right
             e.preventDefault();
             controls.moveTo(controls.right);
             controls.isDown = true;
+            $("#rightControl").removeClass(user.color + "_unpushed_right").addClass(user.color + "_pushed_right");
         });
 
         $(".controls").on("mouseup touchend", function(e) { //Straight
             e.preventDefault();
             controls.moveTo(controls.straight);
             controls.isDown = false;
+            $("#leftControl").removeClass(user.color + "_pushed_left").addClass(user.color + "_unpushed_left");
+            $("#rightControl").removeClass(user.color + "_pushed_right").addClass(user.color + "_unpushed_right");
         });
     },
     moveTo: function(movement) {
