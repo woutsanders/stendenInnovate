@@ -7,9 +7,10 @@ div#rightControl {
 }
 
 div#readyToPlayBtn {
-    width:200px;
-    height: 200px;
-    background: red;
+    background: url("../images/Ready_knop_nietIngedrukt3.png") no-repeat;
+    background-size: 350px, 750px;
+    width: 350px;
+    height:750px;
 }
 .white_pushed_left,.white_pushed_right, .yellow_unpushed_left , .yellow_unpushed_right, .green_unpushed_left , .green_unpushed_right, .red_unpushed_left, .red_unpushed_right,
 .white_unpushed_left, .white_unpushed_right, .blue_pushed_left, .blue_pushed_right, .blue_unpushed_left,.blue_unpushed_right, .yellow_pushed_left, .yellow_pushed_right,
