@@ -48,6 +48,9 @@ var slider = {
             $.screen.adjust();
             setTimeout(function() {
                 $.screen.adjust();
+                setTimeout(function() {
+                    $.screen.adjust();
+                }, 5);
             }, 50);
         }, 650);
     }
