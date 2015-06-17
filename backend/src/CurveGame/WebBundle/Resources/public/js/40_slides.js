@@ -4,9 +4,9 @@
  * @type {{init: Function, next: *}}
  */
 var slider = {
-    "container": $('#screens'),
-    "slides": $('#screens section'),
-    "init": function(transition) {
+    container: $('#screens'),
+    slides: $('#screens section'),
+    init: function(transition) {
         if (!transition)
             transition = "slide-left";
 
@@ -21,7 +21,7 @@ var slider = {
 
         slider.adjustDelayed();
     },
-    "back": function(effect) {
+    back: function(effect) {
         if (!effect)
             effect = "slide-right";
         if (!$('#instructions').is(':visible')) {
@@ -29,13 +29,13 @@ var slider = {
             this.adjustDelayed();
         }
     },
-    "next": function(effect) {
+    next: function(effect) {
         if (!effect)
             effect = "slide-left";
         $.screen.next(effect);
         slider.adjustDelayed();
     },
-    "goto": function(element, effect) {
+    goto: function(element, effect) {
         if (!element)
             return false;
         if (!effect)
@@ -43,7 +43,7 @@ var slider = {
         $(element).screen('select', effect);
         slider.adjustDelayed();
     },
-    "adjustDelayed": function() {
+    adjustDelayed: function() {
         setTimeout(function() {
             $.screen.adjust();
             setTimeout(function() {
