@@ -18,18 +18,22 @@ var slider = {
             // Default transition
             'transition': transition
         });
+
+        slider.adjustDelayed();
     },
     "back": function(effect) {
         if (!effect)
             effect = "slide-right";
         if (!$('#instructions').is(':visible')) {
             $.screen.back(effect);
+            this.adjustDelayed();
         }
     },
     "next": function(effect) {
         if (!effect)
             effect = "slide-left";
         $.screen.next(effect);
+        slider.adjustDelayed();
     },
     "goto": function(element, effect) {
         if (!element)
@@ -37,5 +41,11 @@ var slider = {
         if (!effect)
             effect = "slide-left";
         $(element).screen('select', effect);
+        slider.adjustDelayed();
+    },
+    "adjustDelayed": function() {
+        setTimeout(function() {
+            $.screen.adjust();
+        }, 650);
     }
 };

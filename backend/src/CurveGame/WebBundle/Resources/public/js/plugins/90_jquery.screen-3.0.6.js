@@ -236,16 +236,20 @@ $.screen._click = function(ev) {
                 break;
             case '#back':
                 $.screen.back(transition);
+                slider.adjustDelayed();
                 break;
             case '#prev':
                 $.screen.prev(transition);
+                slider.adjustDelayed();
                 break;
             case '#next':
                 $.screen.next(transition);
+                slider.adjustDelayed();
                 break;
             default:
                 if ($(to).length > 0) {
                     $(to).screen('select', transition);
+                    slider.adjustDelayed();
                 } else {
                     $.error('Slide '+to+' does not exists.');
                 }
