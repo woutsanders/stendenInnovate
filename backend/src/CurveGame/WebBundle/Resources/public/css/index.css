@@ -1,24 +1,24 @@
 /*import the custom font*/
 @font-face {
     font-family: 'absolute_zeroitalic';
-    src: url('absolute_zero_italic-webfont.eot');
-    src: url('absolute_zero_italic-webfont.eot?#iefix') format('embedded-opentype'),
-    url('absolute_zero_italic-webfont.woff2') format('woff2'),
-    url('absolute_zero_italic-webfont.woff') format('woff'),
-    url('absolute_zero_italic-webfont.ttf') format('truetype'),
-    url('absolute_zero_italic-webfont.svg#absolute_zeroitalic') format('svg');
+    src: url('../fonts/absolute_zero_italic-webfont.eot');
+    src: url('../fonts/absolute_zero_italic-webfont.eot?#iefix') format('embedded-opentype'),
+    url('../fonts/absolute_zero_italic-webfont.woff2') format('woff2'),
+    url('../fonts/absolute_zero_italic-webfont.woff') format('woff'),
+    url('../fonts/absolute_zero_italic-webfont.ttf') format('truetype'),
+    url('../fonts/absolute_zero_italic-webfont.svg#absolute_zeroitalic') format('svg');
     font-weight: normal;
     font-style: normal;
 
 }
 @font-face {
     font-family: 'absolute_zeroregular';
-    src: url('absolute_zero-webfont.eot');
-    src: url('absolute_zero-webfont.eot?#iefix') format('embedded-opentype'),
-    url('absolute_zero-webfont.woff2') format('woff2'),
-    url('absolute_zero-webfont.woff') format('woff'),
-    url('absolute_zero-webfont.ttf') format('truetype'),
-    url('absolute_zero-webfont.svg#absolute_zeroregular') format('svg');
+    src: url('../fonts/absolute_zero-webfont.eot');
+    src: url('../fonts/absolute_zero-webfont.eot?#iefix') format('embedded-opentype'),
+    url('../fonts/absolute_zero-webfont.woff2') format('woff2'),
+    url('../fonts/absolute_zero-webfont.woff') format('woff'),
+    url('../fonts/absolute_zero-webfont.ttf') format('truetype'),
+    url('../fonts/absolute_zero-webfont.svg#absolute_zeroregular') format('svg');
     font-weight: normal;
     font-style: normal;
 
