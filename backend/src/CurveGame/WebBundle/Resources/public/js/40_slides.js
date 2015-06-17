@@ -19,7 +19,7 @@ var slider = {
             'transition': transition
         });
 
-        this.adjustDelayed();
+        slider.adjustDelayed();
     },
     "back": function(effect) {
         if (!effect)
@@ -33,7 +33,7 @@ var slider = {
         if (!effect)
             effect = "slide-left";
         $.screen.next(effect);
-        this.adjustDelayed();
+        slider.adjustDelayed();
     },
     "goto": function(element, effect) {
         if (!element)
@@ -41,7 +41,7 @@ var slider = {
         if (!effect)
             effect = "slide-left";
         $(element).screen('select', effect);
-        this.adjustDelayed();
+        slider.adjustDelayed();
     },
     "adjustDelayed": function() {
         setTimeout(function() {
