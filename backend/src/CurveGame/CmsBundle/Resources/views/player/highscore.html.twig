@@ -1,0 +1,7 @@
+<ul>
+    {%  for user in Users %}
+        <li>{{ user.UserName }}</li>
+        <li>{{ user.Score }}</li>
+        <li>{{ user.DateTime|date('Y-m-d') }}</li>
+    {% endfor %}
+</ul>
