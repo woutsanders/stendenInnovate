@@ -9,7 +9,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
-class UserController extends Controller {
+class PlayerController extends Controller {
 
     /**
      * Gives an overview of all the players.
@@ -18,7 +18,7 @@ class UserController extends Controller {
      */
     public function indexAction() {
 
-        $em = $this->getEm();
+        $em = $this->getDoctrine()->getManager();
         $playerRepo = $em->getRepository('CurveGameEntityBundle:Player');
         $players = $playerRepo->findAll();
 
@@ -35,7 +35,7 @@ class UserController extends Controller {
      */
     public function editAction($id) {
 
-        $em = $this->getEm();
+        $em = $this->getDoctrine()->getManager();
         $playerRepo = $em->getRepository('CurveGameEntityBundle:Player');
         $player = $playerRepo->findOneById($id);
 
@@ -58,7 +58,7 @@ class UserController extends Controller {
      */
     public function updateAction(Request $request, $id) {
 
-        $em = $this->getEm();
+        $em = $this->getDoctrine()->getManager();
         $playerRepo = $em->getRepository('CurveGameEntityBundle:Player');
         $player = $playerRepo->findOneById($id);
 
@@ -116,7 +116,7 @@ class UserController extends Controller {
         $form->handleRequest($request);
         if ($form->isValid())
         {
-            $em = $this->getEm();
+            $em = $this->getDoctrine()->getManager();
             $player = $form->getData();
 
             $em->remove($player);
