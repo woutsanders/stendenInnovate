@@ -26,11 +26,7 @@ security:
             pattern:  ^/(_(profiler|wdt)|css|images|js)/
             security: false
 
-        login:
-            security: false
-
         cms:
-            anonymous: ~
             http_basic: ~
             logout:
                 path:   /cms/logout
