@@ -30,6 +30,10 @@ $(document).ready(function() {
         clearTimeout(readySignalTimerId);
         async.sendReadySignal();
     });
+
+    setTimeout(function() {
+        $.screen.adjust();
+    }, 1000);
 });
 
 $(window).resize(function() {
