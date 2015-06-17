@@ -235,17 +235,21 @@ $.screen._click = function(ev) {
                 return;
                 break;
             case '#back':
-                $.screen.back(transition).adjust();
+                $.screen.back(transition);
+                $.slider.adjust();
                 break;
             case '#prev':
-                $.screen.prev(transition).adjust();
+                $.screen.prev(transition);
+                $.slider.adjust();
                 break;
             case '#next':
-                $.screen.next(transition).adjust();
+                $.screen.next(transition);
+                $.slider.adjust();
                 break;
             default:
                 if ($(to).length > 0) {
-                    $(to).screen('select', transition).adjust();
+                    $(to).screen('select', transition);
+                    $.slider.adjust();
                 } else {
                     $.error('Slide '+to+' does not exists.');
                 }
