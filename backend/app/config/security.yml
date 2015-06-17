@@ -16,7 +16,9 @@ security:
             memory:
                 users:
                     #user:  { password: userpass, roles: [ 'ROLE_USER' ] }
-                    admin: { password: adminpass, roles: [ 'ROLE_ADMIN' ] }
+                    admin:
+                        password: adminpass
+                        roles: [ 'ROLE_ADMIN' ]
 
     # the main part of the security, where you can set up firewalls
     # for specific sections of your app
@@ -31,11 +33,10 @@ security:
             http_basic: ~
             logout:
                 path:   /cms/logout
-                target: /cms/login
+                target: /cms
 
     # with these settings you can restrict or allow access for different parts
     # of your application based on roles, ip, host or methods
     # http://symfony.com/doc/current/cookbook/security/access_control.html
     access_control:
-        - { path: ^/cms/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/cms, roles: ROLE_ADMIN }

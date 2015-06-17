@@ -4,12 +4,6 @@ curve_game_cms_index:
     _controller: CurveGameCmsBundle:Player:index
   methods: GET
 
-curve_game_cms_login:
-  path: /login
-  defaults:
-    _controller: CurveGameCmsBundle:Security:login
-  methods: [GET,POST]
-
 curve_game_cms_logout:
   path: /logout
 
