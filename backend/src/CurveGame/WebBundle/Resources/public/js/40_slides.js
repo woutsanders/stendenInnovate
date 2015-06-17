@@ -19,21 +19,21 @@ var slider = {
             'transition': transition
         });
 
-        $.screen.adjust();
+        this.adjustDelayed();
     },
     "back": function(effect) {
         if (!effect)
             effect = "slide-right";
         if (!$('#instructions').is(':visible')) {
             $.screen.back(effect);
-            $.screen.adjust();
+            this.adjustDelayed();
         }
     },
     "next": function(effect) {
         if (!effect)
             effect = "slide-left";
         $.screen.next(effect);
-        $.screen.adjust();
+        this.adjustDelayed();
     },
     "goto": function(element, effect) {
         if (!element)
@@ -41,6 +41,11 @@ var slider = {
         if (!effect)
             effect = "slide-left";
         $(element).screen('select', effect);
-        $.screen.adjust();
+        this.adjustDelayed();
+    },
+    "adjustDelayed": function() {
+        setTimeout(function() {
+            $.screen.adjust();
+        }, 500);
     }
 };
