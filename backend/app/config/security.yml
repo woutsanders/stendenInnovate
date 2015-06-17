@@ -27,6 +27,7 @@ security:
             security: false
 
         cms:
+            pattern: ^/cms
             http_basic: ~
             logout:
                 path:   /cms/logout
