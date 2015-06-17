@@ -236,12 +236,15 @@ $.screen._click = function(ev) {
                 break;
             case '#back':
                 $.screen.back(transition);
+                $.slider.adjust();
                 break;
             case '#prev':
                 $.screen.prev(transition);
+                $.slider.adjust();
                 break;
             case '#next':
                 $.screen.next(transition);
+                $.slider.adjust();
                 break;
             default:
                 if ($(to).length > 0) {
@@ -249,6 +252,7 @@ $.screen._click = function(ev) {
                 } else {
                     $.error('Slide '+to+' does not exists.');
                 }
+                $.slider.adjust();
                 break;
         };
 
