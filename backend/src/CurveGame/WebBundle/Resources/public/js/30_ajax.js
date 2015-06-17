@@ -64,6 +64,8 @@ var async = {
                     controls.isEnabled = true;
                     ws.connect();
                     $.isLoading("hide");
+                    $("#leftControl").addClass(user.color + "_unpushed_left");
+                    $("#rightControl").addClass(user.color + "_unpushed_right");
                     slider.next();
                 }
             },
