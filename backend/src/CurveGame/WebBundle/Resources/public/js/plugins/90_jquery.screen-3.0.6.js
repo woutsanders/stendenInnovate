@@ -236,20 +236,28 @@ $.screen._click = function(ev) {
                 break;
             case '#back':
                 $.screen.back(transition);
-                $.slider.adjust();
+                setTimeout(function() {
+                    $.slider.adjust();
+                }, 1000);
                 break;
             case '#prev':
                 $.screen.prev(transition);
-                $.slider.adjust();
+                setTimeout(function() {
+                    $.slider.adjust();
+                }, 1000);
                 break;
             case '#next':
                 $.screen.next(transition);
-                $.slider.adjust();
+                setTimeout(function() {
+                    $.slider.adjust();
+                }, 1000);
                 break;
             default:
                 if ($(to).length > 0) {
                     $(to).screen('select', transition);
-                    $.slider.adjust();
+                    setTimeout(function() {
+                        $.slider.adjust();
+                    }, 1000);
                 } else {
                     $.error('Slide '+to+' does not exists.');
                 }
