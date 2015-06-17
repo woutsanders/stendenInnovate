@@ -46,6 +46,6 @@ var slider = {
     "adjustDelayed": function() {
         setTimeout(function() {
             $.screen.adjust();
-        }, 500);
+        }, 800);
     }
 };
