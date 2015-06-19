@@ -102,7 +102,7 @@ class UnityServerSend(TCPServer):
                             
         print "UnityServer sent controls:\r\n" + str(implodedData)
     
-        self._stream.write(implodedData)
+        self._stream.write(implodedData + "\r\n")
 
 
 # Initializes the WebSockets server.
