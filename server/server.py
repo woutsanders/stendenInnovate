@@ -68,7 +68,7 @@ class UnityServer(TCPServer):
     def _handle_read(self, recvData):
         global p1,p2,p3,p4,p1d,p2d,p3d,p4d
         
-        if (recvData != "playPosRequest"):
+        if (recvData != "playerPosRequest"):
             arrHashes = recvData.split(",")
         
             p1 = arrHashes[0];
