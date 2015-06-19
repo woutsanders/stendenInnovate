@@ -77,10 +77,10 @@ class UnityServer(TCPServer):
         
         print "UnityServer recv: " + str(recvData)
         
-        implodedData = ",".join([p1 + ":" + p1d.ToString(), 
-                                 p2 + ":" + p2d.ToString(),
-                                 p3 + ":" + p3d.ToString(),
-                                 p4 + ":" + p4d.ToString()
+        implodedData = ",".join([p1 + ":" + str(p1d), 
+                                 p2 + ":" + str(p2d),
+                                 p3 + ":" + str(p3d),
+                                 p4 + ":" + str(p4d)
                                 ]);
                                 
         print "UnityServer sent: " + str(implodedData)
