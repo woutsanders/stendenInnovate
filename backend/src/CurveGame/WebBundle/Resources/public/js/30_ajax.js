@@ -14,14 +14,9 @@ var async = {
         confirm: "queue/confirm/ready",
         deleteProfile: "user/delete/profile"
     },
-    sendUnityCtrlCmd: function(controlDigit) {
+    sendUnityCtrlCmd: function(data) {
         if (debug)
-            console.log("Initiating... async.sendUnityCtrlCmd(): --controlDigit: " + controlDigit);
-
-        var data = {
-            "userHash": user.hash,
-            "moveTo": controlDigit
-        };
+            console.log("Initiating... async.sendUnityCtrlCmd(): --controlDigit: " + JSON.stringify(data));
 
         $.ajax({
             type: 'POST',
