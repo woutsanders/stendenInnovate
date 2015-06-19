@@ -68,24 +68,30 @@ class UnityServer(TCPServer):
     def _handle_read(self, recvData):
         global p1,p2,p3,p4,p1d,p2d,p3d,p4d
         
-        arrHashes = recvData.split(",");
+        if (recvData != "playPosRequest"):
+            arrHashes = recvData.split(",")
         
-        p1 = arrHashes[0];
-        p2 = arrHashes[1];
-        p3 = arrHashes[2];
-        p4 = arrHashes[3];
+            p1 = arrHashes[0];
+            p2 = arrHashes[1];
+            p3 = arrHashes[2];
+            p4 = arrHashes[3];
         
-        print "UnityServer recv: " + str(recvData)
+            print "UnityServer received player hashes:\r\n" + str(recvData)
+
+            self._stream.write("OK")
         
-        implodedData = ",".join([p1 + ":" + str(p1d), 
-                                 p2 + ":" + str(p2d),
-                                 p3 + ":" + str(p3d),
-                                 p4 + ":" + str(p4d)
-                                ]);
+        elif (recvData == "playerPosRequest"):
+        
+            implodedData = ",".join([p1 + ":" + str(p1d), 
+                             p2 + ":" + str(p2d),
+                             p3 + ":" + str(p3d),
+                             p4 + ":" + str(p4d)
+                            ]);
                                 
-        print "UnityServer sent: " + str(implodedData)
+            print "UnityServer sent controls:\r\n" + str(implodedData)
         
-        self._stream.write(implodedData)
+            self._stream.write(implodedData)
+        
         self._read_line()
 
 
