@@ -37,9 +37,11 @@ def main():
     ws_srv.start()
     print "[*] WebSockets server [*] UP"
     
-    u_srv = UnityServer()
+    u_srv = UnityServerReceive()
     u_srv.listen(9990)
-    print "[*] Unity server      [*] UP"
+    u_srv2 = UnityServerSend()
+    u_srv2.listen(9991)
+    print "[*] Unity servers     [*] UP"
     
     IOLoop.instance().start()
     IOLoop.instance().close()
@@ -55,8 +57,8 @@ def json_decode(str):
     return json.loads(str, object_hook=lambda d: namedtuple('X', d.keys())(*d.values()))
 
 
-# The Unity server
-class UnityServer(TCPServer):
+# The Unity server for processing user hashes.
+class UnityServerReceive(TCPServer):
     
     def handle_stream(self, stream, address):
         self._stream = stream
@@ -68,31 +70,35 @@ class UnityServer(TCPServer):
     def _handle_read(self, recvData):
         global p1,p2,p3,p4,p1d,p2d,p3d,p4d
         
-        if (recvData != "playerPosRequest"):
-            arrHashes = recvData.split(",")
+        arrHashes = recvData.split(",")
+    
+        p1 = arrHashes[0];
+        p2 = arrHashes[1];
+        p3 = arrHashes[2];
+        p4 = arrHashes[3];
+    
+        print "UnityServer received player hashes:\r\n" + str(recvData)
         
-            p1 = arrHashes[0];
-            p2 = arrHashes[1];
-            p3 = arrHashes[2];
-            p4 = arrHashes[3];
-        
-            print "UnityServer received player hashes:\r\n" + str(recvData)
 
-            self._stream.write("OK")
+# The Unity server for sending controls only
+class UnityServerSend(TCPServer):
+    
+    def handle_stream(self, stream, address):
+        self._stream = stream
+        self._handle_read()
         
-        elif (recvData == "playerPosRequest"):
+    def _handle_read(self):
+        global p1,p2,p3,p4,p1d,p2d,p3d,p4d
         
-            implodedData = ",".join([p1 + ":" + str(p1d), 
-                             p2 + ":" + str(p2d),
-                             p3 + ":" + str(p3d),
-                             p4 + ":" + str(p4d)
-                            ]);
-                                
-            print "UnityServer sent controls:\r\n" + str(implodedData)
-        
-            self._stream.write(implodedData)
-        
-        self._read_line()
+        implodedData = ",".join([p1 + ":" + str(p1d), 
+                         p2 + ":" + str(p2d),
+                         p3 + ":" + str(p3d),
+                         p4 + ":" + str(p4d)
+                        ]);
+                            
+        print "UnityServer sent controls:\r\n" + str(implodedData)
+    
+        self._stream.write(implodedData)
 
 
 # Initializes the WebSockets server.
