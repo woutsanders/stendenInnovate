@@ -22,7 +22,11 @@ global p4d
 
 # Initialize server app...
 def main():
-    global p1d,p2d,p3d,p4d
+    global p1,p1d,p2,p2d,p3,p3d,p4,p4d
+    p1 = " "
+    p2 = " "
+    p3 = " "
+    p4 = " "
     p1d = 0
     p2d = 0
     p3d = 0
