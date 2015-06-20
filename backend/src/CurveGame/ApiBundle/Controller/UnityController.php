@@ -4,6 +4,7 @@ namespace CurveGame\ApiBundle\Controller;
 
 use CurveGame\ApiBundle\Exception\ApiException;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 /**
  * Class UnityController
@@ -96,5 +97,30 @@ class UnityController extends BaseController {
 
             throw new ApiException(ApiException::HTTP_INTERNAL_SERVER_ERROR, "Server screwed up.");
         }
+    }
+
+    /**
+     * Processes Unity player scores.
+     *
+     * @param Request $request
+     * @return Response
+     */
+    public function scoresAction(Request $request) {
+
+        $em = $this->getEm();
+        $statusRepo = $em->getRepository('CurveGameEntityBundle:Status');
+        $statusFinished = $statusRepo->findOneByName('finished');
+        $playersPlaying = $statusRepo->findOneByName('playing')->getPlayers();
+
+        foreach ($playersPlaying as $player) {
+
+            $player->setScore($request->request->get($player->getHash()));
+            $player->setStatus($statusFinished);
+            $player->setTimestamp(time());
+        }
+
+        $em->flush();
+
+        return new Response(null, 200);
     }
 }
