@@ -28,6 +28,8 @@ var async = {
             if (debug)
                 console.log("Response... async.getHighscores(): " + JSON.stringify(data));
 
+            $.isLoading("hide");
+
             $("#scores").html("Your personal highscore of this game is <strong>" + data.score + "</strong> points! Well done!");
 
         }).fail(function(jqXHR, textStatus, errorThrown) {
