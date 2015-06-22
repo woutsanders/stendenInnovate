@@ -24,7 +24,7 @@ var queue = {
             dataType: "json"
         }).done(function(data, textStatus, jqXHR) {
             if (debug)
-                console.log("Response... queue.heartbeat(): --header: " + JSON.stringify(data));
+                console.log("Response... queue.heartbeat(): --header: " + jqXHR.status);
 
             if (jqXHR.status == 204) {
 

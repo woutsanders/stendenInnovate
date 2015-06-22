@@ -56,7 +56,7 @@ var user = {                            // Holds user related settings
                 if (debug)
                     console.log("Server reported an error when trying to POST a command (ajaxSendMsg.ajax->error). Got header: " + jqXHR.status);
 
-                if (jqXHR.status !== 209) {
+                if (jqXHR.status !== 409) {
                     alert("An error occurred while processing your request, please try again later.");
                 } else {
                     alert("This username already exists! Please choose a different one");
