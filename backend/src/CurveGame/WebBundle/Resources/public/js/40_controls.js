@@ -123,7 +123,8 @@ var controls = {
             }
         }, 1000);
 
-        $("#queue").find("div.slide > h1").html("Press the ready button in " + (readySignalTimerTick - 2) + "s");
+        $("#queue").find("#countdown").html("Press the ready button in " + (readySignalTimerTick - 2) + "s");
+        $("#positionNum").hide();
         readySignalTimerTick--;
     }
 };
