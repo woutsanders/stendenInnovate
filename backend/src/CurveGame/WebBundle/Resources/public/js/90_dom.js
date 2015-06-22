@@ -32,6 +32,11 @@ $(document).ready(function() {
         clearTimeout(readySignalTimerId);
         async.sendReadySignal();
     });
+
+    $("#userRepeat").on('click touchend', function(e) {
+        e.preventDefault();
+        user.repeat(true);
+    });
 });
 
 window.unload = function(e) {

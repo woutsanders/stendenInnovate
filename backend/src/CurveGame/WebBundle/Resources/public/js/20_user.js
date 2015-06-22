@@ -55,14 +55,20 @@ var user = {                            // Holds user related settings
             error: function(jqXHR, textStatus, errorThrown){
                 if (debug)
                     console.log("Server reported an error when trying to POST a command (ajaxSendMsg.ajax->error). Got header: " + jqXHR.status);
-                alert("This username already exists! Please choose a different one");
+
+                if (jqXHR.status !== 209) {
+                    alert("An error occurred while processing your request, please try again later.");
+                } else {
+                    alert("This username already exists! Please choose a different one");
+                }
                 $.isLoading("hide");
             }
         });
     },
-    repeat: function() { //If user wants to play again, reset everything and respawn in queue...
+    repeat: function(pressEvent) { //If user wants to play again, reset everything and respawn in queue...
         var thisObj = this;
-        alert("You have been disconnected due to an error, time-out or loss of connection. You will respawn in the queue");
+        if (!pressEvent)
+            alert("You have been disconnected due to an error, time-out or loss of connection. You will respawn in the queue");
         slider.goto("#register", "slide-top");
         setTimeout(function() {
             $.isLoading(loaderOpts)
@@ -70,9 +76,14 @@ var user = {                            // Holds user related settings
 
         clearTimeout(intervalQueuePollId);
         clearTimeout(intervalQueuePosId);
+        clearTimeout(intervalQueueHbId);
         intervalQueuePollId = undefined;
         intervalQueuePosId = undefined;
+        intervalQueueHbId = undefined;
         readySignalTimerTick = 12;
+
+        user.status = undefined;
+        user.color = undefined;
 
         $("#countdown").html("Press the ready button");
 

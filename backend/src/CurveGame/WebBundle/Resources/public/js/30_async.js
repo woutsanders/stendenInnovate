@@ -12,7 +12,32 @@ var async = {
         poll: "queue/poll",
         position: "queue/position",
         confirm: "queue/confirm/ready",
-        deleteProfile: "user/delete/profile"
+        deleteProfile: "user/delete/profile",
+        heartbeat: "queue/heartbeat/"
+    },
+    getHighscores: function() {
+        if (debug)
+            console.log("Initiating... async.getHighscores()");
+
+        $.ajax({
+            type: 'GET',
+            url: async.rootUrl + async.api.heartbeat + user.hash,
+            contentType: "application/json; charset=utf-8",
+            dataType: "json"
+        }).done(function(data, textStatus, jqXHR) {
+            if (debug)
+                console.log("Response... async.getHighscores(): " + JSON.stringify(data));
+
+            $("#scores").html("Your personal highscore of this game is <strong>" + data.score + "</strong> points! Well done!");
+
+        }).fail(function(jqXHR, textStatus, errorThrown) {
+            if (debug)
+                console.log("Server reported an error when trying to GET the current queue position (queue.poll.ajax->error). Got header: " + jqXHR.status);
+
+            intervalQueueHbId = setTimeout(function() {
+                thisObj.heartbeat();
+            }, refreshPollInterval);
+        });
     },
     sendUnityCtrlCmd: function(data) {
         if (debug)
@@ -62,6 +87,7 @@ var async = {
                     $("#leftControl").addClass(user.color + "_unpushed_left");
                     $("#rightControl").addClass(user.color + "_unpushed_right");
                     slider.next();
+                    queue.heartbeat();
                 }
             },
             error: function(jqXHR, textStatus, errorThrown) {

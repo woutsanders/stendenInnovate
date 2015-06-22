@@ -5,6 +5,55 @@
  */
 var queue = {
     onTurn: undefined,
+    heartbeat: function() {
+        var thisObj = this;
+
+        if (!user.hash) {
+            if (debug)
+                console.log("Error: queue.heartbeat(): No user hash known! Perhaps user object not yet populated? Exiting...");
+            return;
+        }
+
+        if (debug)
+            console.log("Initiating... queue.heartbeat(): --userHash: " + user.hash);
+
+        $.ajax({
+            type: 'GET',
+            url: async.rootUrl + async.api.heartbeat + user.hash,
+            contentType: "application/json; charset=utf-8",
+            dataType: "json"
+        }).done(function(data, textStatus, jqXHR) {
+            if (debug)
+                console.log("Response... queue.heartbeat(): --header: " + data.message);
+
+            if (jqXHR.status == 204) {
+
+                intervalQueueHbId = setTimeout(function() {
+                    thisObj.heartbeat();
+                }, refreshPollInterval);
+            } else {
+                clearTimeout(intervalQueueHbId);
+                $.isLoading(loaderOpts);
+                async.getHighscores();
+                slider.next();
+            }
+
+        }).fail(function(jqXHR, textStatus, errorThrown) {
+            if (debug)
+                console.log("Server reported an error when trying to GET the current queue position (queue.poll.ajax->error). Got header: " + jqXHR.status);
+
+            if (jqXHR.status !== 400) {
+
+                intervalQueueHbId = setTimeout(function() {
+
+                    thisObj.heartbeat();
+                }, refreshPollInterval);
+            }
+
+            if (jqXHR.status === 400)
+                alert("The user does not exist (anymore)");
+        });
+    },
     poll: function() {
         var thisObj = this;
 

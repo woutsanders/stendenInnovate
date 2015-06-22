@@ -198,4 +198,34 @@ class QueueController extends BaseController {
             throw new ApiException(ApiException::HTTP_BAD_REQUEST, "User non-existent or user not in queue");
         }
     }
+
+    /**
+     * Checks whether the game is finished for the current user.
+     *
+     * @param $userHash
+     * @return \Symfony\Component\HttpFoundation\Response
+     * @throws ApiException
+     */
+    public function heartbeatAction($userHash) {
+
+        $em = $this->getEm();
+        $playerRepo = $em->getRepository('CurveGameEntityBundle:Player');
+
+        $player = $playerRepo->findOneByHash($userHash);
+
+        if (!$player) {
+
+            throw new ApiException(ApiException::HTTP_BAD_REQUEST, 'User does not exist');
+        }
+
+        if ($player->getStatus()->getName() === 'finished') {
+
+            return $this->jsonResponse(array(
+                "score" => $player->getScore(),
+            ));
+        } else {
+
+            throw new ApiException(ApiException::HTTP_NO_CONTENT, 'Game not finished yet');
+        }
+    }
 }
