@@ -5,7 +5,8 @@ $(document).ready(function() {
     resizeWarning();
 
     if (!ws.checkSupport()) {
-        alert("Deze browser lijkt geen WebSockets te ondersteunen. Voor de beste beleving adviseren wij om Google Chrome te installeren");
+        alert("Deze browser lijkt geen WebSockets te ondersteunen. Voor de beste beleving adviseren wij om Google Chrome te installeren op een Android device. U wordt doorgestuurd");
+        window.location.assign("http://bit.ly/1Cnxtpa")
     }
 
     slider.init();
