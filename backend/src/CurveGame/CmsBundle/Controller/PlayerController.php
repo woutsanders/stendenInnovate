@@ -22,7 +22,7 @@ class PlayerController extends Controller {
         $playerRepo = $em->getRepository('CurveGameEntityBundle:Player');
         $players = $playerRepo->findAll();
 
-        return $this->render('default/index.html.twig', array(
+        return $this->render('CurveGameCmsBundle:player:index.html.twig', array(
             'players'   => $players,
         ));
     }
@@ -44,7 +44,7 @@ class PlayerController extends Controller {
 
         $editForm = $this->createEditForm($player);
 
-        return $this->render('default/edit.html.twig', array(
+        return $this->render('player/edit.html.twig', array(
             'form'  => $editForm->createView(),
         ));
     }
@@ -123,7 +123,7 @@ class PlayerController extends Controller {
             $em->flush();
         }
 
-        return $this->render('default/delete.html.twig', array(
+        return $this->render('player/delete.html.twig', array(
             'form' => $form->createView(),
         ));
     }
