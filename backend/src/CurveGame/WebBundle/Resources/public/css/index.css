@@ -188,7 +188,7 @@ body{
     }
 
     #queuebox{
-        margin-top:100%;
+        margin-top:125%;
         clear:both;
         text-align:center;
         width:100%;
@@ -372,7 +372,7 @@ body{
     }
 
     #queuebox{
-        margin-top:100%;
+        margin-top:115%;
         clear:both;
         text-align:center;
         width:100%;
@@ -529,7 +529,7 @@ body{
 
     .about_box{
         clear: both;
-        width: 100%;
+        width: 125%;
         text-align: center;
         float: left;
 
