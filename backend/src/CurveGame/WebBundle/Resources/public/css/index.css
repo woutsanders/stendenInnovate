@@ -183,6 +183,18 @@ body{
 
     }
 
+    #readyToPlayContainer {
+        display: none;
+    }
+
+    #queuebox{
+        margin-top:100%;
+        clear:both;
+        text-align:center;
+        width:100%;
+        float:left;
+    }
+
     h1{
         color: #a8e5ec;
         text-align: center;
@@ -353,6 +365,18 @@ body{
         background-color: rgba(210, 204, 229, 0.75);
         margin-bottom: 15px;
 
+    }
+
+    #readyToPlayContainer {
+        display: none;
+    }
+
+    #queuebox{
+        margin-top:100%;
+        clear:both;
+        text-align:center;
+        width:100%;
+        float:left;
     }
 
     h1{
@@ -528,6 +552,18 @@ body{
 
     }
 
+    #readyToPlayContainer {
+        display: none;
+    }
+
+    #queuebox{
+        margin-top:100%;
+        clear:both;
+        text-align:center;
+        width:100%;
+        float:left;
+    }
+
     h1{
         color: #a8e5ec;
         text-align: center;
@@ -696,6 +732,18 @@ body{
         background-color: rgba(210, 204, 229, 0.75);
         margin-bottom: 35px;
 
+    }
+
+    #readyToPlayContainer {
+        display: none;
+    }
+
+    #queuebox{
+        margin-top:100%;
+        clear:both;
+        text-align:center;
+        width:100%;
+        float:left;
     }
 
 
@@ -880,6 +928,18 @@ body{
         background-color: rgba(210, 204, 229, 0.75);
         margin-bottom: 35px;
 
+    }
+
+    #queuebox{
+        margin-top:100%;
+        clear:both;
+        text-align:center;
+        width:100%;
+        float:left;
+    }
+
+    #readyToPlayContainer {
+        display: none;
     }
 
     h1{
