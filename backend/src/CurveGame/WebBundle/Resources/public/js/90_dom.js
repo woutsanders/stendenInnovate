@@ -2,6 +2,7 @@
  * Document-wide functions
  */
 $(document).ready(function() {
+
     resizeWarning();
 
     if (!ws.checkSupport()) {
@@ -31,10 +32,6 @@ $(document).ready(function() {
         clearTimeout(readySignalTimerId);
         async.sendReadySignal();
     });
-});
-
-$(window).resize(function() {
-    resizeWarning();
 });
 
 window.unload = function(e) {
