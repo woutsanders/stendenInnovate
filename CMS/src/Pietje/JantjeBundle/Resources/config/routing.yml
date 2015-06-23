@@ -1,7 +1,0 @@
-pietje_jantje_homepage:
-  path:     /hello/{name}
-  defaults: { _controller: PietjeJantjeBundle:Default:index }
-
-pietje_jantje_random:
-  path: /random/{limit}
-  defaults: { _controller: PietjeJantjeBundle:Random:index }

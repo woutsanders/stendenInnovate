@@ -1,7 +1,0 @@
-cms_test_cms:
-    resource: "@CMSTestCMSBundle/Resources/config/routing.yml"
-    prefix:   /
-
-pietje_jantje:
-    resource: "@PietjeJantjeBundle/Resources/config/routing.yml"
-    prefix:   /

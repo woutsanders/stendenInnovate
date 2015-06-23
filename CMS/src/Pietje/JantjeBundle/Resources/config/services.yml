@@ -1,4 +1,0 @@
-services:
-#    pietje_jantje.example:
-#        class: Pietje\JantjeBundle\Example
-#        arguments: [@service_id, "plain_value", %parameter%]
